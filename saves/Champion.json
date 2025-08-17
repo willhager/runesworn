@@ -1,0 +1,13 @@
+{
+	"Health": 10.0,
+	"dice": {
+		"Barbarian's Die": 1.0,
+		"Beginner's Die": 1.0,
+		"Carnival McMarkus": 1.0,
+		"Cozy Campfire": 1.0,
+		"Cube of Chance": 1.0,
+		"Guardian's Die": 1,
+		"Healer's Die": 1.0,
+		"Swordsman's Gambit": 1.0
+	}
+}

@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://dypq31df1pbjx"]
+
+[ext_resource type="Script" uid="uid://d3xw3mf3oefy1" path="res://scenes/victory.gd" id="1_v31sk"]
+[ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="2_hl81x"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="3_73dpb"]
+
+[node name="victory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v31sk")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.580392)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.2
+anchor_right = 0.7
+anchor_bottom = 0.8
+grow_horizontal = 0
+theme = ExtResource("2_hl81x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Victory!" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_73dpb")
+theme_override_font_sizes/font_size = 120
+text = "VICTORY!"
+horizontal_alignment = 1
+
+[node name="MapButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_73dpb")
+theme_override_font_sizes/font_size = 60
+text = "MAP"
+
+[node name="MenuButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_73dpb")
+theme_override_font_sizes/font_size = 60
+text = "MAIN MENU"
+
+[node name="Reward" type="Label" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("3_73dpb")
+theme_override_font_sizes/font_size = 60
+autowrap_mode = 2
+
+[connection signal="pressed" from="Panel/VBoxContainer/MapButton" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]

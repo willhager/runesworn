@@ -1,0 +1,109 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpkvt1dicv8k"]
+
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="1_381q1"]
+[ext_resource type="Script" uid="uid://bed108h1b0g2a" path="res://scenes/enemies/goblin.gd" id="1_abxm6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_abxm6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gv1lv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s4grb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_maxnv"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_left = 0.585
+anchor_top = 0.15
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_abxm6")
+
+[node name="EnemyDiceTray" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.997752)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_abxm6")
+
+[node name="EDiceContainer" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.88
+theme_override_constants/separation = 100
+
+[node name="Control0" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie0" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control0"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_gv1lv")
+
+[node name="Control1" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie1" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control1"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_s4grb")
+
+[node name="Control2" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie2" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control2"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_maxnv")
+
+[node name="EHealth" type="Label" parent="EnemyDiceTray"]
+layout_mode = 1
+offset_right = 117.0
+offset_bottom = 59.0
+theme = ExtResource("1_381q1")
+theme_override_font_sizes/font_size = 65
+text = "x/x"
+
+[node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.32
+anchor_top = 0.218
+anchor_bottom = 0.224
+offset_left = 103.622
+offset_right = 72.0
+offset_bottom = 223.14
+
+[node name="EDamage" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("1_381q1")
+theme_override_font_sizes/font_size = 60
+text = "D:"
+
+[node name="EShield" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("1_381q1")
+theme_override_font_sizes/font_size = 60
+text = "S:"
+
+[node name="EHeal" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("1_381q1")
+theme_override_font_sizes/font_size = 60
+text = "H:"
+
+[node name="EPoison" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("1_381q1")
+theme_override_font_sizes/font_size = 60

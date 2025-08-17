@@ -1,0 +1,34 @@
+{
+	"0" : {
+		"itemName" : "Barbarian's Die",
+		"weight" : 4
+	},
+	"1" : {
+		"itemName" : "Healer's Die",
+		"weight" : 3
+	},
+	"2" : {
+		"itemName" : "Guardian's Die",
+		"weight" : 3
+	},
+	"3" : {
+		"itemName" : "Cube of Chance",
+		"weight" : 1
+	},
+	"4" : {
+		"itemName" : "Carnival McMarkus",
+		"weight" : 2
+	},
+	"5" : {
+		"itemName" : "Cozy Campfire",
+		"weight" : 2
+	},
+	"6" : {
+		"itemName" : "Swordsman's Gambit",
+		"weight" : 2
+	},
+	"7" : {
+		"itemName" : "Mosquito's Die",
+		"weight" : 2
+	}
+}

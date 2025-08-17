@@ -1,0 +1,137 @@
+{
+	"maxDice" : 11,
+	"dice": [
+	{
+	  "id" : 0,
+	  "name": "Beginner's Die",
+	  "faces": [
+		{ "index" : 0, "effect": "damage", "value": 3, "sprite": "resources/faces/damage/3-damage.png", "weight": 2 },
+		{ "index" : 1, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 1 },
+		{ "index" : 2, "effect": "heal", "value": 1, "sprite": "resources/faces/heal/1-heal.png", "weight": 2 },
+		{ "index" : 3, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 1 },
+		{ "index" : 4, "effect": "shield", "value": 2, "sprite": "resources/faces/shield/2-shield.png", "weight": 2 },
+		{ "index" : 5, "effect": "shield", "value": 3, "sprite": "resources/faces/shield/3-shield.png", "weight": 1 }
+	  ]
+	},
+	{
+	  "id": 1,
+	  "name": "Barbarian's Die",
+	  "faces": [
+		{ "index" : 0, "effect": "damage", "value": 1, "sprite": "resources/faces/damage/1-damage.png", "weight": 1},
+		{ "index" : 1, "effect": "damage", "value": 1, "sprite": "resources/faces/damage/1-damage.png", "weight": 1},
+		{ "index" : 2, "effect": "damage", "value": 2, "sprite": "resources/faces/damage/2-damage.png", "weight": 1},
+		{ "index" : 3, "effect": "damage", "value": 2, "sprite": "resources/faces/damage/2-damage.png", "weight": 1},
+		{ "index" : 4, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 1},
+		{ "index" : 5, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 1}
+	  ]
+	},
+	{
+	  "id" : 2,
+	  "name": "Healer's Die",
+	  "faces": [
+		{ "index" : 0, "effect": "heal", "value": 1, "sprite": "resources/faces/heal/1-heal.png", "weight": 1 },
+		{ "index" : 1, "effect": "heal", "value": 1, "sprite": "resources/faces/heal/1-heal.png", "weight": 1 },
+		{ "index" : 2, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 1 },
+		{ "index" : 3, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 1},
+		{ "index" : 4, "effect": "heal", "value": 1, "sprite": "resources/faces/heal/1-heal.png", "weight": 1 },
+		{ "index" : 5, "effect": "heal", "value": 1, "sprite": "resources/faces/heal/1-heal.png", "weight": 1 }
+	  ]
+	},
+	{
+	  "id" : 3,
+	  "name": "Guardian's Die",
+	  "faces": [
+		{ "index" : 0, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 },
+		{ "index" : 1, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 },
+		{ "index" : 2, "effect": "shield", "value": 2, "sprite": "resources/faces/shield/2-shield.png", "weight": 1 },
+		{ "index" : 3, "effect": "shield", "value": 2, "sprite": "resources/faces/shield/2-shield.png", "weight": 1 },
+		{ "index" : 4, "effect": "shield", "value": 4, "sprite": "resources/faces/shield/4-shield.png", "weight": 1 },
+		{ "index" : 5, "effect": "shield", "value": 4, "sprite": "resources/faces/shield/4-shield.png", "weight": 1 }
+	  ]
+	},
+	{
+	  "id": 4,
+	  "name": "Cube of Chance",
+	  "faces": [
+		{ "index" : 0, "effect": "damage", "value": 8, "sprite": "resources/faces/damage/8-damage.png", "weight": 1 },
+		{ "index" : 1, "effect": "heal", "value": 8, "sprite": "resources/faces/heal/8-heal.png", "weight": 1 },
+		{ "index" : 2, "effect": "shield", "value": 8, "sprite": "resources/faces/shield/8-shield.png", "weight": 1 },
+		{ "index" : 3, "effect": "damage", "value": 1, "sprite": "resources/faces/damage/1-damage.png", "weight": 3 },
+		{ "index" : 4, "effect": "damage", "value": 1, "sprite": "resources/faces/damage/1-damage.png", "weight": 3 },
+		{ "index" : 5, "effect": "heal", "value": 1, "sprite": "resources/faces/heal/1-heal.png", "weight": 3 }
+	  ]
+	},
+	{
+		"id" : 5,
+		"name": "Carnival McMarkus",
+		"faces": [
+			{ "index" : 0, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 2},
+			{ "index" : 1, "effect": "damage", "value": 5, "sprite": "resources/faces/damage/5-damage.png", "weight": 1},
+			{ "index" : 2, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 2 },
+			{ "index" : 3, "effect": "heal", "value": 3, "sprite": "resources/faces/heal/3-heal.png", "weight": 1 },
+			{ "index" : 4, "effect": "shield", "value": 3, "sprite": "resources/faces/shield/3-shield.png", "weight": 2 },
+			{ "index" : 5, "effect": "shield", "value": 4, "sprite": "resources/faces/shield/4-shield.png", "weight": 1 }
+		]
+	},
+	{
+		"id" : 6,
+		"name": "Cozy Campfire",
+		"faces": [
+			{ "index" : 0, "effect": "heal", "value": 4, "sprite": "resources/faces/heal/4-heal.png", "weight": 1},
+			{ "index" : 1, "effect": "heal", "value": 4, "sprite": "resources/faces/heal/4-heal.png", "weight": 1},
+			{ "index" : 2, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 1 },
+			{ "index" : 3, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 1 },
+			{ "index" : 4, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 },
+			{ "index" : 5, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 }
+		]
+	},
+	{
+		"id" : 7,
+		"name": "Swordsman's Gambit",
+		"faces": [
+			{ "index" : 0, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 2},
+			{ "index" : 1, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 2},
+			{ "index" : 2, "effect": "damage", "value": 5, "sprite": "resources/faces/damage/4-damage.png", "weight": 1 },
+			{ "index" : 3, "effect": "damage", "value": 5, "sprite": "resources/faces/damage/5-damage.png", "weight": 1 },
+			{ "index" : 4, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 },
+			{ "index" : 5, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 }
+		]
+	},
+	{
+		"id" : 8,
+		"name": "Mosquito's Die",
+		"faces": [
+			{ "index" : 0, "effect": "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1},
+			{ "index" : 1, "effect": "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1},
+			{ "index" : 2, "effect": "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1 },
+			{ "index" : 3, "effect": "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1 },
+			{ "index" : 4, "effect": "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1 },
+			{ "index" : 5, "effect": "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1 }
+		]
+	},
+	{
+		"id" : 9,
+		"name" : "The Cooler",
+		"faces" : [
+			{ "index" : 0, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 1, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 2, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 3, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 4, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 5, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+		]
+	},
+	{
+		"id" : 10,
+		"name" : "The Bomb",
+		"faces" : [
+			{ "index" : 0, "effect" : "damage", "value" : 2, "sprite" : "resources/faces/damage/2-damage.png", "weight" : 1},
+			{"index" : 1, "effect" : "damage", "value" : 2, "sprite" : "resources/faces/damage/2-damage.png", "weight" : 1},
+			{"index" : 2, "effect" : "explosive", "value" : 1, "sprite" : "resources/faces/explosive/1-explosive.png", "weight" : 1},
+			{"index" : 3, "effect" : "explosive", "value" : 1, "sprite" : "resources/faces/explosive/1-explosive.png", "weight" : 1},
+			{"index" : 4, "effect" : "explosive", "value" : 3, "sprite" : "resources/faces/explosive/3-explosive.png", "weight" : 1},
+			{"index" : 5, "effect" : "explosive", "value" : 3, "sprite" : "resources/faces/explosive/3-explosive.png", "weight" : 1},
+		]
+	}
+  ]
+}

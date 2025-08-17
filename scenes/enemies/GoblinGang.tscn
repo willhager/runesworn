@@ -1,0 +1,239 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8e81hg4qt81t"]
+
+[ext_resource type="Texture2D" uid="uid://d2e17oqhbx5ab" path="res://resources/faces/damage/1-damage.png" id="1_ct3ar"]
+[ext_resource type="Script" uid="uid://ybl673dvvslg" path="res://scenes/enemies/goblin_gang.gd" id="1_i77tu"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_i77tu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8s33k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sllxm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ct3ar")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r31il"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ct3ar")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_left = 0.499
+anchor_top = 0.15
+anchor_right = 0.9
+anchor_bottom = 0.9
+script = ExtResource("1_i77tu")
+
+[node name="EnemyDiceTray" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.997752)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8s33k")
+
+[node name="Goblin1Container" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.54
+anchor_top = 0.1
+anchor_right = 0.74
+anchor_bottom = 0.4
+theme_override_constants/separation = 5
+
+[node name="Control0" type="Control" parent="EnemyDiceTray/Goblin1Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie0" type="AnimatedSprite2D" parent="EnemyDiceTray/Goblin1Container/Control0"]
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_sllxm")
+
+[node name="Control1" type="Control" parent="EnemyDiceTray/Goblin1Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie1" type="AnimatedSprite2D" parent="EnemyDiceTray/Goblin1Container/Control1"]
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_r31il")
+
+[node name="Goblin2Container" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.35
+anchor_right = 1.0
+anchor_bottom = 0.64
+offset_left = 3.05176e-05
+theme_override_constants/separation = 5
+
+[node name="Control0" type="Control" parent="EnemyDiceTray/Goblin2Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie2" type="AnimatedSprite2D" parent="EnemyDiceTray/Goblin2Container/Control0"]
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_sllxm")
+
+[node name="Control1" type="Control" parent="EnemyDiceTray/Goblin2Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie3" type="AnimatedSprite2D" parent="EnemyDiceTray/Goblin2Container/Control1"]
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_r31il")
+
+[node name="Goblin3Container" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.54
+anchor_top = 0.59
+anchor_right = 0.74
+anchor_bottom = 0.88
+offset_left = 3.05176e-05
+theme_override_constants/separation = 5
+
+[node name="Control0" type="Control" parent="EnemyDiceTray/Goblin3Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie4" type="AnimatedSprite2D" parent="EnemyDiceTray/Goblin3Container/Control0"]
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_sllxm")
+
+[node name="Control1" type="Control" parent="EnemyDiceTray/Goblin3Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie5" type="AnimatedSprite2D" parent="EnemyDiceTray/Goblin3Container/Control1"]
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_r31il")
+
+[node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.218
+anchor_bottom = 0.224
+offset_left = 103.622
+offset_right = 72.0
+offset_bottom = 223.14
+
+[node name="EDamage" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 60
+text = "D:"
+
+[node name="EShield" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 60
+text = "S:"
+
+[node name="EHeal" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 60
+text = "H:"
+
+[node name="EPoison" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 60
+
+[node name="VBoxContainer1" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.787
+anchor_top = 0.15
+anchor_right = 0.787
+anchor_bottom = 0.21
+offset_left = 6.10352e-05
+offset_top = 0.273735
+offset_right = 108.0
+offset_bottom = 23.6738
+
+[node name="Goblin1Label" type="Label" parent="EnemyDiceTray/VBoxContainer1"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 30
+text = "Goblin"
+autowrap_mode = 2
+
+[node name="Goblin1Health" type="Label" parent="EnemyDiceTray/VBoxContainer1"]
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 45
+text = "x/x"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.787
+anchor_top = 0.71
+anchor_right = 0.787
+anchor_bottom = 0.71
+offset_left = 6.10352e-05
+offset_top = 1.29572
+offset_right = 108.0
+offset_bottom = 73.2957
+
+[node name="Goblin2Label" type="Label" parent="EnemyDiceTray/VBoxContainer2"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 30
+text = "GOBLIN"
+autowrap_mode = 2
+
+[node name="Goblin2Health" type="Label" parent="EnemyDiceTray/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 45
+text = "x/x"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.55
+anchor_top = 0.45
+anchor_right = 0.6
+anchor_bottom = 0.5
+offset_top = 0.821228
+offset_right = 69.504
+offset_bottom = 32.3212
+
+[node name="Goblin3Label" type="Label" parent="EnemyDiceTray/VBoxContainer3"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 30
+text = "GOBLIN"
+autowrap_mode = 2
+
+[node name="Goblin3Health" type="Label" parent="EnemyDiceTray/VBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("2_i77tu")
+theme_override_font_sizes/font_size = 45
+text = "x/x"

@@ -1,0 +1,117 @@
+{
+	"max1" : 4,
+	"1" : [
+		{
+			"id" : 0,
+			"weight" : 5,
+			"name" : "A Goblin!",
+			"notes" : "A sneaky looking goblin awaits on this path...",
+			"hasText" : false,
+			"hasAbilities" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Goblin.tscn",
+			"healthMin" : 4,
+			"healthMax" : 8,
+			"diceNum" : 3,
+			"dice" : [
+				"Beginner's Die",
+				"Barbarian's Die",
+				"Healer's Die"
+			]
+		},
+		{
+			"id" : 1,
+			"weight" : 5,
+			"name" : "A Goblin Gang!",
+			"notes" : "You hear chittering and the click of goblin fingers...",
+			"hasText" : true,
+			"text" : "You see a towering, shifting mass underneath what appears to be an old greatcoat. You can clearly see the outline of 3 goblins standing on each other's shoulders. As you enter, they turn to look at you and ready themselves for battle...",
+			"hasAbilities" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/GoblinGang.tscn",
+			"healthMin" : 4,
+			"healthMax" : 8,
+			"diceNum" : 2,
+			"dice" : [
+				"Beginner's Die",
+				"Barbarian's Die",
+			]
+		},
+		{
+			"id" : 2,
+			"weight" : 5,
+			"name" : "Chaos Slime",
+			"notes" : "A wildly erratic amorphous blob flies about...",
+			"hasText" : true,
+			"text" : "As you enter this room, you see an amorphous blob jolt about, bouncing from wall to wall seemingly without reason...",
+			"hasAbility" : true,
+			"ability" : "The Morph",
+			"reward" : 2,
+			"path" : "res://scenes/enemies/ChaosSlime.tscn",
+			"healthMin" : 6,
+			"healthMax" : 10,
+			"diceNum" : 3,
+			"dice" : [
+				"Cube of Chance",
+				"Cube of Chance",
+				"Cube of Chance"
+			]
+		},
+		{
+			"id" : 3,
+			"weight" : 10,
+			"name" : "The Toll Troll",
+			"notes" : "A massive troll sits, watching as you approach",
+			"hasText" : false,
+			"hasAbilities" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Troll.tscn",
+			"healthMin" : 12,
+			"healthMax" : 16,
+			"diceNum" : 2,
+			"dice" : [
+				"Carnival McMarkus",
+				"Carnival McMarkus",
+			]
+		},
+	],
+	"max2" : 1,
+	"2" : [
+		{
+			"id" : 0,
+			"weight" : 5,
+			"name" : "Ghast",
+			"notes" : "A Ghast!",
+			"reward" : 4,
+			"healthMin" : 12,
+			"healthMax" : 15,
+			"diceNum" : 5,
+			"dice" : [
+				"Carnival McMarkus",
+				"Carnival McMarkus",
+				"Healer's Die",
+				"Guardian's Die",
+				"Cube of Chance"
+			],
+		},
+		{
+			"id" : 1,
+			"weight" : 5,
+			"name" : "Gremlin Swarm",
+			"notes" : "Gremlin Swarm",
+			"reward" : 5,
+			"healthMin" : 18,
+			"healthMax" : 20,
+			"diceNum" : 6,
+			"dice" : [
+				"Barbarian's Die",
+				"Barbarian's Die",
+				"Barbarian's Die",
+				"Barbarian's Die",
+				"Barbarian's Die",
+				"Barbarian's Die"
+			],
+		}
+		
+	]
+}

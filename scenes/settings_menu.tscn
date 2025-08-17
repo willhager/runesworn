@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7evvdwrabegw"]
+
+[ext_resource type="Script" uid="uid://bowng08mhpa20" path="res://scenes/settings_menu.gd" id="1_0cmel"]
+[ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="2_cr101"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="3_wswnh"]
+
+[node name="SettingsMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00099)
+script = ExtResource("1_0cmel")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.580392)
+
+[node name="MenuPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.275
+anchor_right = 0.625
+anchor_bottom = 0.725
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_cr101")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="MenuContainer" type="VBoxContainer" parent="MenuPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MusicVolume" type="Label" parent="MenuPanel/MarginContainer/MenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_cr101")
+theme_override_colors/font_color = Color(0.247059, 0.156863, 0.196078, 1)
+theme_override_font_sizes/font_size = 40
+text = "Music Volume"
+horizontal_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MenuPanel/MarginContainer/MenuContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("2_cr101")
+
+[node name="SoundVolume" type="Label" parent="MenuPanel/MarginContainer/MenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_cr101")
+theme_override_colors/font_color = Color(0.247059, 0.156863, 0.196078, 1)
+theme_override_font_sizes/font_size = 40
+text = "Sound Volume"
+horizontal_alignment = 1
+
+[node name="SoundVolumeSlider" type="HSlider" parent="MenuPanel/MarginContainer/MenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_cr101")
+
+[node name="Resume" type="Button" parent="MenuPanel/MarginContainer/MenuContainer"]
+layout_mode = 2
+theme = ExtResource("3_wswnh")
+theme_override_font_sizes/font_size = 40
+text = "Resume
+"
+
+[node name="Main Menu" type="Button" parent="MenuPanel/MarginContainer/MenuContainer"]
+layout_mode = 2
+theme = ExtResource("3_wswnh")
+theme_override_font_sizes/font_size = 40
+text = "Main Menu"
+
+[node name="Quit" type="Button" parent="MenuPanel/MarginContainer/MenuContainer"]
+layout_mode = 2
+theme = ExtResource("3_wswnh")
+theme_override_font_sizes/font_size = 40
+text = "Quit Game"
+
+[connection signal="pressed" from="MenuPanel/MarginContainer/MenuContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MenuPanel/MarginContainer/MenuContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MenuPanel/MarginContainer/MenuContainer/Quit" to="." method="_on_quit_pressed"]

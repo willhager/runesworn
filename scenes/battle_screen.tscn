@@ -1,0 +1,853 @@
+[gd_scene load_steps=39 format=3 uid="uid://0rsco4j5cktx"]
+
+[ext_resource type="Script" uid="uid://cpcwu0n1xrylf" path="res://scenes/battle_screen.gd" id="1_3047d"]
+[ext_resource type="Texture2D" uid="uid://ckfvwjfi8ikdo" path="res://resources/dungeonbg.png" id="2_ikkpg"]
+[ext_resource type="PackedScene" uid="uid://b7evvdwrabegw" path="res://scenes/settings_menu.tscn" id="3_y5my5"]
+[ext_resource type="PackedScene" uid="uid://dypq31df1pbjx" path="res://scenes/victory.tscn" id="4_6lb5u"]
+[ext_resource type="Texture2D" uid="uid://d4c5yq7iwj3gn" path="res://resources/book/page-turn-1.png" id="4_c5bog"]
+[ext_resource type="PackedScene" uid="uid://0yfrbs8q0fih" path="res://scenes/defeat.tscn" id="5_jwmpd"]
+[ext_resource type="Texture2D" uid="uid://ddog1qc6k6c5e" path="res://resources/book/page-turn-2.png" id="5_tjy5n"]
+[ext_resource type="Texture2D" uid="uid://d4j3l5aw8xvab" path="res://resources/book/page-turn-3.png" id="6_qo5xu"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="7_20e4q"]
+[ext_resource type="Texture2D" uid="uid://bk8qt3rtvyvl6" path="res://resources/book/book-closed.png" id="7_lv2qw"]
+[ext_resource type="Texture2D" uid="uid://u14tjiul203w" path="res://resources/circle-1.png" id="8_bgqsx"]
+[ext_resource type="Texture2D" uid="uid://c82kephlio3rf" path="res://resources/book/book-opening-1.png" id="8_c5bog"]
+[ext_resource type="Texture2D" uid="uid://b7an7easivx7b" path="res://resources/panel-square.png" id="8_lskjy"]
+[ext_resource type="Texture2D" uid="uid://dqtol2l73v78x" path="res://resources/circle-button-1.png" id="9_p0qi6"]
+[ext_resource type="Texture2D" uid="uid://ddt4wm86tgrm4" path="res://resources/book/book-opening-2.png" id="9_tjy5n"]
+[ext_resource type="Texture2D" uid="uid://bsbbjl01g4d7h" path="res://resources/circle-button-1-pressed.png" id="10_88a0a"]
+[ext_resource type="Texture2D" uid="uid://df2is6ywf3fbc" path="res://resources/book/book-open.png" id="10_c5bog"]
+[ext_resource type="Texture2D" uid="uid://cg7a7bldyrtsa" path="res://resources/circle-button-1-hovered.png" id="11_lv2qw"]
+[ext_resource type="Texture2D" uid="uid://b2pvnf4y4iilk" path="res://resources/panel-tall.png" id="12_qm3lx"]
+[ext_resource type="Texture2D" uid="uid://evr41vqs4m38" path="res://resources/red-rect.png" id="18_tjy5n"]
+[ext_resource type="Texture2D" uid="uid://pxxboc23ks5j" path="res://resources/panel-wide.png" id="21_tjy5n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bgqsx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_c5bog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c5bog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tjy5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qo5xu")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_lv2qw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_c5bog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_tjy5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_c5bog")
+}],
+"loop": false,
+"name": &"open",
+"speed": 10.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ikkpg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjy5n"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qo5xu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxt2d"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0sais"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3jdw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjc3k"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jd2wk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qm3lx"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+texture = ExtResource("8_lskjy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p5bt8"]
+texture = ExtResource("12_qm3lx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c5bog"]
+texture = ExtResource("8_lskjy")
+
+[sub_resource type="Animation" id="Animation_m335s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookControl/CircleControl/Circle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextBoxPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2250, 561.6)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dimmer:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6k6j1"]
+resource_name = "circle_start"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookControl/CircleControl/Circle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1.07177),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qo5xu"]
+resource_name = "text_box"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextBoxPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2250, 561.6), Vector2(670.08, 561.6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dimmer:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.529412)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sq6bu"]
+_data = {
+&"RESET": SubResource("Animation_m335s"),
+&"circle_start": SubResource("Animation_6k6j1"),
+&"text_box": SubResource("Animation_qo5xu")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fxt2d"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+texture = ExtResource("21_tjy5n")
+
+[node name="BattleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3047d")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ikkpg")
+
+[node name="BookControl" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.2
+anchor_top = 0.01
+anchor_right = 0.85
+anchor_bottom = 0.922
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BookContainer" type="Control" parent="BookControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Book" type="AnimatedSprite2D" parent="BookControl/BookContainer"]
+scale = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_bgqsx")
+
+[node name="PlayerDiceTray" type="Panel" parent="BookControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.18
+anchor_right = 0.415
+anchor_bottom = 0.9
+scale = Vector2(0.999322, 1)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ikkpg")
+
+[node name="PDiceContainer" type="VBoxContainer" parent="BookControl/PlayerDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 0.34
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Die0" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+keep_pressed_outside = true
+
+[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces0" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die0/CenterContainer"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_jd2wk")
+
+[node name="Die1" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+
+[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces1" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die1/CenterContainer"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_jd2wk")
+
+[node name="Die2" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+
+[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces2" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die2/CenterContainer"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_jd2wk")
+
+[node name="Die3" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+
+[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces3" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die3/CenterContainer"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_jd2wk")
+
+[node name="Die4" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+
+[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces4" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die4/CenterContainer"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_jd2wk")
+
+[node name="PInfoContainer" type="VBoxContainer" parent="BookControl/PlayerDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.782
+anchor_top = 0.211
+anchor_right = 0.782
+anchor_bottom = 0.299
+offset_right = 108.0
+offset_bottom = 166.48
+
+[node name="Damage" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 60
+text = "D:"
+
+[node name="Shield" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 60
+text = "S:"
+
+[node name="Heal" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 60
+text = "H:"
+
+[node name="Freeze" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 60
+text = "F:"
+
+[node name="Explosive" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 60
+text = "E:"
+
+[node name="Selected" type="Label" parent="BookControl/PlayerDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.864
+anchor_right = 0.95
+anchor_bottom = 0.925
+grow_horizontal = 0
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 60
+text = "0/3"
+
+[node name="CircleControl" type="Control" parent="BookControl"]
+layout_mode = 1
+anchor_left = 0.45
+anchor_top = 0.25
+anchor_right = 0.95
+anchor_bottom = 0.75
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Circle" type="TextureRect" parent="BookControl/CircleControl"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_bgqsx")
+
+[node name="Button1" type="TextureButton" parent="BookControl/CircleControl/Circle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = -0.1
+anchor_right = 0.6
+anchor_bottom = 0.1
+grow_horizontal = 2
+toggle_mode = true
+texture_normal = ExtResource("9_p0qi6")
+texture_pressed = ExtResource("10_88a0a")
+texture_hover = ExtResource("11_lv2qw")
+stretch_mode = 0
+
+[node name="Button2" type="TextureButton" parent="BookControl/CircleControl/Circle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9
+anchor_top = 0.4
+anchor_right = 1.1
+anchor_bottom = 0.6
+grow_horizontal = 2
+toggle_mode = true
+texture_normal = ExtResource("9_p0qi6")
+texture_pressed = ExtResource("10_88a0a")
+texture_hover = ExtResource("11_lv2qw")
+stretch_mode = 0
+
+[node name="Button3" type="TextureButton" parent="BookControl/CircleControl/Circle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.9
+anchor_right = 0.6
+anchor_bottom = 1.1
+toggle_mode = true
+texture_normal = ExtResource("9_p0qi6")
+texture_pressed = ExtResource("10_88a0a")
+texture_hover = ExtResource("11_lv2qw")
+stretch_mode = 0
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="BookControl/CircleControl/Circle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.265
+anchor_top = 0.319
+anchor_right = 0.745
+anchor_bottom = 0.686
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_20e4q")
+theme_override_constants/separation = 20
+
+[node name="NotesPanel" type="Panel" parent="BookControl/CircleControl/Circle/DescriptionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_20e4q")
+
+[node name="Notes" type="Label" parent="BookControl/CircleControl/Circle/DescriptionContainer/NotesPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RewardPanel" type="Panel" parent="BookControl/CircleControl/Circle/DescriptionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_20e4q")
+
+[node name="Reward" type="Label" parent="BookControl/CircleControl/Circle/DescriptionContainer/RewardPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08
+anchor_top = 0.2
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="NextButton" type="Button" parent="BookControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.743
+anchor_top = 0.832
+anchor_right = 0.743
+anchor_bottom = 0.832
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 40
+text = "SUmmon!"
+
+[node name="ButtonTray" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.864
+anchor_top = 0.4
+anchor_right = 0.99
+anchor_bottom = 0.65
+scale = Vector2(1, 1.00447)
+theme = ExtResource("7_20e4q")
+theme_override_styles/panel = SubResource("StyleBoxTexture_qm3lx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.15
+anchor_right = 0.7
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RollButton" type="Button" parent="ButtonTray/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "ROLL"
+
+[node name="EndTurn" type="Button" parent="ButtonTray/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "END TURN"
+
+[node name="InfoPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015
+anchor_top = 0.021
+anchor_right = 0.17
+anchor_bottom = 0.977
+theme_override_styles/panel = SubResource("StyleBoxTexture_p5bt8")
+
+[node name="MarginContainer" type="MarginContainer" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="SideInfoContainer" type="VBoxContainer" parent="InfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ClassLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 40
+text = "Health:"
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 40
+text = "Level:"
+horizontal_alignment = 1
+
+[node name="ModifiersLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 35
+text = "Modifiers:"
+horizontal_alignment = 1
+
+[node name="Modifiers" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="EInfoPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.864
+anchor_top = 0.1
+anchor_right = 0.99
+anchor_bottom = 0.35
+theme_override_styles/panel = SubResource("StyleBoxTexture_c5bog")
+
+[node name="MarginContainer" type="MarginContainer" parent="EInfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EInfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="EName" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 20
+text = "ENEMY"
+horizontal_alignment = 1
+
+[node name="EHealth" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 25
+text = "MaX HEALTH:"
+horizontal_alignment = 1
+
+[node name="EReward" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 25
+text = "REWARD:"
+horizontal_alignment = 1
+
+[node name="EAbilities" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 25
+text = "Abilities:
+"
+horizontal_alignment = 1
+
+[node name="ProgressTray" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.864
+anchor_top = 0.7
+anchor_right = 0.99
+anchor_bottom = 0.95
+scale = Vector2(1, 1.00447)
+theme = ExtResource("7_20e4q")
+theme_override_styles/panel = SubResource("StyleBoxTexture_qm3lx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ProgressTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19
+anchor_top = 0.15
+anchor_right = 0.81
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ProgressTray/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 25
+text = "Progress:"
+horizontal_alignment = 1
+
+[node name="Encounter1" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("18_tjy5n")
+expand_mode = 3
+
+[node name="Encounter2" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("18_tjy5n")
+expand_mode = 3
+
+[node name="Encounter3" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("18_tjy5n")
+expand_mode = 3
+
+[node name="Encounter4" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("18_tjy5n")
+expand_mode = 3
+
+[node name="Encounter5" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("18_tjy5n")
+expand_mode = 3
+
+[node name="Encounter6" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("18_tjy5n")
+expand_mode = 3
+
+[node name="CircleStart" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sq6bu")
+}
+
+[node name="victory" parent="." instance=ExtResource("4_6lb5u")]
+visible = false
+layout_mode = 1
+
+[node name="defeat" parent="." instance=ExtResource("5_jwmpd")]
+visible = false
+layout_mode = 1
+
+[node name="SettingsMenu" parent="." instance=ExtResource("3_y5my5")]
+visible = false
+layout_mode = 1
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="TextBoxPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.255
+anchor_top = 0.416
+anchor_right = 0.77
+anchor_bottom = 0.75
+offset_left = 1760.4
+offset_top = 112.32
+offset_right = 1760.4
+offset_bottom = 112.32
+theme = ExtResource("7_20e4q")
+theme_override_styles/panel = SubResource("StyleBoxTexture_fxt2d")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextBoxPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="TextLabel" type="Label" parent="TextBoxPanel/MarginContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("7_20e4q")
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="TextBoxPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.796
+anchor_top = 0.74
+anchor_right = 0.93
+anchor_bottom = 0.89
+theme_override_font_sizes/font_size = 20
+text = "CONTINUE"
+
+[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die0" to="." method="_on_die_0_pressed"]
+[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die1" to="." method="_on_die_1_pressed"]
+[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die2" to="." method="_on_die_2_pressed"]
+[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die3" to="." method="_on_die_3_pressed"]
+[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="." method="_on_die_4_pressed"]
+[connection signal="pressed" from="BookControl/CircleControl/Circle/Button1" to="." method="_on_left_side_pressed"]
+[connection signal="pressed" from="BookControl/CircleControl/Circle/Button2" to="." method="_on_top_pressed"]
+[connection signal="pressed" from="BookControl/CircleControl/Circle/Button3" to="." method="_on_right_side_pressed"]
+[connection signal="pressed" from="BookControl/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="ButtonTray/VBoxContainer/RollButton" to="." method="_on_roll_button_pressed"]
+[connection signal="pressed" from="ButtonTray/VBoxContainer/EndTurn" to="." method="_on_end_turn_pressed"]
+[connection signal="pressed" from="TextBoxPanel/ContinueButton" to="." method="_on_continue_button_pressed"]

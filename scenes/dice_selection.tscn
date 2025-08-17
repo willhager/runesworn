@@ -1,0 +1,374 @@
+[gd_scene load_steps=15 format=3 uid="uid://bpn4om8q6pnek"]
+
+[ext_resource type="Script" uid="uid://d4kdcgutoe16i" path="res://scenes/dice_selection.gd" id="1_7inn1"]
+[ext_resource type="Texture2D" uid="uid://ccfhleps1ebrc" path="res://resources/bg3.png" id="2_he84b"]
+[ext_resource type="Texture2D" uid="uid://df2is6ywf3fbc" path="res://resources/book/book-open.png" id="3_l5evv"]
+[ext_resource type="Texture2D" uid="uid://ddt4wm86tgrm4" path="res://resources/book/book-opening-2.png" id="4_lkb01"]
+[ext_resource type="Texture2D" uid="uid://c82kephlio3rf" path="res://resources/book/book-opening-1.png" id="5_2uuto"]
+[ext_resource type="Texture2D" uid="uid://bk8qt3rtvyvl6" path="res://resources/book/book-closed.png" id="6_heeka"]
+[ext_resource type="Texture2D" uid="uid://d4c5yq7iwj3gn" path="res://resources/book/page-turn-1.png" id="7_22nwi"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="7_od3ol"]
+[ext_resource type="Texture2D" uid="uid://ddog1qc6k6c5e" path="res://resources/book/page-turn-2.png" id="8_grynv"]
+[ext_resource type="Texture2D" uid="uid://b2pvnf4y4iilk" path="res://resources/panel-tall.png" id="8_jjkxs"]
+[ext_resource type="Texture2D" uid="uid://d4j3l5aw8xvab" path="res://resources/book/page-turn-3.png" id="9_b3i67"]
+[ext_resource type="PackedScene" uid="uid://b7evvdwrabegw" path="res://scenes/settings_menu.tscn" id="9_he84b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2uuto"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_l5evv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lkb01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2uuto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_heeka")
+}],
+"loop": false,
+"name": &"close",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_l5evv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_22nwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_grynv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_b3i67")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_b3i67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_grynv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_22nwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l5evv")
+}],
+"loop": false,
+"name": &"default_backwards",
+"speed": 10.0
+}]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_he84b"]
+texture = ExtResource("8_jjkxs")
+
+[node name="Dice_Selection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7inn1")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_he84b")
+
+[node name="BookControl" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.2
+anchor_top = 0.01
+anchor_right = 0.85
+anchor_bottom = 0.922
+
+[node name="BookContainer" type="Control" parent="BookControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Book" type="AnimatedSprite2D" parent="BookControl/BookContainer"]
+scale = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_2uuto")
+
+[node name="DiceContainer" type="VBoxContainer" parent="BookControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.121
+anchor_top = 0.2
+anchor_right = 0.421
+anchor_bottom = 0.797
+grow_horizontal = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="DiceLabel" type="Label" parent="BookControl/DiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 90
+text = "Dice"
+horizontal_alignment = 1
+
+[node name="DieButton1" type="Button" parent="BookControl/DiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Empty
+"
+
+[node name="DieButton2" type="Button" parent="BookControl/DiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Empty
+"
+
+[node name="DieButton3" type="Button" parent="BookControl/DiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Empty
+"
+
+[node name="DieButton4" type="Button" parent="BookControl/DiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Empty
+"
+
+[node name="DieButton5" type="Button" parent="BookControl/DiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Empty
+"
+
+[node name="RightPageContainer" type="VBoxContainer" parent="BookControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.559
+anchor_top = 0.18
+anchor_right = 0.883
+anchor_bottom = 0.797
+
+[node name="DLLabel" type="Label" parent="BookControl/RightPageContainer"]
+layout_mode = 2
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 30
+text = "Dice Available"
+horizontal_alignment = 1
+
+[node name="DLPanel" type="Panel" parent="BookControl/RightPageContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_od3ol")
+
+[node name="DiceList" type="ItemList" parent="BookControl/RightPageContainer/DLPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+theme = ExtResource("7_od3ol")
+allow_reselect = true
+
+[node name="FacesLabel" type="Label" parent="BookControl/RightPageContainer"]
+layout_mode = 2
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 30
+text = "Faces"
+horizontal_alignment = 1
+
+[node name="DiceInfoPanel" type="Panel" parent="BookControl/RightPageContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_od3ol")
+
+[node name="InfoHBox" type="HBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.03
+anchor_right = 0.97
+anchor_bottom = 0.97
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FaceContainer" type="VBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Face0" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+layout_mode = 2
+
+[node name="Face1" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+layout_mode = 2
+
+[node name="Face2" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+layout_mode = 2
+
+[node name="Face3" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+layout_mode = 2
+
+[node name="Face4" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+layout_mode = 2
+
+[node name="Face5" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+layout_mode = 2
+
+[node name="InfoContainer" type="VBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Info0" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+autowrap_mode = 2
+
+[node name="Info1" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+autowrap_mode = 2
+
+[node name="Info2" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+autowrap_mode = 2
+
+[node name="Info3" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+autowrap_mode = 2
+
+[node name="Info4" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+autowrap_mode = 2
+
+[node name="Info5" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+autowrap_mode = 2
+
+[node name="NextButton" type="Button" parent="BookControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.788
+anchor_top = 0.832
+anchor_right = 0.788
+anchor_bottom = 0.832
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="BackButton" type="Button" parent="BookControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.095
+anchor_top = 0.832
+anchor_right = 0.095
+anchor_bottom = 0.89
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Back"
+
+[node name="InfoPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015
+anchor_top = 0.021
+anchor_right = 0.17
+anchor_bottom = 0.977
+theme_override_styles/panel = SubResource("StyleBoxTexture_he84b")
+
+[node name="MarginContainer" type="MarginContainer" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="SideInfoContainer" type="VBoxContainer" parent="InfoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ClassLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Health: "
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("7_od3ol")
+theme_override_font_sizes/font_size = 40
+text = "Level: "
+horizontal_alignment = 1
+
+[node name="SettingsMenu" parent="." instance=ExtResource("9_he84b")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="BookControl/DiceContainer/DieButton1" to="." method="_on_die_button_1_pressed"]
+[connection signal="pressed" from="BookControl/DiceContainer/DieButton2" to="." method="_on_die_button_2_pressed"]
+[connection signal="pressed" from="BookControl/DiceContainer/DieButton3" to="." method="_on_die_button_3_pressed"]
+[connection signal="pressed" from="BookControl/DiceContainer/DieButton4" to="." method="_on_die_button_4_pressed"]
+[connection signal="pressed" from="BookControl/DiceContainer/DieButton5" to="." method="_on_die_button_5_pressed"]
+[connection signal="pressed" from="BookControl/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="BookControl/BackButton" to="." method="_on_back_button_pressed"]
