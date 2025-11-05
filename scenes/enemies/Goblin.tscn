@@ -67,23 +67,18 @@ size_flags_vertical = 6
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_maxnv")
 
-[node name="EHealth" type="Label" parent="EnemyDiceTray"]
-layout_mode = 1
-offset_right = 117.0
-offset_bottom = 59.0
-theme = ExtResource("1_381q1")
-theme_override_font_sizes/font_size = 65
-text = "x/x"
-
 [node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.32
 anchor_top = 0.218
+anchor_right = 0.033
 anchor_bottom = 0.224
-offset_left = 103.622
-offset_right = 72.0
-offset_bottom = 223.14
+
+[node name="EHealth" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+layout_mode = 2
+theme = ExtResource("1_381q1")
+theme_override_font_sizes/font_size = 40
+text = "x/x"
 
 [node name="EDamage" type="Label" parent="EnemyDiceTray/EInfoContainer"]
 layout_mode = 2

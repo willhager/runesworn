@@ -17,13 +17,15 @@ extends Control
 @onready var backButtonNode : Node = get_node("BookControl/BackButton")
 
 var dieButtonPath = "BookControl/DiceContainer/DieButton"
-var dieFacePath = "BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer/Face"
-var dieInfoPath = "BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer/Info"
+var dieFacePath = "BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer/Face"
+var dieInfoPath = "BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/InfoContainer/Info"
 
 var damageEffectName = Global.damageEffectName
 var shieldEffectName = Global.shieldEffectName
 var healEffectName = Global.healEffectName
 var piercingEffectName = Global.piercingEffectName
+var freezeEffectName = Global.freezeEffectName
+var explosiveEffectName = Global.explosiveEffectName
 
 var rows = 4
 
@@ -56,26 +58,10 @@ func _ready():
 		node.disabled = true
 	nextButtonNode.disabled = true
 		
-func _on_dice_list_item_clicked(index: int) -> void:
+func _on_dice_list_item_clicked(index: int) -> void:		
 	var selected_text = diceListNode.get_item_text(index)
-	var selected_die_faces = DiceData.get_die_by_name(selected_text).get("faces")
-	for i in range (0, 6) :
-		var faceNode = get_node(dieFacePath + str(i))
-		faceNode.texture = load(selected_die_faces[i].get("sprite"))
-		var infoNode = get_node(dieInfoPath + str(i))
-		var value = str(selected_die_faces[i].get("value"))
-		match selected_die_faces[i].get("effect") :
-			damageEffectName :
-				infoNode.text = "Deals " + str(int(value)) + " damage."
-			shieldEffectName :
-				infoNode.text = "Protects you from " + str(int(value)) + " damage."
-			healEffectName :
-				infoNode.text = "Restores " + str(int(value)) + " health."
-			piercingEffectName :
-				infoNode.text = "Deals " + str(int(value)) + " damage, skips shield."
-			
 	add_selected_die(selected_text)
-	
+		
 func add_selected_die(text):
 	if !box1:
 		dieButton1Node.text = text
@@ -162,3 +148,24 @@ func _on_back_button_pressed() -> void :
 	bookNode.play_backwards("default")
 	await bookNode.animation_finished
 	get_tree().change_scene_to_packed(Global.classSelectionScene)
+
+
+func _on_dice_list_item_hovered(index : int) -> void:
+	if index != -1 :
+		var selected_text = diceListNode.get_item_text(index)
+		var selected_die_faces = DiceData.get_die_by_name(selected_text).get("faces")
+		for i in range (0, 6) :
+			var faceNode = get_node(dieFacePath + str(i))
+			faceNode.texture = load(selected_die_faces[i].get("sprite"))
+			var infoNode = get_node(dieInfoPath + str(i))
+			var value = str(selected_die_faces[i].get("value"))
+			match selected_die_faces[i].get("effect") :
+				damageEffectName :
+					infoNode.text = "Deals " + str(int(value)) + " damage."
+				shieldEffectName :
+					infoNode.text = "Protects you from " + str(int(value)) + " damage."
+				healEffectName :
+					infoNode.text = "Restores " + str(int(value)) + " health."
+				piercingEffectName :
+					infoNode.text = "Deals " + str(int(value)) + " damage, skips shield."
+				

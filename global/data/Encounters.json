@@ -1,5 +1,5 @@
 {
-	"max1" : 4,
+	"max1" : 5,
 	"1" : [
 		{
 			"id" : 0,
@@ -72,6 +72,45 @@
 			"dice" : [
 				"Carnival McMarkus",
 				"Carnival McMarkus",
+			]
+		},
+		{
+			"id" : 4,
+			"weight" : 5,
+			"name" : "Skeleton Swordsman",
+			"notes" : "A gleaming sword and clattering bones...",
+			"hasText" : true,
+			"text" : "A boney swordsman stands in perfect en garde, ready to begin a gentleman's duel...",
+			"hasAbility" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/skeleton_swordsman.tscn",
+			"healthMin" : 3,
+			"healthMax" : 5,
+			"diceNum" : 3,
+			"dice" : [
+				"Barbarian's Die",
+				"Barbarian's Die",
+				"Barbarian's Die"
+			]
+		},
+		{
+			"id" : 5,
+			"weight" : 5,
+			"name" : "Volcano Imp",
+			"notes" : "A small imp with a curiously flaming head",
+			"hasText" : true,
+			"text" : "An imp stands, his head wreathed in flame. Every so often, the flame grows and explodes, superheating the air around the small critter",
+			"hasAbility" : true,
+			"Ability" : "The Burn",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/skeleton_swordsman.tscn",
+			"healthMin" : 3,
+			"healthMax" : 5,
+			"diceNum" : 3,
+			"dice" : [
+				"Barbarian's Die",
+				"Barbarian's Die",
+				"Barbarian's Die"
 			]
 		},
 	],

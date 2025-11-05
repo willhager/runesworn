@@ -1,4 +1,4 @@
-extends Control
+extends enemy_template
 
 #CHAOS SLIME 
 #dice: chaos, chaos, chaos
@@ -10,7 +10,7 @@ extends Control
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
 @onready var ePoisonNode : Node = get_node("EnemyDiceTray/EInfoContainer/EPoison")
 
-@onready var eHealthNode : Node = get_node("EnemyDiceTray/EHealth")
+@onready var eHealthNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHealth")
 
 @onready var eDieControl0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0")
 @onready var eDieControl1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1")
@@ -43,7 +43,7 @@ var eDiceRolls : Array[Dictionary]
 func _ready() -> void :
 	enemyHealth = randi_range(8, 12)
 	maxHealth = str(enemyHealth)
-	eHealthNode.text = "Health:" + str(enemyHealth)
+	eHealthNode.text = "Health:" + str(enemyHealth) + "/" + maxHealth
 	EDice.resize(3)
 	eDiceRolls.resize(3)
 	
@@ -121,32 +121,29 @@ func roll_eDice() -> void :
 
 func update_health_with_damage(pDamage : int, pPiercing : int) -> void :
 	eDamage = pDamage - curEShield
-	curPPiercing  = pPiercing
 	if(eDamage > 0) :
 		enemyHealth -= eDamage
 	if (pPiercing > 0) :
-		print("trigger piercing damage")
-		print(str(enemyHealth) + "-" + str(pPiercing))
 		enemyHealth -= pPiercing
-		print(enemyHealth)
 	if((eDamage > 0 || pPiercing > 0) && Global.playerType == "Assassin") :
 		addToPoison = true
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_aoe(aoeDamage : int) :
 	var eExplosive = aoeDamage - curEShield
 	enemyHealth -= eExplosive
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 
 
 func update_health_with_heal() -> void :
-	print("trigger heal")
-	print(str(enemyHealth) + "+" + str(curEHeal))
 	enemyHealth += curEHeal
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_poison() -> void :
 	enemyHealth -= curEPoisonCounter
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	if addToPoison :
 		curEPoisonCounter += 1

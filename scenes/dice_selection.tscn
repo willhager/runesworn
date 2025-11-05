@@ -1,17 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://bpn4om8q6pnek"]
+[gd_scene load_steps=16 format=3 uid="uid://bpn4om8q6pnek"]
 
 [ext_resource type="Script" uid="uid://d4kdcgutoe16i" path="res://scenes/dice_selection.gd" id="1_7inn1"]
-[ext_resource type="Texture2D" uid="uid://ccfhleps1ebrc" path="res://resources/bg3.png" id="2_he84b"]
-[ext_resource type="Texture2D" uid="uid://df2is6ywf3fbc" path="res://resources/book/book-open.png" id="3_l5evv"]
-[ext_resource type="Texture2D" uid="uid://ddt4wm86tgrm4" path="res://resources/book/book-opening-2.png" id="4_lkb01"]
-[ext_resource type="Texture2D" uid="uid://c82kephlio3rf" path="res://resources/book/book-opening-1.png" id="5_2uuto"]
-[ext_resource type="Texture2D" uid="uid://bk8qt3rtvyvl6" path="res://resources/book/book-closed.png" id="6_heeka"]
-[ext_resource type="Texture2D" uid="uid://d4c5yq7iwj3gn" path="res://resources/book/page-turn-1.png" id="7_22nwi"]
+[ext_resource type="Texture2D" uid="uid://bcvu54arr4ieb" path="res://resources/bg3.png" id="2_he84b"]
+[ext_resource type="Texture2D" uid="uid://0upjjpmjbqg8" path="res://resources/book/book-open.png" id="3_l5evv"]
+[ext_resource type="Texture2D" uid="uid://c343uf7ikj0er" path="res://resources/book/book-opening-2.png" id="4_lkb01"]
+[ext_resource type="Texture2D" uid="uid://lax3568jmk1n" path="res://resources/book/book-opening-1.png" id="5_2uuto"]
+[ext_resource type="Texture2D" uid="uid://cnhqb6h46ebdq" path="res://resources/book/book-closed.png" id="6_heeka"]
+[ext_resource type="Texture2D" uid="uid://dm1vm3hwqsuw4" path="res://resources/book/page-turn-1.png" id="7_22nwi"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="7_od3ol"]
-[ext_resource type="Texture2D" uid="uid://ddog1qc6k6c5e" path="res://resources/book/page-turn-2.png" id="8_grynv"]
-[ext_resource type="Texture2D" uid="uid://b2pvnf4y4iilk" path="res://resources/panel-tall.png" id="8_jjkxs"]
-[ext_resource type="Texture2D" uid="uid://d4j3l5aw8xvab" path="res://resources/book/page-turn-3.png" id="9_b3i67"]
+[ext_resource type="Texture2D" uid="uid://bltodmf2om38f" path="res://resources/book/page-turn-2.png" id="8_grynv"]
+[ext_resource type="Texture2D" uid="uid://dgb81cbytwnpo" path="res://resources/panel-tall.png" id="8_jjkxs"]
+[ext_resource type="Texture2D" uid="uid://bcyd7v2hfpm0w" path="res://resources/book/page-turn-3.png" id="9_b3i67"]
 [ext_resource type="PackedScene" uid="uid://b7evvdwrabegw" path="res://scenes/settings_menu.tscn" id="9_he84b"]
+[ext_resource type="Script" uid="uid://5xli4st4h803" path="res://scenes/dice_list.gd" id="11_lkb01"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2uuto"]
 animations = [{
@@ -112,9 +113,9 @@ sprite_frames = SubResource("SpriteFrames_2uuto")
 [node name="DiceContainer" type="VBoxContainer" parent="BookControl"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.121
+anchor_left = 0.08
 anchor_top = 0.2
-anchor_right = 0.421
+anchor_right = 0.46
 anchor_bottom = 0.797
 grow_horizontal = 2
 theme_override_constants/separation = 10
@@ -130,7 +131,6 @@ horizontal_alignment = 1
 
 [node name="DieButton1" type="Button" parent="BookControl/DiceContainer"]
 layout_mode = 2
-size_flags_horizontal = 5
 size_flags_vertical = 3
 theme = ExtResource("7_od3ol")
 theme_override_font_sizes/font_size = 40
@@ -139,7 +139,6 @@ text = "Empty
 
 [node name="DieButton2" type="Button" parent="BookControl/DiceContainer"]
 layout_mode = 2
-size_flags_horizontal = 5
 size_flags_vertical = 3
 theme = ExtResource("7_od3ol")
 theme_override_font_sizes/font_size = 40
@@ -148,7 +147,6 @@ text = "Empty
 
 [node name="DieButton3" type="Button" parent="BookControl/DiceContainer"]
 layout_mode = 2
-size_flags_horizontal = 5
 size_flags_vertical = 3
 theme = ExtResource("7_od3ol")
 theme_override_font_sizes/font_size = 40
@@ -157,7 +155,6 @@ text = "Empty
 
 [node name="DieButton4" type="Button" parent="BookControl/DiceContainer"]
 layout_mode = 2
-size_flags_horizontal = 5
 size_flags_vertical = 3
 theme = ExtResource("7_od3ol")
 theme_override_font_sizes/font_size = 40
@@ -166,7 +163,6 @@ text = "Empty
 
 [node name="DieButton5" type="Button" parent="BookControl/DiceContainer"]
 layout_mode = 2
-size_flags_horizontal = 5
 size_flags_vertical = 3
 theme = ExtResource("7_od3ol")
 theme_override_font_sizes/font_size = 40
@@ -203,6 +199,7 @@ grow_vertical = 2
 focus_mode = 1
 theme = ExtResource("7_od3ol")
 allow_reselect = true
+script = ExtResource("11_lkb01")
 
 [node name="FacesLabel" type="Label" parent="BookControl/RightPageContainer"]
 layout_mode = 2
@@ -216,78 +213,88 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("7_od3ol")
 
-[node name="InfoHBox" type="HBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="BookControl/RightPageContainer/DiceInfoPanel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.03
-anchor_top = 0.03
-anchor_right = 0.97
-anchor_bottom = 0.97
+anchor_top = 0.01
+anchor_right = 0.99
+anchor_bottom = 0.99
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FaceContainer" type="VBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox"]
+[node name="InfoHBox" type="HBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FaceContainer" type="VBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Face0" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+[node name="Face0" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]
 layout_mode = 2
+stretch_mode = 3
 
-[node name="Face1" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+[node name="Face1" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]
 layout_mode = 2
+stretch_mode = 3
 
-[node name="Face2" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+[node name="Face2" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]
 layout_mode = 2
+stretch_mode = 3
 
-[node name="Face3" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+[node name="Face3" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]
 layout_mode = 2
+stretch_mode = 3
 
-[node name="Face4" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+[node name="Face4" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]
 layout_mode = 2
+stretch_mode = 3
 
-[node name="Face5" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/FaceContainer"]
+[node name="Face5" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]
 layout_mode = 2
+stretch_mode = 3
 
-[node name="InfoContainer" type="VBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox"]
+[node name="InfoContainer" type="VBoxContainer" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Info0" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+[node name="Info0" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/InfoContainer"]
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 autowrap_mode = 2
 
-[node name="Info1" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+[node name="Info1" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/InfoContainer"]
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 autowrap_mode = 2
 
-[node name="Info2" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+[node name="Info2" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/InfoContainer"]
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 autowrap_mode = 2
 
-[node name="Info3" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+[node name="Info3" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/InfoContainer"]
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 autowrap_mode = 2
 
-[node name="Info4" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+[node name="Info4" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/InfoContainer"]
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 autowrap_mode = 2
 
-[node name="Info5" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/InfoHBox/InfoContainer"]
+[node name="Info5" type="Label" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/InfoContainer"]
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -370,5 +377,6 @@ layout_mode = 1
 [connection signal="pressed" from="BookControl/DiceContainer/DieButton3" to="." method="_on_die_button_3_pressed"]
 [connection signal="pressed" from="BookControl/DiceContainer/DieButton4" to="." method="_on_die_button_4_pressed"]
 [connection signal="pressed" from="BookControl/DiceContainer/DieButton5" to="." method="_on_die_button_5_pressed"]
+[connection signal="item_hovered" from="BookControl/RightPageContainer/DLPanel/DiceList" to="." method="_on_dice_list_item_hovered"]
 [connection signal="pressed" from="BookControl/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="BookControl/BackButton" to="." method="_on_back_button_pressed"]

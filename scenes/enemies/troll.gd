@@ -1,4 +1,4 @@
-extends Control
+extends enemy_template
 
 #Troll 
 #dice: carnival, carnival
@@ -10,7 +10,7 @@ extends Control
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
 @onready var ePoisonNode : Node = get_node("EnemyDiceTray/EInfoContainer/EPoison")
 
-@onready var eHealthNode : Node = get_node("EnemyDiceTray/EHealth")
+@onready var eHealthNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHealth")
 
 @onready var eDieControl0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0")
 @onready var eDieControl1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1")
@@ -114,19 +114,23 @@ func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
 		enemyHealth -= curPiercing
 	if((eDamage > 0 || curPiercing > 0) && Global.playerType == "Assassin") :
 		addToPoison = true
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_aoe(aoeDamage : int) :
 	var eExplosive = aoeDamage - curEShield
 	enemyHealth -= eExplosive
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 
 func update_health_with_heal() -> void :
 	enemyHealth += curEHeal
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_poison() -> void :
 	enemyHealth -= curEPoisonCounter
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	if addToPoison :
 		curEPoisonCounter += 1

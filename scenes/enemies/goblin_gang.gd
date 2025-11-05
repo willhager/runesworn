@@ -1,4 +1,4 @@
-extends Control
+extends enemy_template
 
 #GOBLIN GANG
 #dice1: beginner, barb
