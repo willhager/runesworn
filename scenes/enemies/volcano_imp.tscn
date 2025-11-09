@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dd6mxw6gjy64x"]
+[gd_scene load_steps=6 format=3 uid="uid://dd6mxw6gjy64x"]
 
 [ext_resource type="Script" uid="uid://dbdqsssofaa4p" path="res://volcano_imp.gd" id="1_rdpwj"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_g3d1s"]
@@ -9,13 +9,12 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3vvs3"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_4kp68"]
-
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.585
+anchor_top = 0.15
+anchor_right = 0.9
+anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rdpwj")
@@ -56,15 +55,6 @@ size_flags_vertical = 6
 [node name="EDie1" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control1"]
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_3vvs3")
-
-[node name="Control2" type="Control" parent="EnemyDiceTray/EDiceContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="EDie2" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control2"]
-scale = Vector2(1.8, 1.8)
-sprite_frames = SubResource("SpriteFrames_4kp68")
 
 [node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray"]
 layout_mode = 1

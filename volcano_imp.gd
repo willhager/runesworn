@@ -16,11 +16,9 @@ extends enemy_template
 
 @onready var eDieControl0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0")
 @onready var eDieControl1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1")
-@onready var eDieControl2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2")
 
 @onready var eDie0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0/EDie0")
 @onready var eDie1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1/EDie1")
-@onready var eDie2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2/EDie2")
 
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
@@ -37,9 +35,10 @@ var eDiceRolls : Array[Dictionary]
 
 var addToPoison : bool = false
 
+var turnIndex: int = 0
 
 func _ready() -> void :
-	enemyHealth = randi_range(6, 8)
+	enemyHealth = randi_range(6, 10)
 	maxHealth = str(enemyHealth)
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	EDice.resize(2)
@@ -84,7 +83,7 @@ func roll_eDice() -> void :
 	var indices : Array
 	var pool = [0, 1]
 	pool.shuffle() 
-	indices = pool.slice(0, 1)
+	indices = pool.slice(0, 2)
 	
 	await get_tree().create_timer(0.3).timeout
 
@@ -103,10 +102,16 @@ func roll_eDice() -> void :
 			Global.piercingEffectName :
 				curEPiercing += roll.get("value")
 	
+	print(curEDamage)
+	curEDamage += turnIndex
+	print(turnIndex)
+	print(curEDamage)
+	
 	if curEPiercing > 0:
 		eDamageNode.text = "D:" + str(curEDamage) + "+" + str(curEPiercing)
 	else :
 		eDamageNode.text = "D:" + str(curEDamage)
+	
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
 
@@ -161,6 +166,8 @@ func clear() -> void :
 	for i in range(0, 2) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.offset = Vector2(0, 0)
+		
+	turnIndex += 1
 	
 	
 func hideAllNodes() -> void :
