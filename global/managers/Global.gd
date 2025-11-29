@@ -2,10 +2,10 @@ extends Node
 
 var curScenePath = "res://scenes/main_menu.tscn"
 
-var mainMenuPath = "res://scenes/main_menu.tscn"
-var classSelectionPath = "res://scenes/class_selection.tscn"
-var diceSelectionPath = "res://scenes/dice_selection.tscn"
-var battleScreenPath = "res://scenes/battle_screen.tscn"
+var mainMenuPath = "res://scenes/mainmenu/main_menu.tscn"
+var classSelectionPath = "res://scenes/classselection/class_selection.tscn"
+var diceSelectionPath = "res://scenes/diceselection/dice_selection.tscn"
+var battleScreenPath = "res://scenes/battlescreen/battle_screen.tscn"
 
 var classSelectionScene = load(classSelectionPath)
 var diceSelectionScene = load(diceSelectionPath)

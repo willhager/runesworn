@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://0yfrbs8q0fih"]
 
-[ext_resource type="Script" uid="uid://dq4ro3hsnla0n" path="res://scenes/defeat.gd" id="1_frb4q"]
+[ext_resource type="Script" uid="uid://dq4ro3hsnla0n" path="res://scenes/battlescreen/defeat.gd" id="1_frb4q"]
 [ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="2_rrsnv"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="3_kgct7"]
 

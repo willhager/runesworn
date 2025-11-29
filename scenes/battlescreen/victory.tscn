@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dypq31df1pbjx"]
 
-[ext_resource type="Script" uid="uid://d3xw3mf3oefy1" path="res://scenes/victory.gd" id="1_v31sk"]
+[ext_resource type="Script" uid="uid://d3xw3mf3oefy1" path="res://scenes/battlescreen/victory.gd" id="1_v31sk"]
 [ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="2_hl81x"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="3_73dpb"]
 
