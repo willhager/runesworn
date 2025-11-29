@@ -4,6 +4,15 @@ var dieFacePath = "Panel/MarginContainer/VBoxContainer/InfoHBox/FaceContainer/Fa
 var dieInfoPath = "Panel/MarginContainer/VBoxContainer/InfoHBox/InfoContainer/Info"
 @onready var dieName :Node = get_node("Panel/MarginContainer/VBoxContainer/Label")
 
+var hide_timer: Timer
+
+func _ready():
+	hide_timer = Timer.new()
+	hide_timer.one_shot = true
+	hide_timer.wait_time = 0.05  # small delay, enough to catch fast switches
+	add_child(hide_timer)
+	hide_timer.timeout.connect(_on_hide_timeout)
+
 func populate(die : String) :
 	dieName.text = die
 	var selected_die_faces = DiceData.get_die_by_name(die).get("faces")
@@ -23,16 +32,22 @@ func populate(die : String) :
 				infoNode.text = "Deals " + str(int(value)) + " damage, skips shield."
 			Global.explosiveEffectName :
 					infoNode.text = "Deals " + str(int(value)) + " damage, spread to all enemies."
-	print("populated")
-				
-		
-func show_tooltip(global_pos: Vector2) :
-	popup()  # Required for PopupPanel
-	size = Vector2.ZERO  # Forces layout update
-	await get_tree().process_frame
-	print(global_pos)
+
+func show_tooltip(global_pos: Vector2):
+	hide_timer.stop()
+	popup()
+	size = Vector2.ZERO
+	call_deferred("_finish_popup", global_pos)
+
+func _finish_popup(global_pos: Vector2):
 	position = global_pos
-	print("tooltip pos:", position, " size:", size)
-	print("finished executing show tooltip")
 	
+func request_hide() :
+	hide_timer.start()
+	
+func _on_hide_timeout():
+	hide()
+
+
+
 	

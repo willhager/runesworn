@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnv2rt0yov5kg"]
+
+[ext_resource type="Script" uid="uid://cou511scvhti2" path="res://scenes/tooltip.gd" id="1_75wrl"]
+[ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="2_vy6iq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnlnb"]
+bg_color = Color(0.254902, 0.113725, 0.192157, 1)
+
+[node name="PopupPanel" type="PopupPanel"]
+visible = true
+min_size = Vector2i(50, 50)
+script = ExtResource("1_75wrl")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 96.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wnlnb")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("2_vy6iq")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Text" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme = ExtResource("2_vy6iq")
+horizontal_alignment = 1
+autowrap_mode = 2

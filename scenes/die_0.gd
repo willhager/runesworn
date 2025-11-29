@@ -20,7 +20,6 @@ func set_die_name(die_name) :
 func _on_mouse_entered() :
 	if dieNameSet == false :
 		push_error("var dieName not set in pDie0, unable to show tooltip")
-	print("mouse entered")
 	tooltip_manager.show_dicePopup(dieName, pos)
 	
 func _on_mouse_exited() :

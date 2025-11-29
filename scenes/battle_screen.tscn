@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://0rsco4j5cktx"]
+[gd_scene load_steps=45 format=3 uid="uid://0rsco4j5cktx"]
 
 [ext_resource type="Script" uid="uid://cpcwu0n1xrylf" path="res://scenes/battle_screen.gd" id="1_3047d"]
 [ext_resource type="Texture2D" uid="uid://da67qyndk2wpn" path="res://resources/dungeonbg.png" id="2_ikkpg"]
@@ -107,6 +107,8 @@ texture = ExtResource("8_lskjy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p5bt8"]
 texture = ExtResource("12_qm3lx")
+
+[sub_resource type="GDScript" id="GDScript_tjc3k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c5bog"]
 texture = ExtResource("8_lskjy")
@@ -660,6 +662,7 @@ theme = ExtResource("7_20e4q")
 theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 autowrap_mode = 2
+script = SubResource("GDScript_tjc3k")
 
 [node name="EInfoPanel" type="Panel" parent="."]
 layout_mode = 1
@@ -870,4 +873,5 @@ text = "CONTINUE"
 [connection signal="pressed" from="BookControl/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="ButtonTray/VBoxContainer/RollButton" to="." method="_on_roll_button_pressed"]
 [connection signal="pressed" from="ButtonTray/VBoxContainer/EndTurn" to="." method="_on_end_turn_pressed"]
+[connection signal="mouse_entered" from="InfoPanel/MarginContainer/SideInfoContainer/Modifiers" to="InfoPanel/MarginContainer/SideInfoContainer/Modifiers" method="_on_mouse_entered"]
 [connection signal="pressed" from="TextBoxPanel/ContinueButton" to="." method="_on_continue_button_pressed"]
