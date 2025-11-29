@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dd6mxw6gjy64x"]
 
-[ext_resource type="Script" uid="uid://dbdqsssofaa4p" path="res://volcano_imp.gd" id="1_rdpwj"]
+[ext_resource type="Script" uid="uid://dbdqsssofaa4p" path="res://scenes/enemies/volcano_imp.gd" id="1_rdpwj"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_g3d1s"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kitce"]

@@ -233,6 +233,7 @@ size_flags_vertical = 4
 
 [node name="Face0" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 stretch_mode = 3
 
 [node name="Face1" type="TextureRect" parent="BookControl/RightPageContainer/DiceInfoPanel/ScrollContainer/InfoHBox/FaceContainer"]

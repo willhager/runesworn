@@ -117,6 +117,7 @@ func _ready() -> void:
 	
 	playerDiceTrayNode.show()
 	
+	#start "summoning circle"
 	showNodes_circleStart()
 
 		

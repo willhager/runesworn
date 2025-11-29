@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://0rsco4j5cktx"]
+[gd_scene load_steps=44 format=3 uid="uid://0rsco4j5cktx"]
 
 [ext_resource type="Script" uid="uid://cpcwu0n1xrylf" path="res://scenes/battle_screen.gd" id="1_3047d"]
 [ext_resource type="Texture2D" uid="uid://da67qyndk2wpn" path="res://resources/dungeonbg.png" id="2_ikkpg"]
@@ -17,8 +17,13 @@
 [ext_resource type="Texture2D" uid="uid://c343uf7ikj0er" path="res://resources/book/book-opening-2.png" id="9_tjy5n"]
 [ext_resource type="Texture2D" uid="uid://cx27p32dgnttp" path="res://resources/circle-button-1-pressed.png" id="10_88a0a"]
 [ext_resource type="Texture2D" uid="uid://0upjjpmjbqg8" path="res://resources/book/book-open.png" id="10_c5bog"]
+[ext_resource type="Script" uid="uid://donddvv8q6oy6" path="res://scenes/die_0.gd" id="10_qo5xu"]
 [ext_resource type="Texture2D" uid="uid://cfqeccbewscn0" path="res://resources/circle-button-1-hovered.png" id="11_lv2qw"]
+[ext_resource type="Script" uid="uid://bvq18h7jsmo1y" path="res://scenes/die_1.gd" id="11_tjc3k"]
+[ext_resource type="Script" uid="uid://bkop44d2a2liu" path="res://scenes/die_2.gd" id="12_jd2wk"]
 [ext_resource type="Texture2D" uid="uid://dgb81cbytwnpo" path="res://resources/panel-tall.png" id="12_qm3lx"]
+[ext_resource type="Script" uid="uid://dulwjl645bch5" path="res://scenes/die_3.gd" id="13_rhu2l"]
+[ext_resource type="Script" uid="uid://b1kwya6xq05nf" path="res://scenes/die_4.gd" id="14_3q6ct"]
 [ext_resource type="Texture2D" uid="uid://4puhoh2i8nr0" path="res://resources/red-rect.png" id="18_tjy5n"]
 [ext_resource type="Texture2D" uid="uid://bmvy5xbxwx8o7" path="res://resources/panel-wide.png" id="21_tjy5n"]
 
@@ -274,6 +279,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
 keep_pressed_outside = true
+script = ExtResource("10_qo5xu")
 
 [node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die0"]
 layout_mode = 1
@@ -298,6 +304,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+script = ExtResource("11_tjc3k")
 
 [node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die1"]
 layout_mode = 1
@@ -322,6 +329,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+script = ExtResource("12_jd2wk")
 
 [node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die2"]
 layout_mode = 1
@@ -346,6 +354,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+script = ExtResource("13_rhu2l")
 
 [node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die3"]
 layout_mode = 1
@@ -370,6 +379,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
+script = ExtResource("14_3q6ct")
 
 [node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die4"]
 layout_mode = 1
@@ -839,10 +849,20 @@ anchor_bottom = 0.89
 theme_override_font_sizes/font_size = 20
 text = "CONTINUE"
 
+[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die0" to="BookControl/PlayerDiceTray/PDiceContainer/Die0" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die0" to="BookControl/PlayerDiceTray/PDiceContainer/Die0" method="_on_mouse_exited"]
 [connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die0" to="." method="_on_die_0_pressed"]
+[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die1" to="BookControl/PlayerDiceTray/PDiceContainer/Die1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die1" to="BookControl/PlayerDiceTray/PDiceContainer/Die1" method="_on_mouse_exited"]
 [connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die1" to="." method="_on_die_1_pressed"]
+[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die2" to="BookControl/PlayerDiceTray/PDiceContainer/Die2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die2" to="BookControl/PlayerDiceTray/PDiceContainer/Die2" method="_on_mouse_exited"]
 [connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die2" to="." method="_on_die_2_pressed"]
+[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die3" to="BookControl/PlayerDiceTray/PDiceContainer/Die3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die3" to="BookControl/PlayerDiceTray/PDiceContainer/Die3" method="_on_mouse_exited"]
 [connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die3" to="." method="_on_die_3_pressed"]
+[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="BookControl/PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="BookControl/PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_exited"]
 [connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="." method="_on_die_4_pressed"]
 [connection signal="pressed" from="BookControl/CircleControl/Circle/Button1" to="." method="_on_left_side_pressed"]
 [connection signal="pressed" from="BookControl/CircleControl/Circle/Button2" to="." method="_on_top_pressed"]

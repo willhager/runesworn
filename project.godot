@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+tooltip_manager="*res://global/managers/tooltip_manager.gd"
 FadeTransition="*res://scenes/fade_transition.tscn"
 LootData="*res://global/managers/LootData.gd"
 DiceData="*res://global/managers/DiceData.gd"

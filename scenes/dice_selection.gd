@@ -157,6 +157,7 @@ func _on_dice_list_item_hovered(index : int) -> void:
 		for i in range (0, 6) :
 			var faceNode = get_node(dieFacePath + str(i))
 			faceNode.texture = load(selected_die_faces[i].get("sprite"))
+			
 			var infoNode = get_node(dieInfoPath + str(i))
 			var value = str(selected_die_faces[i].get("value"))
 			match selected_die_faces[i].get("effect") :
