@@ -102,10 +102,7 @@ func roll_eDice() -> void :
 			Global.piercingEffectName :
 				curEPiercing += roll.get("value")
 	
-	print(curEDamage)
 	curEDamage += turnIndex
-	print(turnIndex)
-	print(curEDamage)
 	
 	if curEPiercing > 0:
 		eDamageNode.text = "D:" + str(curEDamage) + "+" + str(curEPiercing)

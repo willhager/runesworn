@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://0rsco4j5cktx"]
+[gd_scene load_steps=46 format=3 uid="uid://0rsco4j5cktx"]
 
 [ext_resource type="Script" uid="uid://cpcwu0n1xrylf" path="res://scenes/battlescreen/battle_screen.gd" id="1_iugxu"]
 [ext_resource type="Texture2D" uid="uid://da67qyndk2wpn" path="res://resources/dungeonbg.png" id="2_vjihi"]
@@ -16,15 +16,17 @@
 [ext_resource type="Script" uid="uid://b1kwya6xq05nf" path="res://scenes/battlescreen/die_4.gd" id="14_gwf84"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="15_16put"]
 [ext_resource type="Texture2D" uid="uid://bt2ge763af8kx" path="res://resources/circle-1.png" id="16_jun3f"]
+[ext_resource type="Script" uid="uid://sa2uhkpunhoa" path="res://scenes/battlescreen/circle_control.gd" id="16_nt5ra"]
 [ext_resource type="Texture2D" uid="uid://hktg3j488nwm" path="res://resources/circle-button-1.png" id="17_1pu3i"]
 [ext_resource type="Texture2D" uid="uid://cx27p32dgnttp" path="res://resources/circle-button-1-pressed.png" id="18_2rm4h"]
 [ext_resource type="Texture2D" uid="uid://cfqeccbewscn0" path="res://resources/circle-button-1-hovered.png" id="19_o76mj"]
 [ext_resource type="Texture2D" uid="uid://p0psg2pigqil" path="res://resources/panel-square.png" id="20_wg150"]
-[ext_resource type="Texture2D" uid="uid://dgb81cbytwnpo" path="res://resources/panel-tall.png" id="21_yg4an"]
-[ext_resource type="Script" uid="uid://cmufhamo05q76" path="res://scenes/battlescreen/modifiers.gd" id="22_6y2wp"]
+[ext_resource type="PackedScene" uid="uid://616j3nwlymir" path="res://scenes/infopanel/info_panel.tscn" id="22_15bqh"]
 [ext_resource type="Texture2D" uid="uid://4puhoh2i8nr0" path="res://resources/red-rect.png" id="23_dfu5w"]
+[ext_resource type="Script" uid="uid://csgottohl4yrk" path="res://scenes/battlescreen/e_abilities.gd" id="23_nt5ra"]
 [ext_resource type="PackedScene" uid="uid://dypq31df1pbjx" path="res://scenes/battlescreen/victory.tscn" id="24_t67x6"]
 [ext_resource type="PackedScene" uid="uid://0yfrbs8q0fih" path="res://scenes/battlescreen/defeat.tscn" id="25_i71ea"]
+[ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="25_wl6is"]
 [ext_resource type="PackedScene" uid="uid://b7evvdwrabegw" path="res://scenes/settings_menu.tscn" id="26_341mp"]
 [ext_resource type="Texture2D" uid="uid://bmvy5xbxwx8o7" path="res://resources/panel-wide.png" id="27_ubuyo"]
 
@@ -105,9 +107,6 @@ content_margin_top = 30.0
 content_margin_right = 30.0
 content_margin_bottom = 30.0
 texture = ExtResource("20_wg150")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p5bt8"]
-texture = ExtResource("21_yg4an")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c5bog"]
 texture = ExtResource("20_wg150")
@@ -230,7 +229,7 @@ texture = ExtResource("2_vjihi")
 [node name="BookControl" type="Control" parent="."]
 layout_mode = 1
 anchor_left = 0.2
-anchor_top = 0.01
+anchor_top = 0.05
 anchor_right = 0.85
 anchor_bottom = 0.922
 grow_horizontal = 2
@@ -247,7 +246,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Book" type="AnimatedSprite2D" parent="BookControl/BookContainer"]
-scale = Vector2(8, 8)
+scale = Vector2(1.06, 1.06)
 sprite_frames = SubResource("SpriteFrames_bgqsx")
 
 [node name="PlayerDiceTray" type="Panel" parent="BookControl"]
@@ -456,6 +455,7 @@ anchor_right = 0.95
 anchor_bottom = 0.75
 grow_horizontal = 0
 grow_vertical = 2
+script = ExtResource("16_nt5ra")
 
 [node name="Circle" type="TextureRect" parent="BookControl/CircleControl"]
 modulate = Color(1, 1, 1, 0)
@@ -602,67 +602,8 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "END TURN"
 
-[node name="InfoPanel" type="Panel" parent="."]
+[node name="InfoPanel" parent="." instance=ExtResource("22_15bqh")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.015
-anchor_top = 0.021
-anchor_right = 0.17
-anchor_bottom = 0.977
-theme_override_styles/panel = SubResource("StyleBoxTexture_p5bt8")
-
-[node name="MarginContainer" type="MarginContainer" parent="InfoPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 70
-theme_override_constants/margin_top = 70
-theme_override_constants/margin_right = 70
-theme_override_constants/margin_bottom = 70
-
-[node name="SideInfoContainer" type="VBoxContainer" parent="InfoPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="ClassLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 40
-horizontal_alignment = 1
-
-[node name="HealthLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 40
-text = "Health:"
-horizontal_alignment = 1
-
-[node name="LevelLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 40
-text = "Level:"
-horizontal_alignment = 1
-
-[node name="ModifiersLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 35
-text = "Modifiers:"
-horizontal_alignment = 1
-
-[node name="Modifiers" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 2
-mouse_filter = 0
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 25
-horizontal_alignment = 1
-autowrap_mode = 2
-script = ExtResource("22_6y2wp")
 
 [node name="EInfoPanel" type="Panel" parent="."]
 layout_mode = 1
@@ -681,7 +622,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 35
-theme_override_constants/margin_top = 35
+theme_override_constants/margin_top = 55
 theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
@@ -712,11 +653,13 @@ horizontal_alignment = 1
 
 [node name="EAbilities" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 0
 theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 25
 text = "Abilities:
 "
 horizontal_alignment = 1
+script = ExtResource("23_nt5ra")
 
 [node name="ProgressTray" type="Panel" parent="."]
 layout_mode = 1
@@ -781,6 +724,24 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("23_dfu5w")
 expand_mode = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.03
+anchor_right = 0.85
+anchor_bottom = 0.05
+offset_top = -16.2
+offset_bottom = 16.2
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.00140592
+theme = ExtResource("25_wl6is")
+theme_override_font_sizes/font_size = 60
+text = "Choose Your Path..."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CircleStart" type="AnimationPlayer" parent="."]
 libraries = {
@@ -867,12 +828,12 @@ text = "CONTINUE"
 [connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="BookControl/PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="BookControl/PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_exited"]
 [connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="." method="_on_die_4_pressed"]
-[connection signal="pressed" from="BookControl/CircleControl/Circle/Button1" to="." method="_on_left_side_pressed"]
-[connection signal="pressed" from="BookControl/CircleControl/Circle/Button2" to="." method="_on_top_pressed"]
-[connection signal="pressed" from="BookControl/CircleControl/Circle/Button3" to="." method="_on_right_side_pressed"]
+[connection signal="pressed" from="BookControl/CircleControl/Circle/Button1" to="BookControl/CircleControl" method="_on_top_pressed"]
+[connection signal="pressed" from="BookControl/CircleControl/Circle/Button2" to="BookControl/CircleControl" method="_on_right_pressed"]
+[connection signal="pressed" from="BookControl/CircleControl/Circle/Button3" to="BookControl/CircleControl" method="_on_bottom_pressed"]
 [connection signal="pressed" from="BookControl/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="ButtonTray/VBoxContainer/RollButton" to="." method="_on_roll_button_pressed"]
 [connection signal="pressed" from="ButtonTray/VBoxContainer/EndTurn" to="." method="_on_end_turn_pressed"]
-[connection signal="mouse_entered" from="InfoPanel/MarginContainer/SideInfoContainer/Modifiers" to="InfoPanel/MarginContainer/SideInfoContainer/Modifiers" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="InfoPanel/MarginContainer/SideInfoContainer/Modifiers" to="InfoPanel/MarginContainer/SideInfoContainer/Modifiers" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="EInfoPanel/MarginContainer/VBoxContainer/EAbilities" to="EInfoPanel/MarginContainer/VBoxContainer/EAbilities" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="EInfoPanel/MarginContainer/VBoxContainer/EAbilities" to="EInfoPanel/MarginContainer/VBoxContainer/EAbilities" method="_on_mouse_exited"]
 [connection signal="pressed" from="TextBoxPanel/ContinueButton" to="." method="_on_continue_button_pressed"]

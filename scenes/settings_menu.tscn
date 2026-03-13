@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7evvdwrabegw"]
+[gd_scene load_steps=6 format=3 uid="uid://b7evvdwrabegw"]
 
 [ext_resource type="Script" uid="uid://bowng08mhpa20" path="res://scenes/settings_menu.gd" id="1_0cmel"]
 [ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="2_cr101"]
+[ext_resource type="Texture2D" uid="uid://p0psg2pigqil" path="res://resources/panel-square.png" id="3_labj1"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="3_wswnh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lwwgp"]
+texture = ExtResource("3_labj1")
 
 [node name="SettingsMenu" type="Control"]
 process_mode = 3
@@ -27,13 +31,14 @@ color = Color(0, 0, 0, 0.580392)
 [node name="MenuPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.375
-anchor_top = 0.275
-anchor_right = 0.625
-anchor_bottom = 0.725
+anchor_left = 0.325
+anchor_top = 0.19
+anchor_right = 0.675
+anchor_bottom = 0.81
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_cr101")
+theme_override_styles/panel = SubResource("StyleBoxTexture_lwwgp")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuPanel"]
 layout_mode = 1
@@ -43,7 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 60
+theme_override_constants/margin_top = 120
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 

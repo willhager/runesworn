@@ -7,47 +7,59 @@
 bg_color = Color(0.254902, 0.113725, 0.192157, 1)
 
 [node name="PopupPanel" type="PopupPanel"]
-size = Vector2i(8, 8)
+size = Vector2i(250, 300)
 visible = true
 script = ExtResource("1_75wrl")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_wnlnb")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="Panel" type="Panel" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_wnlnb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
-size_flags_vertical = 6
 theme = ExtResource("2_vy6iq")
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 30
 autowrap_mode = 2
 
-[node name="Text" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Text" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
-size_flags_vertical = 6
 theme = ExtResource("2_vy6iq")
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
 autowrap_mode = 2

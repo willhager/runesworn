@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbmuj8xuodb32"]
+[gd_scene load_steps=13 format=3 uid="uid://cbmuj8xuodb32"]
 
 [ext_resource type="Script" uid="uid://dpb4o8vpit7ey" path="res://scenes/classselection/class_selection.gd" id="1_jf164"]
 [ext_resource type="Texture2D" uid="uid://bcvu54arr4ieb" path="res://resources/bg3.png" id="2_o4efh"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bltodmf2om38f" path="res://resources/book/page-turn-2.png" id="5_qsdcd"]
 [ext_resource type="Texture2D" uid="uid://bcyd7v2hfpm0w" path="res://resources/book/page-turn-3.png" id="6_b3v8d"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="8_2ohqj"]
-[ext_resource type="Texture2D" uid="uid://dgb81cbytwnpo" path="res://resources/panel-tall.png" id="9_3uj68"]
+[ext_resource type="PackedScene" uid="uid://616j3nwlymir" path="res://scenes/infopanel/info_panel.tscn" id="9_qd6yl"]
 [ext_resource type="PackedScene" uid="uid://b7evvdwrabegw" path="res://scenes/settings_menu.tscn" id="10_o4efh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ky6ep"]
@@ -33,9 +33,6 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ohqj"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o4efh"]
-texture = ExtResource("9_3uj68")
-
 [node name="class_selection" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -57,7 +54,7 @@ texture = ExtResource("2_o4efh")
 [node name="BookControl" type="Control" parent="."]
 layout_mode = 1
 anchor_left = 0.2
-anchor_top = 0.01
+anchor_top = 0.05
 anchor_right = 0.85
 anchor_bottom = 0.922
 grow_horizontal = 2
@@ -74,7 +71,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Book" type="AnimatedSprite2D" parent="BookControl/BookContainer"]
-scale = Vector2(8, 8)
+scale = Vector2(1.06, 1.06)
 sprite_frames = SubResource("SpriteFrames_ky6ep")
 
 [node name="ClassContainer" type="VBoxContainer" parent="BookControl"]
@@ -233,44 +230,24 @@ theme = ExtResource("8_2ohqj")
 theme_override_font_sizes/font_size = 40
 text = "Back"
 
-[node name="InfoPanel" type="Panel" parent="."]
+[node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.015
-anchor_top = 0.021
-anchor_right = 0.17
-anchor_bottom = 0.977
-theme_override_styles/panel = SubResource("StyleBoxTexture_o4efh")
-
-[node name="MarginContainer" type="MarginContainer" parent="InfoPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.2
+anchor_top = 0.03
+anchor_right = 0.85
+anchor_bottom = 0.05
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 70
-theme_override_constants/margin_top = 70
-theme_override_constants/margin_right = 70
-theme_override_constants/margin_bottom = 70
-
-[node name="SideInfoContainer" type="VBoxContainer" parent="InfoPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="HealthLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
-layout_mode = 2
-theme = ExtResource("8_2ohqj")
-theme_override_font_sizes/font_size = 40
-text = "Health: "
+rotation = 0.00140592
+theme = ExtResource("3_xdinh")
+theme_override_font_sizes/font_size = 60
+text = "SELECT YOUR CLASS"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="LevelLabel" type="Label" parent="InfoPanel/MarginContainer/SideInfoContainer"]
-layout_mode = 2
-theme = ExtResource("8_2ohqj")
-theme_override_font_sizes/font_size = 40
-text = "Level: "
-horizontal_alignment = 1
+[node name="InfoPanel" parent="." instance=ExtResource("9_qd6yl")]
+layout_mode = 1
 
 [node name="SettingsMenu" parent="." instance=ExtResource("10_o4efh")]
 visible = false

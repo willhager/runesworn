@@ -1,19 +1,22 @@
 extends Control
 
 @onready var bookNode : Node = get_node("BookControl/BookContainer/Book")
+
 @onready var diceLabelNode : Node = get_node("BookControl/DiceContainer/DiceLabel")
+
 @onready var nextButtonNode : Node = get_node("BookControl/NextButton")
+
 @onready var diceListNode : Node = get_node("BookControl/RightPageContainer/DLPanel/DiceList")
+
 @onready var dieButton1Node : Node = get_node("BookControl/DiceContainer/DieButton1")
 @onready var dieButton2Node : Node = get_node("BookControl/DiceContainer/DieButton2")
 @onready var dieButton3Node : Node = get_node("BookControl/DiceContainer/DieButton3")
 @onready var dieButton4Node : Node = get_node("BookControl/DiceContainer/DieButton4")
 @onready var dieButton5Node : Node = get_node("BookControl/DiceContainer/DieButton5")
 @onready var diceContainerNode : Node = get_node("BookControl/DiceContainer")
+
 @onready var rightPageContainerNode : Node = get_node("BookControl/RightPageContainer")
-@onready var classLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/ClassLabel")
-@onready var healthLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/HealthLabel")
-@onready var levelLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/LevelLabel")
+
 @onready var backButtonNode : Node = get_node("BookControl/BackButton")
 
 var dieButtonPath = "BookControl/DiceContainer/DieButton"
@@ -36,9 +39,6 @@ var box4 = false
 var box5 = false
 
 func _ready():
-	classLabelNode.text = Global.playerType
-	healthLabelNode.text = "Health:" + str(Global.health)
-	levelLabelNode.text = "Level: " + "0"
 	diceListNode.clear()
 	var dice_list = DiceData.dice_data.get("dice", [])
 	var die_index = 0

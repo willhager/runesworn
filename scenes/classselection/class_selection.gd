@@ -1,26 +1,29 @@
 extends Control
 
 @onready var titleTextNode : Node = get_node("BookControl/ClassContainer/ClassTitle")
+
 @onready var goliathButtonNode : Node = get_node("BookControl/ClassContainer/GoliathButton")
 @onready var assassinButtonNode : Node = get_node("BookControl/ClassContainer/AssassinButton")
 @onready var championButtonNode : Node = get_node("BookControl/ClassContainer/ChampionButton")
-@onready var classDescriptionNode : Node = get_node("BookControl/RightPageContainer/CDPanel/ClassDescription")
+
 @onready var bookNode : Node = get_node("BookControl/BookContainer/Book")
+
 @onready var diceListNode : Node = get_node("BookControl/RightPageContainer/DLPanel/DiceList")
+@onready var classDescriptionNode : Node = get_node("BookControl/RightPageContainer/CDPanel/ClassDescription")
+
 @onready var nextButtonNode : Node = get_node("BookControl/NextButton")
 @onready var classContainerNode : Node = get_node("BookControl/ClassContainer")
 @onready var rightPageContainerNode : Node = get_node("BookControl/RightPageContainer")
-@onready var healthLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/HealthLabel")
-@onready var levelLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/LevelLabel")
+
 @onready var modifiersLabelNode : Node = get_node("BookControl/RightPageContainer/MPanel/Modifiers")
+
 @onready var backButtonNode : Node = get_node("BookControl/BackButton")
+
 
 var playerType : String
 var classSelected : bool = false
 
 func _ready() -> void :
-	healthLabelNode.text = "Health:" + str(Global.health)
-	levelLabelNode.text = "Level:" + "0"
 	nextButtonNode.disabled = true
 	
 func start_class_selection():
@@ -39,9 +42,8 @@ func _on_goliath_button_pressed():
 	else :
 		populateDiceList()
 	classDescriptionNode.text = "The Wall: Stacks extra shield for use in later turns."
-	modifiersLabelNode.text = "Coming soon!"
 	modifiersLabelNode.text = "-Extra shields do damage after heal phase\n-Gain additional 3 shield per turn\n"
-	healthLabelNode.text = "Health:" + str(Global.health)
+	$InfoPanel.full_update()
 	classSelected = true
 	nextButtonNode.disabled = false
 
@@ -56,7 +58,7 @@ func _on_assassin_button_pressed():
 		populateDiceList()
 	classDescriptionNode.text = "The Dagger: Landed damage inflicts a poison counter. Enemy takes damage equal to poison counter after heal."
 	modifiersLabelNode.text = "Coming soon!"
-	healthLabelNode.text = "Health:" + str(Global.health)
+	$InfoPanel.full_update()
 	classSelected = true
 	nextButtonNode.disabled = false
 
@@ -71,8 +73,8 @@ func _on_champion_button_pressed():
 		populateDiceList()
 	classDescriptionNode.text = "The Chain: 3 or more selected attack rolls allows for selection of another die."
 	modifiersLabelNode.text = "Coming soon!"
-	modifiersLabelNode.text = "-Gain x2 multiplier to highest attack roll\n-Chained rolls apply to any face type"
-	healthLabelNode.text = "Health:" + str(Global.health)
+	modifiersLabelNode.text = "-Gain x2 multiplier to highest attack roll\n-The Chain applies to any face type"
+	$InfoPanel.full_update()
 	classSelected = true
 	nextButtonNode.disabled = false
 	

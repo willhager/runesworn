@@ -1,0 +1,111 @@
+[gd_scene load_steps=8 format=3 uid="uid://616j3nwlymir"]
+
+[ext_resource type="Script" uid="uid://ca4ov8350j2se" path="res://scenes/infopanel/info_panel.gd" id="1_ei8im"]
+[ext_resource type="Texture2D" uid="uid://dgb81cbytwnpo" path="res://resources/panel-tall.png" id="2_brah4"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="3_50xxa"]
+[ext_resource type="Script" uid="uid://dnmie5epnjb7b" path="res://scenes/infopanel/modifier_1.gd" id="4_50xxa"]
+[ext_resource type="Script" uid="uid://c4mrpireebn0" path="res://scenes/infopanel/modifier_2.gd" id="5_cbkqm"]
+[ext_resource type="Script" uid="uid://ccnfja7ondwr1" path="res://scenes/infopanel/modifier_3.gd" id="6_nldqf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nldqf"]
+texture = ExtResource("2_brah4")
+
+[node name="InfoPanel" type="Control"]
+layout_mode = 3
+anchor_left = 0.015
+anchor_top = 0.021
+anchor_right = 0.2
+anchor_bottom = 0.977
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ei8im")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nldqf")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 60
+
+[node name="SideInfoContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ClassLabel" type="Label" parent="Panel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("3_50xxa")
+theme_override_font_sizes/font_size = 40
+text = "Class"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="Panel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("3_50xxa")
+theme_override_font_sizes/font_size = 40
+text = "Health:"
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Panel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("3_50xxa")
+theme_override_font_sizes/font_size = 40
+text = "Level:"
+horizontal_alignment = 1
+
+[node name="ModifiersLabel" type="Label" parent="Panel/MarginContainer/SideInfoContainer"]
+layout_mode = 2
+theme = ExtResource("3_50xxa")
+theme_override_font_sizes/font_size = 35
+text = "Modifiers:"
+horizontal_alignment = 1
+
+[node name="Modifier1" type="Label" parent="Panel/MarginContainer/SideInfoContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+mouse_filter = 0
+theme = ExtResource("3_50xxa")
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("4_50xxa")
+
+[node name="Modifier2" type="Label" parent="Panel/MarginContainer/SideInfoContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+mouse_filter = 0
+theme = ExtResource("3_50xxa")
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("5_cbkqm")
+
+[node name="Modifier3" type="Label" parent="Panel/MarginContainer/SideInfoContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+mouse_filter = 0
+theme = ExtResource("3_50xxa")
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("6_nldqf")
+
+[connection signal="mouse_entered" from="Panel/MarginContainer/SideInfoContainer/Modifier1" to="Panel/MarginContainer/SideInfoContainer/Modifier1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/MarginContainer/SideInfoContainer/Modifier1" to="Panel/MarginContainer/SideInfoContainer/Modifier1" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Panel/MarginContainer/SideInfoContainer/Modifier2" to="Panel/MarginContainer/SideInfoContainer/Modifier2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/MarginContainer/SideInfoContainer/Modifier2" to="Panel/MarginContainer/SideInfoContainer/Modifier2" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Panel/MarginContainer/SideInfoContainer/Modifier3" to="Panel/MarginContainer/SideInfoContainer/Modifier3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/MarginContainer/SideInfoContainer/Modifier3" to="Panel/MarginContainer/SideInfoContainer/Modifier3" method="_on_mouse_exited"]

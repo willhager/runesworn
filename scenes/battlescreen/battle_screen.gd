@@ -18,17 +18,10 @@ extends Control
 @onready var eRewardNode : Node = get_node("EInfoPanel/MarginContainer/VBoxContainer/EReward")
 @onready var eAbilitiesNode : Node = get_node("EInfoPanel/MarginContainer/VBoxContainer/EAbilities")
 
-@onready var pHealthNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/HealthLabel")
-@onready var levelLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/LevelLabel")
-@onready var classLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/ClassLabel")
-@onready var modifiersLabelNode : Node = get_node("InfoPanel/MarginContainer/SideInfoContainer/Modifiers")
-
-@onready var button1 : Node = get_node("BookControl/CircleControl/Circle/Button1")
-@onready var button2 : Node = get_node("BookControl/CircleControl/Circle/Button2")
-@onready var button3 : Node = get_node("BookControl/CircleControl/Circle/Button3")
-@onready var notesDescription : Node = get_node("BookControl/CircleControl/Circle/DescriptionContainer/NotesPanel/Notes")
-@onready var rewardDescription : Node = get_node("BookControl/CircleControl/Circle/DescriptionContainer/RewardPanel/Reward")
+@onready var circleControl : Node = get_node("BookControl/CircleControl")
 @onready var circleNode : Node = get_node("BookControl/CircleControl/Circle")
+@onready var ScreenLabelNode : Node = get_node("Label")
+
 @onready var circleStartNode : Node = get_node("CircleStart")
 @onready var nextButtonNode : Node = get_node("BookControl/NextButton")
 
@@ -37,11 +30,6 @@ extends Control
 
 @onready var rollButtonNode : Node = get_node("ButtonTray/VBoxContainer/RollButton")
 @onready var endTurnButtonNode : Node = get_node("ButtonTray/VBoxContainer/EndTurn")
-
-var enemies : Array
-var button1pressed : bool = false
-var button2pressed : bool = false
-var button3pressed : bool = false
 
 var pDiePath : String = "BookControl/PlayerDiceTray/PDiceContainer/Die"
 var pDiePath2 : String = "/CenterContainer/Faces"
@@ -85,12 +73,7 @@ var selectedText = "0/" + str(maxDieNum)
 func _ready() -> void:
 	update_encounters()
 	hideAllNodes()
-	classLabelNode.text = Global.playerType
-	modifiersLabelNode.text = Global.get_modifier_0() + Global.get_modifier_1() + Global.get_modifier_2()
 	health = Global.health
-	pHealthNode.text = healthLabelText + str(health) + "/" + str(Global.maxHealth)
-	levelLabelNode.text = "Level:" + str(Global.difficulty)
-	enemies = EncounterData.get_3_encounters(Global.difficulty)
 	rollButtonNode.disabled = true
 	endTurnButtonNode.disabled = true
 	endTurnButtonNode.disabled = true
@@ -125,22 +108,13 @@ func reready() :
 	hideAllNodes()
 	bookControlNode.remove_child(enemy_instance)
 	enemy_instance.queue_free()
-	classLabelNode.text = Global.playerType
-	pHealthNode.text = healthLabelText + str(health) + "/" + str(Global.maxHealth)
-	levelLabelNode.text = "Level:" + str(Global.difficulty)
-	enemies = EncounterData.get_3_encounters(Global.difficulty)
 	rollButtonNode.disabled = true
 	endTurnButtonNode.disabled = true
 	playerDiceTrayNode.show()
-	notesDescription.text = ""
-	rewardDescription.text = ""
-	button1pressed = false
-	button1.button_pressed = false
-	button2pressed = false
-	button2.button_pressed = false
-	button3pressed = false
-	button3.button_pressed = false
 	
+	circleControl.reready()
+	$InfoPanel.reready()
+	ScreenLabelNode.text = "Choose Your Path..."
 	showNodes_circleStart()
 	
 func update_encounters() -> void :
@@ -267,8 +241,6 @@ func _on_end_turn_pressed() -> void:
 	var eDamage = curDamage - enemy_instance.curEShield
 	var eExplosive = curExplosive - enemy_instance.curEShield
 	
-	print(curPiercing)
-	
 	if(eDamage > 0 || curPiercing > 0) :
 		enemy_instance.update_health_with_damage(curDamage, curPiercing)
 	if eExplosive > 0 :
@@ -281,7 +253,8 @@ func _on_end_turn_pressed() -> void:
 		health -= enemy_instance.curEPiercing
 	if health < 0 :
 		health = 0
-	pHealthNode.text = healthLabelText + str(health) + "/" + str(Global.maxHealth)
+	Global.health = health
+	$InfoPanel.update_health(health)
 	
 	if(health <= 0) :
 		clear()
@@ -326,8 +299,8 @@ func _on_end_turn_pressed() -> void:
 		goliathClear()
 	else :
 		clear()
-	
-	pHealthNode.text = healthLabelText + str(health) + "/" + str(Global.maxHealth)
+	Global.health = health
+	$InfoPanel.update_health(health)
 	
 func _on_die_0_pressed() -> void:
 	if(rolled) :
@@ -349,79 +322,14 @@ func _on_die_4_pressed() -> void:
 	if(rolled) :
 		dieButtonEffects(4)
 
-func _on_left_side_pressed() -> void:
-	if button1pressed :
-		notesDescription.text = ""
-		rewardDescription.text = ""
-		button1pressed = false
-	else :
-		button1pressed = true
-		button2pressed = false
-		button2.button_pressed = false
-		button3pressed = false
-		button3.button_pressed = false
-		Global.mapLoc = 2
-		notesDescription.text = EncounterData.get_encounter_by_index(Global.difficulty, enemies[Global.mapLoc].get("id")).get("notes")
-		rewardDescription.text = "Reward:" + str(EncounterData.get_encounter_by_index(Global.difficulty, enemies[Global.mapLoc].get("id")).get("reward"))
-
-func _on_top_pressed() -> void:
-	if button2pressed :
-		notesDescription.text = ""
-		rewardDescription.text = ""
-		button2pressed = false
-	else :
-		button2pressed = true
-		button1pressed = false
-		button1.button_pressed = false
-		button3pressed = false
-		button3.button_pressed = false
-		Global.mapLoc = 0
-		notesDescription.text = EncounterData.get_encounter_by_index(Global.difficulty, enemies[Global.mapLoc].get("id")).get("notes")
-		rewardDescription.text = "Reward:" + str(EncounterData.get_encounter_by_index(Global.difficulty, enemies[Global.mapLoc].get("id")).get("reward"))
-
-
-func _on_right_side_pressed() -> void:
-	if button3pressed :
-		notesDescription.text = ""
-		rewardDescription.text = ""
-		button3pressed = false
-	else :
-		button3pressed = true
-		button2pressed = false
-		button2.button_pressed = false
-		button1pressed = false
-		button1.button_pressed = false
-		Global.mapLoc = 1
-		notesDescription.text = EncounterData.get_encounter_by_index(Global.difficulty, enemies[Global.mapLoc].get("id")).get("notes")
-		rewardDescription.text = "Reward:" + str(EncounterData.get_encounter_by_index(Global.difficulty, enemies[Global.mapLoc].get("id")).get("reward"))
-
 func goliathClear() -> void :
-	curShield = curShield - enemy_instance.curEDamage
-	if curShield < 0 :
+	var golShield = curShield - enemy_instance.curEDamage
+	clear()
+	if golShield < 0 :
 		curShield = 0
-	curDamage = 0
-	curPiercing = 0
-	curHeal = 0
-	curExplosive = 0
-	curFreeze = 0
-	
-	rolled = false
-	numSelected = 0
-	selectedAttackDice = 0
-	
-	for i in range (0, 5) :
-		if selectedArry[i] == true :
-			var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
-			node.offset -= Vector2(20, 0)
-		selectedArry[i] = false
-	pSelectedNode.text = selectedText
-	pDamageNode.text = damageLabelText
-	pHealNode.text = healLabelText
+	else :
+		curShield = golShield
 	pShieldNode.text = shieldLabelText + str(curShield)
-	pExplosiveNode.text = explosiveLabelText
-	pFreezeNode.text = freezeLabelText
-	
-	enemy_instance.clear()
 	
 func clear() -> void :
 	curDamage = 0
@@ -460,7 +368,8 @@ func showNodes_circleStart() :
 	circleStartNode.play("circle_start")
 	
 func _on_next_button_pressed() -> void:
-	Global.enemy = EncounterData.get_encounter_by_index(Global.difficulty, enemies[Global.mapLoc].get("id"))
+	ScreenLabelNode.text = "Battle!"
+	Global.enemy = EncounterData.get_encounter_by_index(Global.difficulty, circleControl.getEnemies()[Global.mapLoc].get("id"))
 	var scene_res = load(Global.enemy.get("path"))
 	if scene_res is PackedScene :
 		var instance = scene_res.instantiate()
@@ -474,6 +383,7 @@ func _on_next_button_pressed() -> void:
 	if(Global.enemy.get("hasAbility")) : 
 		eAbilitiesNode.show()
 		eAbilitiesNode.text = "Abilities: \n" + Global.enemy.get("ability")
+		eAbilitiesNode.set_tooltip(Global.enemy.get("ability"), Global.enemy.get("abilityDescription"))
 	else :
 		eAbilitiesNode.hide()
 	

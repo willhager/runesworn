@@ -54,11 +54,22 @@ func get_modifier_0() -> String :
 	if(hasModifier0) :
 		match playerType :
 			"Goliath" :
-				return "-The Wall\n"
+				return "The Wall\n"
 			"Champion" :
-				return "-The Chain\n"
+				return "The Chain\n"
 			"Assassin" : 
-				return "-The Dagger\n"
+				return "The Dagger\n"
+	return ""
+	
+func get_modifier_0_tooltip() -> String :
+	if(hasModifier0) :
+		match playerType :
+			"Goliath" :
+				return "Stacks extra shield for use in later turns.\n"
+			"Champion" :
+				return "3 or more selected attack rolls allows for selection of another die.\n"
+			"Assassin" : 
+				return "Landed damage inflicts a poison counter. Enemy takes damage equal to poison counter after heal.\n"
 	return ""
 
 func get_modifier_1() -> String :
@@ -71,6 +82,17 @@ func get_modifier_1() -> String :
 			"Assassin" :
 				return "Coming soon!\n"
 	return ""
+	
+func get_modifier_1_tooltip() -> String :
+	if(hasModifier1) :
+		match playerType :
+			"Goliath" :
+				return "Extra shields do damage after heal phase.\n"
+			"Champion" :
+				return "Gain x2 multiplier to highest attack roll.\n"
+			"Assassin" :
+				return "Coming soon!\n"
+	return ""
 
 func get_modifier_2() -> String :
 	if(hasModifier2) :
@@ -79,6 +101,17 @@ func get_modifier_2() -> String :
 				return "Coming soon!\n"
 			"Champion" :
 				return "Coming soon!\n"
+			"Assassin" :
+				return "Coming soon!\n"
+	return ""
+	
+func get_modifier_2_tooltip() -> String :
+	if(hasModifier2) :
+		match playerType :
+			"Goliath" :
+				return "Gain additional 3 shield per turn.\n"
+			"Champion" :
+				return "The Chain applies to any face type.\n"
 			"Assassin" :
 				return "Coming soon!\n"
 	return ""
