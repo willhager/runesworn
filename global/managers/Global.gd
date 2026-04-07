@@ -47,8 +47,13 @@ var piercingEffectName = "piercing"
 var freezeEffectName = "freeze"
 var explosiveEffectName = "explosive"
 
+var seeded_run = false
+var random_seed = 123456
+
 func _ready() :
-	pass
+	if seeded_run :
+		seed(random_seed)
+	else : randomize()
 	
 func get_modifier_0() -> String :
 	if(hasModifier0) :

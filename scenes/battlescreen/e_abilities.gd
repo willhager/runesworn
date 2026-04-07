@@ -6,13 +6,14 @@ var tooltip_body : String
 func set_tooltip(title : String, body : String) :
 	tooltip_title = title
 	tooltip_body = body
-	print("tooltip set")
 	
+func clear_tooltip() :
+	tooltip_title = ""
+	tooltip_body = ""
 
 func _on_mouse_entered() :
 	if(tooltip_title) :
 		tooltip_manager.show_tooltip(tooltip_title, tooltip_body, Vector2(1425, 260))
-		print("tooltip shown")
 	
 func _on_mouse_exited() :
 	if(tooltip_title) :

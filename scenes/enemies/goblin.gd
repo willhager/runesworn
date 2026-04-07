@@ -30,8 +30,9 @@ var curEHeal : int
 var curEShield : int
 var curEPiercing : int
 var curEPoisonCounter : int
-var EDice : Array[String]
+var EDice : Array[Dictionary]
 var eDiceRolls : Array[Dictionary]
+var freezeCounter : Array[int]
 
 var addToPoison : bool = false
 
@@ -43,9 +44,9 @@ func _ready() -> void :
 	EDice.resize(3)
 	eDiceRolls.resize(3)
 	
-	EDice[0] = "Barbarian's Die"
-	EDice[1] = "Barbarian's Die"
-	EDice[2] = "Healer's Die"
+	EDice[0] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[2] = DiceData.get_die_by_name("Healer's Die")
 	
 	#set faces from dice dictionary
 	for i in range(0, 3) :
@@ -55,7 +56,7 @@ func _ready() -> void :
 		dieTexture.add_animation("faces")
 		dieTexture.set_animation_speed("faces", 15)
 		for j in range(0, 6) :
-			dieTexture.add_frame("faces", load(DiceData.get_die_by_name(EDice[i]).get("faces")[j].get("sprite")))
+			dieTexture.add_frame("faces", load(EDice[i].get("faces")[j].get("sprite")))
 		node.set_sprite_frames(dieTexture)
 		node.set_frame(0)
 		node.play("faces")
@@ -76,7 +77,7 @@ func roll_eDice() -> void :
 		eNode.pause()
 		
 	for i in range(0, 3) :
-		eDiceRolls[i] = DiceData.roll_die(EDice[i])
+		eDiceRolls[i] = DiceData.roll_die(EDice[i].get("name"))
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(eDiceRolls[i].get("index"))
 	
@@ -108,6 +109,21 @@ func roll_eDice() -> void :
 		eDamageNode.text = "D:" + str(curEDamage)
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
+	
+func freeze_dice(curFreeze : int) -> void :
+	var pool = [0, 1, 2]
+	pool.shuffle()
+	for i in range(0, curFreeze) :
+		var frozenNode = get_node(eDieSpritePath + str(pool[i]) + eDieSpritePath2 + str(pool[i]))
+		eDiceRolls[pool[i]].set("freeze", "true")
+		frozenNode.offset += Vector2(40, 0)
+		freezeCounter[pool[i]] += 1
+		
+func update_freeze() -> void :
+	for i in range(0, 3) :
+		freezeCounter[i] -= 1
+		if freezeCounter[i] <= 0 : freezeCounter[i] = 0
+
 
 func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
 	var eDamage = curDamage - curEShield
@@ -159,7 +175,9 @@ func clear() -> void :
 	
 	for i in range(0, 3) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
-		eNode.offset = Vector2(0, 0)
+		if EDice[i].get("freeze") == "true" :
+			eNode.offset=Vector2(40, 0)
+		else : eNode.offset = Vector2(0, 0)
 	
 	
 func hideAllNodes() -> void :

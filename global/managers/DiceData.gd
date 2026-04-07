@@ -3,7 +3,6 @@ extends Node
 var dice_data: Dictionary = {}
 
 func _ready():
-	randomize()  # Seed the RNG
 	load_dice_data()
 
 func load_dice_data():

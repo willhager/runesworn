@@ -7,6 +7,9 @@ func roll_eDice() -> void :
 func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
 	push_warning("function \"update_health_with_damage()\" not implemented in enemy")
 	
+func freeze_dice(curFreeze : int) -> void :
+	push_warning("function \"freeze_dice()\" not implemented in enemy")
+	
 func update_health_with_aoe(aoeDamage : int) :
 	push_warning("function \"update_health_with_aoe()\" not implemented in enemy")
 	

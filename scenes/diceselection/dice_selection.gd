@@ -171,4 +171,6 @@ func _on_dice_list_item_hovered(index : int) -> void:
 					infoNode.text = "Deals " + str(int(value)) + " damage, skips shield."
 				explosiveEffectName :
 					infoNode.text = "Deals " + str(int(value)) + " damage, spread to all enemies."
+				freezeEffectName :
+					infoNode.text = "Freezes a random enemy die for " + str(int(value)) + "turns"
 				

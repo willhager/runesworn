@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://0rsco4j5cktx"]
+[gd_scene load_steps=48 format=3 uid="uid://0rsco4j5cktx"]
 
 [ext_resource type="Script" uid="uid://cpcwu0n1xrylf" path="res://scenes/battlescreen/battle_screen.gd" id="1_iugxu"]
 [ext_resource type="Texture2D" uid="uid://da67qyndk2wpn" path="res://resources/dungeonbg.png" id="2_vjihi"]
@@ -23,9 +23,11 @@
 [ext_resource type="Texture2D" uid="uid://p0psg2pigqil" path="res://resources/panel-square.png" id="20_wg150"]
 [ext_resource type="PackedScene" uid="uid://616j3nwlymir" path="res://scenes/infopanel/info_panel.tscn" id="22_15bqh"]
 [ext_resource type="Texture2D" uid="uid://4puhoh2i8nr0" path="res://resources/red-rect.png" id="23_dfu5w"]
+[ext_resource type="Script" uid="uid://dv3xytxj2yjut" path="res://scenes/battlescreen/e_info_panel.gd" id="23_j2lwq"]
 [ext_resource type="Script" uid="uid://csgottohl4yrk" path="res://scenes/battlescreen/e_abilities.gd" id="23_nt5ra"]
 [ext_resource type="PackedScene" uid="uid://dypq31df1pbjx" path="res://scenes/battlescreen/victory.tscn" id="24_t67x6"]
 [ext_resource type="PackedScene" uid="uid://0yfrbs8q0fih" path="res://scenes/battlescreen/defeat.tscn" id="25_i71ea"]
+[ext_resource type="Script" uid="uid://l5hqsxp2lr1b" path="res://scenes/battlescreen/progress_tray.gd" id="25_oqtd8"]
 [ext_resource type="Theme" uid="uid://cdd3nsxptbpdn" path="res://resources/themes/main_theme.tres" id="25_wl6is"]
 [ext_resource type="PackedScene" uid="uid://b7evvdwrabegw" path="res://scenes/settings_menu.tscn" id="26_341mp"]
 [ext_resource type="Texture2D" uid="uid://bmvy5xbxwx8o7" path="res://resources/panel-wide.png" id="27_ubuyo"]
@@ -612,7 +614,9 @@ anchor_left = 0.864
 anchor_top = 0.1
 anchor_right = 0.99
 anchor_bottom = 0.35
+rotation = -0.00267314
 theme_override_styles/panel = SubResource("StyleBoxTexture_c5bog")
+script = ExtResource("23_j2lwq")
 
 [node name="MarginContainer" type="MarginContainer" parent="EInfoPanel"]
 layout_mode = 1
@@ -671,6 +675,7 @@ anchor_bottom = 0.95
 scale = Vector2(1, 1.00447)
 theme = ExtResource("15_16put")
 theme_override_styles/panel = SubResource("StyleBoxTexture_qm3lx")
+script = ExtResource("25_oqtd8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ProgressTray"]
 layout_mode = 1
