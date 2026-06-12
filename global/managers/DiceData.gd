@@ -30,7 +30,10 @@ func get_die_by_index(dindex: int) -> Dictionary:
 			return die
 	return {}
 
-##Returns a random face from the "faces" dictionary of the die from input
+## Returns a random face from the "faces" dictionary of the die from input
+## Input: A single string representing the name of the die to be rolled
+## Output: A dictionary containing a face (index, effect, value, sprite, weight)
+## Edge cases: returns an empty dict {} if die name isn't in database
 func roll_die(die_name: String) -> Dictionary:
 	var die = get_die_by_name(die_name)
 	if die:

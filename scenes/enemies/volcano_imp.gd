@@ -5,8 +5,6 @@ extends enemy_template
 #health: 6-10
 #diceNum: 2
 
-#IMPLEMENT ABILITY
-
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
 @onready var eHealNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHeal")
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
@@ -30,8 +28,10 @@ var curEHeal : int
 var curEShield : int
 var curEPiercing : int
 var curEPoisonCounter : int
-var EDice : Array[String]
+var EDice : Array[Dictionary]
 var eDiceRolls : Array[Dictionary]
+
+var freezeCounter : Array[int]
 
 var addToPoison : bool = false
 
@@ -43,9 +43,10 @@ func _ready() -> void :
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	EDice.resize(2)
 	eDiceRolls.resize(2)
+	freezeCounter.resize(2)
 	
-	EDice[0] = "Beginner's Die"
-	EDice[1] = "Mosquito's Die"
+	EDice[0] = DiceData.get_die_by_name("Beginner's Die")
+	EDice[1] = DiceData.get_die_by_name("Mosquito's Die")
 	
 	#set faces from dice dictionary
 	for i in range(0, 2) :
@@ -55,7 +56,7 @@ func _ready() -> void :
 		dieTexture.add_animation("faces")
 		dieTexture.set_animation_speed("faces", 15)
 		for j in range(0, 6) :
-			dieTexture.add_frame("faces", load(DiceData.get_die_by_name(EDice[i]).get("faces")[j].get("sprite")))
+			dieTexture.add_frame("faces", load(EDice[i].get("faces")[j].get("sprite")))
 		node.set_sprite_frames(dieTexture)
 		node.set_frame(0)
 		node.play("faces")
@@ -76,14 +77,21 @@ func roll_eDice() -> void :
 		eNode.pause()
 		
 	for i in range(0, 2) :
-		eDiceRolls[i] = DiceData.roll_die(EDice[i])
+		eDiceRolls[i] = DiceData.roll_die(EDice[i].get("name"))
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(eDiceRolls[i].get("index"))
 	
 	var indices : Array
 	var pool = [0, 1]
-	pool.shuffle() 
-	indices = pool.slice(0, 2)
+	for value in pool.duplicate() :
+		if EDice[value].get("freeze") == true :
+			pool.erase(value)
+			
+	pool.shuffle()
+	if len(pool) < 2 :
+		indices = pool
+	else :
+		indices = pool.slice(0, 2)
 	
 	await get_tree().create_timer(0.3).timeout
 
@@ -111,6 +119,28 @@ func roll_eDice() -> void :
 	
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
+	
+func freeze_dice(curFreeze : int) -> void :
+	var pool = [0, 1]
+	pool.shuffle()
+	if curFreeze > len(pool) : 
+		curFreeze = len(pool)
+	for i in range(0, curFreeze) :
+		var frozenNode = get_node(eDieSpritePath + str(pool[i]) + eDieSpritePath2 + str(pool[i]))
+		EDice[pool[i]].set("freeze", true)
+		frozenNode.offset += Vector2(40, 0)
+		if freezeCounter[pool[i]] <= 0 :
+			freezeCounter[pool[i]] = 2
+		else : freezeCounter[pool[i]] += 1
+		
+func update_freeze() -> void :
+	for i in range(0, 2) :
+		freezeCounter[i] -= 1
+		if freezeCounter[i] <= 0 : 
+			freezeCounter[i] = 0
+			EDice[i].set("freeze", false)
+	print("[Update Freeze]")
+	print(freezeCounter)
 
 func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
 	var eDamage = curDamage - curEShield
@@ -160,9 +190,13 @@ func clear() -> void :
 	eHealNode.text = "H:"
 	eShieldNode.text = "S:"
 	
+	update_freeze()
+	
 	for i in range(0, 2) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
-		eNode.offset = Vector2(0, 0)
+		if EDice[i].get("freeze") == true :
+			eNode.offset=Vector2(40, 0)
+		else : eNode.offset = Vector2(0, 0)
 		
 	turnIndex += 1
 	

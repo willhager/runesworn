@@ -246,6 +246,8 @@ func _on_end_turn_pressed() -> void:
 	selectedAttackDice = 0
 	maxDieNum = 3
 	
+	print("[on_end_turn_pressed]")
+	print(curFreeze)
 	enemy_instance.freeze_dice(curFreeze)
 	
 	var eDamage = curDamage - enemy_instance.curEShield

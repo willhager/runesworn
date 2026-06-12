@@ -41,7 +41,7 @@ var curEPoisonCounter : int
 
 var addToPoison : bool = false
 
-var EDice : Array[String]
+var EDice : Array[Dictionary]
 
 var eDiceRolls1 : Array[Dictionary]
 var eDiceRolls2 : Array[Dictionary]
@@ -71,20 +71,20 @@ func _ready() -> void :
 	eDiceRolls3.resize(2)
 
 	
-	EDice[0] = "Beginner's Die"
-	EDice[1] = "Barbarian's Die"
-	EDice[2] = "Beginner's Die"
-	EDice[3] = "Barbarian's Die"
-	EDice[4] = "Barbarian's Die"
-	EDice[5] = "Barbarian's Die"
+	EDice[0] = DiceData.get_die_by_name("Beginner's Die")
+	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[2] = DiceData.get_die_by_name("Beginner's Die")
+	EDice[3] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[4] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[5] = DiceData.get_die_by_name("Barbarian's Die")
 	
 	#set faces from dice dictionary
-	set_eDice_faces(eDie0, EDice[0])
-	set_eDice_faces(eDie1, EDice[1])
-	set_eDice_faces(eDie2, EDice[2])
-	set_eDice_faces(eDie3, EDice[3])
-	set_eDice_faces(eDie4, EDice[4])
-	set_eDice_faces(eDie5, EDice[5])
+	set_eDice_faces(eDie0, EDice[0].get("name"))
+	set_eDice_faces(eDie1, EDice[1].get("name"))
+	set_eDice_faces(eDie2, EDice[2].get("name"))
+	set_eDice_faces(eDie3, EDice[3].get("name"))
+	set_eDice_faces(eDie4, EDice[4].get("name"))
+	set_eDice_faces(eDie5, EDice[5].get("name"))
 	
 		
 	if(Global.playerType == "Assassin") :
@@ -128,20 +128,20 @@ func roll_eDice() -> void :
 	eDie5.pause()
 	
 	if goblin1Alive :
-		eDiceRolls1[0] = DiceData.roll_die(EDice[0])
-		eDiceRolls1[1] = DiceData.roll_die(EDice[1])
+		eDiceRolls1[0] = DiceData.roll_die(EDice[0].get("name"))
+		eDiceRolls1[1] = DiceData.roll_die(EDice[1].get("name"))
 		eDie0.set_frame(eDiceRolls1[0].get("index"))
 		eDie1.set_frame(eDiceRolls1[1].get("index"))
 	
 	if goblin2Alive :
-		eDiceRolls2[0] = DiceData.roll_die(EDice[2])
-		eDiceRolls2[1] = DiceData.roll_die(EDice[3])
+		eDiceRolls2[0] = DiceData.roll_die(EDice[2].get("name"))
+		eDiceRolls2[1] = DiceData.roll_die(EDice[3].get("name"))
 		eDie2.set_frame(eDiceRolls2[0].get("index"))
 		eDie3.set_frame(eDiceRolls2[1].get("index"))
 		
 	if goblin3Alive :
-		eDiceRolls3[0] = DiceData.roll_die(EDice[4])
-		eDiceRolls3[1] = DiceData.roll_die(EDice[5])
+		eDiceRolls3[0] = DiceData.roll_die(EDice[4].get("name"))
+		eDiceRolls3[1] = DiceData.roll_die(EDice[5].get("name"))
 		eDie4.set_frame(eDiceRolls3[0].get("index"))
 		eDie5.set_frame(eDiceRolls3[1].get("index"))
 	

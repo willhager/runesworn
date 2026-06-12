@@ -30,8 +30,8 @@ var curEHeal : int
 var curEShield : int
 var curEPiercing : int
 var curEPoisonCounter : int
-var EDice : Array[Dictionary]
-var eDiceRolls : Array[Dictionary]
+var EDice : Array[Dictionary] # Array of dice themselves, should remain static aside from freeze
+var eDiceRolls : Array[Dictionary] # Array of dice rolls, should contain individual faces as values
 var freezeCounter : Array[int]
 
 var addToPoison : bool = false
@@ -43,6 +43,7 @@ func _ready() -> void :
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	EDice.resize(3)
 	eDiceRolls.resize(3)
+	freezeCounter.resize(3)
 	
 	EDice[0] = DiceData.get_die_by_name("Barbarian's Die")
 	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
@@ -83,8 +84,15 @@ func roll_eDice() -> void :
 	
 	var indices : Array
 	var pool = [0, 1, 2]
-	pool.shuffle() 
-	indices = pool.slice(0, 2)
+	for value in pool.duplicate() :
+		if EDice[value].get("freeze") == true :
+			pool.erase(value)
+			
+	pool.shuffle()
+	if len(pool) < 2 :
+		indices = pool
+	else :
+		indices = pool.slice(0, 2)
 	
 	await get_tree().create_timer(0.3).timeout
 
@@ -113,17 +121,24 @@ func roll_eDice() -> void :
 func freeze_dice(curFreeze : int) -> void :
 	var pool = [0, 1, 2]
 	pool.shuffle()
+	if curFreeze > len(pool) : 
+		curFreeze = len(pool)
 	for i in range(0, curFreeze) :
 		var frozenNode = get_node(eDieSpritePath + str(pool[i]) + eDieSpritePath2 + str(pool[i]))
-		eDiceRolls[pool[i]].set("freeze", "true")
+		EDice[pool[i]].set("freeze", true)
 		frozenNode.offset += Vector2(40, 0)
-		freezeCounter[pool[i]] += 1
+		if freezeCounter[pool[i]] == 0 :
+			freezeCounter[pool[i]] = 2
+		else : freezeCounter[pool[i]] += 1
+	for j in range(0, 3):
+		print(EDice[j].get("freeze"))
 		
 func update_freeze() -> void :
 	for i in range(0, 3) :
 		freezeCounter[i] -= 1
-		if freezeCounter[i] <= 0 : freezeCounter[i] = 0
-
+		if freezeCounter[i] <= 0 : 
+			freezeCounter[i] = 0
+			EDice[i].set("freeze", false)
 
 func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
 	var eDamage = curDamage - curEShield
@@ -167,17 +182,23 @@ func clear() -> void :
 	curEHeal = 0
 	curEPiercing = 0
 	
+	
 	addToPoison = false
 	
 	eDamageNode.text = "D:"
 	eHealNode.text = "H:"
 	eShieldNode.text = "S:"
 	
+	update_freeze()
+	
 	for i in range(0, 3) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
-		if EDice[i].get("freeze") == "true" :
+		eNode.offset = Vector2(0, 0)
+	
+	for i in range(0, 3) :
+		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
+		if EDice[i].get("freeze") == true :
 			eNode.offset=Vector2(40, 0)
-		else : eNode.offset = Vector2(0, 0)
 	
 	
 func hideAllNodes() -> void :
