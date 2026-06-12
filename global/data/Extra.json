@@ -1,0 +1,13 @@
+	{
+		"id" : 9,
+		"name" : "The Cooler",
+		"faces" : [
+			{ "index" : 0, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 1, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 2, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 3, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 4, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+			{"index" : 5, "effect" : "freeze", "value" : 1, "sprite" : "resources/faces/freeze/1-freeze.png", "weight" : 1},
+		],
+		"freeze" : false
+	}
