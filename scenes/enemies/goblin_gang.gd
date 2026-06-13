@@ -212,41 +212,52 @@ func roll_eDice() -> void :
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
 
-func update_health_with_damage(curDamage : int, curPiercing : int = 0) -> void :
+func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+	var curDamage = 0
+	var curPiercing = 0
+	for roll in rolls :
+		match roll.get("effect") :
+			Global.damageEffectName :
+				curDamage += roll.get("value")
+			Global.piercingEffectName :
+				curPiercing += roll.get("value")
+	
 	var eDamage = curDamage - curEShield
 	if(eDamage > 0 || curPiercing > 0) :
 		if(Global.playerType == "Assassin") :
 			addToPoison = true
-	if goblin1Alive :
-		goblin1Health -= eDamage
-		if (curPiercing > 0) :
-			goblin1Health -= curPiercing
-		if goblin1Health <= 0 :
-			goblin1HealthNode.text = "H:0"
-			goblin1NameNode.text = "Goblin (DEAD)"
-			goblin1Alive = false
-		else :
-			goblin1HealthNode.text = "H:" + str(goblin1Health)
-	elif goblin2Alive :
-		goblin2Health -= eDamage
-		if (curPiercing > 0) :
-			goblin2Health -= curPiercing
-		if goblin2Health <= 0 :
-			goblin2HealthNode.text = "H:0"
-			goblin2NameNode.text = "Goblin (DEAD)"
-			goblin2Alive = false
-		else :
-			goblin2HealthNode.text = "H:" + str(goblin2Health)
-	elif goblin3Alive :
-		goblin3Health -= eDamage
-		if (curPiercing > 0) :
-			goblin3Health -= curPiercing
-		if goblin3Health <= 0 :
-			goblin3HealthNode.text = "H:0"
-			goblin3NameNode.text = "Goblin (DEAD)"
-			goblin3Alive = false
-		else :
-			goblin3HealthNode.text = "H:" + str(goblin3Health)	
+			
+	if eDamage > 0 :
+		if goblin1Alive :
+			goblin1Health -= eDamage
+			if (curPiercing > 0) :
+				goblin1Health -= curPiercing
+			if goblin1Health <= 0 :
+				goblin1HealthNode.text = "H:0"
+				goblin1NameNode.text = "Goblin (DEAD)"
+				goblin1Alive = false
+			else :
+				goblin1HealthNode.text = "H:" + str(goblin1Health)
+		elif goblin2Alive :
+			goblin2Health -= eDamage
+			if (curPiercing > 0) :
+				goblin2Health -= curPiercing
+			if goblin2Health <= 0 :
+				goblin2HealthNode.text = "H:0"
+				goblin2NameNode.text = "Goblin (DEAD)"
+				goblin2Alive = false
+			else :
+				goblin2HealthNode.text = "H:" + str(goblin2Health)
+		elif goblin3Alive :
+			goblin3Health -= eDamage
+			if (curPiercing > 0) :
+				goblin3Health -= curPiercing
+			if goblin3Health <= 0 :
+				goblin3HealthNode.text = "H:0"
+				goblin3NameNode.text = "Goblin (DEAD)"
+				goblin3Alive = false
+			else :
+				goblin3HealthNode.text = "H:" + str(goblin3Health)
 
 func update_health_with_heal() -> void :
 	if goblin1Alive:
@@ -273,17 +284,24 @@ func update_health_with_poison() -> void :
 		curEPoisonCounter += 1
 		ePoisonNode.text = "P: " + str(curEPoisonCounter)
 		
-func update_health_with_aoe(aoeDamage : int) -> void :
+func update_health_with_aoe(rolls : Array[Dictionary]) -> void :
+	var aoeDamage = 0
+	for roll in rolls :
+		match roll.get("effect") :
+			Global.explosiveEffectName :
+				aoeDamage += roll.get("value")
+	
 	var eExplosive = aoeDamage - curEShield
-	if(goblin1Alive) : 
-		goblin1Health -= eExplosive
-		goblin1HealthNode.text = "H:" + str(goblin1Health)
-	if(goblin2Alive) : 
-		goblin2Health -= eExplosive
-		goblin2HealthNode.text = "H:" + str(goblin2Health)
-	if(goblin3Alive) : 
-		goblin3Health -= eExplosive
-		goblin3HealthNode.text = "H:" + str(goblin3Health)
+	if eExplosive > 0 :
+		if(goblin1Alive) : 
+			goblin1Health -= eExplosive
+			goblin1HealthNode.text = "H:" + str(goblin1Health)
+		if(goblin2Alive) : 
+			goblin2Health -= eExplosive
+			goblin2HealthNode.text = "H:" + str(goblin2Health)
+		if(goblin3Alive) : 
+			goblin3Health -= eExplosive
+			goblin3HealthNode.text = "H:" + str(goblin3Health)
 	
 func get_max_health() -> String : 
 	return str(maxHealth)

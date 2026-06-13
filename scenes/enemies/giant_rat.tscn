@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cv0ydsy3n05cq"]
 
-[ext_resource type="Script" uid="uid://bed108h1b0g2a" path="res://scenes/enemies/goblin.gd" id="1_5v8aw"]
+[ext_resource type="Script" uid="uid://bxtv85o4k4bpn" path="res://scenes/enemies/giant_rat.gd" id="1_5v8aw"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_hocuv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_abxm6"]

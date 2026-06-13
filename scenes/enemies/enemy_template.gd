@@ -4,13 +4,13 @@ class_name enemy_template
 func roll_eDice() -> void :
 	push_warning("function \"roll_eDice()\" not implemented in enemy")
 	
-func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
+func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	push_warning("function \"update_health_with_damage()\" not implemented in enemy")
 	
-func freeze_dice(curFreeze : int) -> void :
+func freeze_dice(rolls : Array[Dictionary]) -> void :
 	push_warning("function \"freeze_dice()\" not implemented in enemy")
 	
-func update_health_with_aoe(aoeDamage : int) :
+func update_health_with_aoe(rolls : Array[Dictionary]) :
 	push_warning("function \"update_health_with_aoe()\" not implemented in enemy")
 	
 func update_health_with_heal() -> void :

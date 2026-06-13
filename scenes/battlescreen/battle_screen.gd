@@ -246,17 +246,10 @@ func _on_end_turn_pressed() -> void:
 	selectedAttackDice = 0
 	maxDieNum = 3
 	
-	print("[on_end_turn_pressed]")
-	print(curFreeze)
-	enemy_instance.freeze_dice(curFreeze)
+	var rolls = get_rolls()
 	
-	var eDamage = curDamage - enemy_instance.curEShield
-	var eExplosive = curExplosive - enemy_instance.curEShield
-	
-	if(eDamage > 0 || curPiercing > 0) :
-		enemy_instance.update_health_with_damage(curDamage, curPiercing)
-	if eExplosive > 0 :
-		enemy_instance.update_health_with_aoe(curExplosive)
+	enemy_instance.update_health_with_damage(rolls)
+	enemy_instance.update_health_with_aoe(rolls)
 		
 	var damage = enemy_instance.curEDamage - curShield
 	if(damage > 0) :
@@ -313,6 +306,13 @@ func _on_end_turn_pressed() -> void:
 		clear()
 	Global.health = health
 	$InfoPanel.update_health(health)
+	
+func get_rolls() -> Array[Dictionary] :
+	var ret : Array[Dictionary]
+	for i in range(0, pDiceRolls.size()) :
+		if selectedArry[i] :
+			ret.append(pDiceRolls[i])
+	return ret
 	
 func _on_die_0_pressed() -> void:
 	if(rolled) :

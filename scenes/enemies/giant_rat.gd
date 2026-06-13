@@ -1,8 +1,8 @@
 extends enemy_template
 
-#GOBLIN 
-#dice: beginner, barb, healer
-#health: 8-12
+#GIANT RAT 
+#dice: mosquito, swordsman, guardian
+#health: 4-8
 #diceNum: 3
 
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
@@ -45,9 +45,9 @@ func _ready() -> void :
 	eDiceRolls.resize(3)
 	freezeCounter.resize(3)
 	
-	EDice[0] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[2] = DiceData.get_die_by_name("Healer's Die")
+	EDice[0] = DiceData.get_die_by_name("Mosquito's Die")
+	EDice[1] = DiceData.get_die_by_name("Swordsman's Gambit")
+	EDice[2] = DiceData.get_die_by_name("Guardian's Die")
 	
 	#set faces from dice dictionary
 	for i in range(0, 3) :
@@ -118,31 +118,16 @@ func roll_eDice() -> void :
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
 
-"""
-func freeze_dice(curFreeze : int) -> void :
-	var pool = [0, 1, 2]
-	pool.shuffle()
-	if curFreeze > len(pool) : 
-		curFreeze = len(pool)
-	for i in range(0, curFreeze) :
-		var frozenNode = get_node(eDieSpritePath + str(pool[i]) + eDieSpritePath2 + str(pool[i]))
-		EDice[pool[i]].set("freeze", true)
-		frozenNode.offset += Vector2(40, 0)
-		if freezeCounter[pool[i]] == 0 :
-			freezeCounter[pool[i]] = 2
-		else : freezeCounter[pool[i]] += 1
-	for j in range(0, 3):
-		print(EDice[j].get("freeze"))
-		
-func update_freeze() -> void :
-	for i in range(0, 3) :
-		freezeCounter[i] -= 1
-		if freezeCounter[i] <= 0 : 
-			freezeCounter[i] = 0
-			EDice[i].set("freeze", false)
-"""
-
-func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
+func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+	var curDamage = 0
+	var curPiercing = 0
+	for roll in rolls :
+		match roll.get("effect") :
+			Global.damageEffectName :
+				curDamage += roll.get("value")
+			Global.piercingEffectName :
+				curPiercing += roll.get("value")
+	
 	var eDamage = curDamage - curEShield
 	if(eDamage > 0) :
 		enemyHealth -= eDamage
@@ -153,9 +138,15 @@ func update_health_with_damage(curDamage : int, curPiercing : int) -> void :
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
-func update_health_with_aoe(aoeDamage : int) :
+func update_health_with_aoe(rolls : Array[Dictionary]) :
+	var aoeDamage = 0
+	for roll in rolls :
+		match roll.get("effect") :
+			Global.explosiveEffectName :
+				aoeDamage += roll.get("value")
 	var eExplosive = aoeDamage - curEShield
-	enemyHealth -= eExplosive
+	if eExplosive > 0 :
+		enemyHealth -= eExplosive
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 
@@ -197,14 +188,5 @@ func clear() -> void :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.offset = Vector2(0, 0)
 	
-	"""
-	for i in range(0, 3) :
-		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
-		if EDice[i].get("freeze") == true :
-			eNode.offset=Vector2(40, 0)
-	"""
-	
-	
 func hideAllNodes() -> void :
 	$enemyDiceTray.visible = false
-	

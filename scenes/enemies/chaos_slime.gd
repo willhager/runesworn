@@ -129,20 +129,35 @@ func roll_eDice() -> void :
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
 
-func update_health_with_damage(pDamage : int, pPiercing : int) -> void :
-	eDamage = pDamage - curEShield
+func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+	var curDamage = 0
+	var curPiercing = 0
+	for roll in rolls :
+		match roll.get("effect") :
+			Global.damageEffectName :
+				curDamage += roll.get("value")
+			Global.piercingEffectName :
+				curPiercing += roll.get("value")
+	
+	var eDamage = curDamage - curEShield
 	if(eDamage > 0) :
 		enemyHealth -= eDamage
-	if (pPiercing > 0) :
-		enemyHealth -= pPiercing
-	if((eDamage > 0 || pPiercing > 0) && Global.playerType == "Assassin") :
+	if (curPiercing > 0) :
+		enemyHealth -= curPiercing
+	if((eDamage > 0 || curPiercing > 0) && Global.playerType == "Assassin") :
 		addToPoison = true
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
-func update_health_with_aoe(aoeDamage : int) :
+func update_health_with_aoe(rolls : Array[Dictionary]) :
+	var aoeDamage = 0
+	for roll in rolls :
+		match roll.get("effect") :
+			Global.explosiveEffectName :
+				aoeDamage += roll.get("value")
 	var eExplosive = aoeDamage - curEShield
-	enemyHealth -= eExplosive
+	if eExplosive > 0 :
+		enemyHealth -= eExplosive
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 

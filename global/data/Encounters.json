@@ -1,5 +1,5 @@
 {
-	"max1" : 5,
+	"max1" : 7,
 	"1" : [
 		{
 			"id" : 0,
@@ -115,6 +115,42 @@
 				"Barbarian's Die"
 			]
 		},
+		{
+			"id" : 6,
+			"weight" : 5,
+			"name" : "Giant Rat",
+			"notes" : "A truly massive vermin",
+			"hasText" : false,
+			"hasAbility" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/giant_rat.tscn",
+			"healthMin" : 4,
+			"healthMax" : 8,
+			"diceNum" : 3,
+			"dice" : [
+				"Mosquito's Die",
+				"Swordsman's Gambit",
+				"Guardian's Die"
+			]
+		},
+		{
+			"id" : 7,
+			"weight" : 5,
+			"name" : "",
+			"notes" : "A truly massive vermin",
+			"hasText" : false,
+			"hasAbility" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/giant_rat.tscn",
+			"healthMin" : 4,
+			"healthMax" : 8,
+			"diceNum" : 3,
+			"dice" : [
+				"Mosquito's Die",
+				"Swordsman's Gambit",
+				"Guardian's Die"
+			]
+		}
 	],
 	"max2" : 1,
 	"2" : [
