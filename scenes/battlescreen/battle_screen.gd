@@ -100,7 +100,13 @@ func _ready() -> void:
 	
 	#start "summoning circle"
 	showNodes_circleStart()
-
+	
+func _process(_delta) -> void :
+	if Input.is_action_just_pressed("spacebar") :
+		if not rollButtonNode.disabled :
+			_on_roll_button_pressed()
+		elif not endTurnButtonNode.disabled :
+			_on_end_turn_pressed()
 		
 func reready() :
 	hideAllNodes()
@@ -108,6 +114,7 @@ func reready() :
 	bookControlNode.remove_child(enemy_instance)
 	enemy_instance.queue_free()
 	rollButtonNode.disabled = true
+	
 	endTurnButtonNode.disabled = true
 	playerDiceTrayNode.show()
 	
@@ -117,6 +124,9 @@ func reready() :
 	showNodes_circleStart()
 	
 func _on_roll_button_pressed() -> void:
+	for i in range(0, Global.die.size()) :
+		var die = get_node(pDiePath + str(i))
+		die.disabled = true
 	if(!rolled) : 
 		rolled = true
 		rollButtonNode.disabled = true
@@ -139,6 +149,10 @@ func _on_roll_button_pressed() -> void:
 		pDiceRolls[i] = DiceData.roll_die(Global.die[i])
 		var pNode = get_node(pDiePath + str(i) + pDiePath2 + str(i))
 		pNode.set_frame(pDiceRolls[i].get("index"))
+		
+	for i in range(0, Global.die.size()) :
+		var die = get_node(pDiePath + str(i))
+		die.disabled = false
 		
 		
 func dieButtonEffects(dieNum : int) -> void:
