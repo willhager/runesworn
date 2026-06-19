@@ -300,16 +300,19 @@ func _on_end_turn_pressed() -> void:
 	enemy_instance.update_health_with_poison()
 	
 	if(enemy_instance.get_total_health() <= 0) :
-		clear()
-		Global.health = health
-		Global.encounterNum += 1
-		if (Global.encounterNum == 7) :
-			Global.encounterNum = 1
-			Global.difficulty += 1
-			#insert modifier upgrade screen maybe
-		ProgressTrayNode.update_encounters()
-		$victory.callVictory()
-		return
+		if enemy_instance.has_method("death_effect") :
+			enemy_instance.death_effect()
+		if enemy_instance.get_total_health() <= 0 :
+			clear()
+			Global.health = health
+			Global.encounterNum += 1
+			if (Global.encounterNum == 7) :
+				Global.encounterNum = 1
+				Global.difficulty += 1
+				#insert modifier upgrade screen maybe
+			ProgressTrayNode.update_encounters()
+			$victory.callVictory()
+			return
 	
 	rolled = false
 	rollButtonNode.disabled = false
@@ -326,6 +329,8 @@ func get_rolls() -> Array[Dictionary] :
 	for i in range(0, pDiceRolls.size()) :
 		if selectedArry[i] :
 			ret.append(pDiceRolls[i])
+	if enemy_instance.has_method("modify_player_rolls") :
+		ret = enemy_instance.modify_player_rolls(ret)
 	return ret
 	
 func _on_die_0_pressed() -> void:
