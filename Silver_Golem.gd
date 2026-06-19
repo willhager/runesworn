@@ -15,12 +15,10 @@ extends enemy_template
 @onready var eDieControl0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0")
 @onready var eDieControl1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1")
 @onready var eDieControl2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2")
-@onready var eDieControl3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3")
 
 @onready var eDie0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0/EDie0")
 @onready var eDie1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1/EDie1")
 @onready var eDie2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2/EDie2")
-@onready var eDie3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3/EDie3")
 
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
