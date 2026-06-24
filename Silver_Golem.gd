@@ -24,7 +24,7 @@ var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
 
 var enemyHealth : int
-var maxHealth : String
+var maxHealth : int
 var curEDamage : int
 var curEHeal : int
 var curEShield : int
@@ -41,7 +41,7 @@ var addToPoison : bool = false
 
 func _ready() -> void :
 	enemyHealth = randi_range(16, 22)
-	maxHealth = str(enemyHealth)
+	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	EDice.resize(numDice)
 	eDiceRolls.resize(numDice)
@@ -157,18 +157,20 @@ func update_health_with_aoe(rolls : Array[Dictionary]) :
 func update_health_with_heal() -> void :
 	enemyHealth += curEHeal
 	if enemyHealth < 0 : enemyHealth = 0
+	if enemyHealth > maxHealth : enemyHealth = maxHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_poison() -> void :
 	enemyHealth -= curEPoisonCounter
 	if enemyHealth < 0 : enemyHealth = 0
+	if enemyHealth > maxHealth : enemyHealth = maxHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	if addToPoison :
 		curEPoisonCounter += 1
 		ePoisonNode.text = "P: " + str(curEPoisonCounter)
 	
 func get_max_health() -> String : 
-	return maxHealth
+	return str(maxHealth)
 	
 func get_total_health() -> int : 
 	return enemyHealth

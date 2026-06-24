@@ -160,7 +160,7 @@
 			"name" : "Ghast",
 			"notes" : "A Ghast!",
 			"reward" : 4,
-			"path" : "res://scenes/enemies/Ghast.tscn"
+			"path" : "res://scenes/enemies/Ghast.tscn",
 			"healthMin" : 12,
 			"healthMax" : 15,
 			"diceNum" : 5,
@@ -180,7 +180,7 @@
 			"hasText" : true,
 			"text" : "You see a swarm of tiny critters in this room, with unusually large ears and pointy, needle-like teeth. As you enter the room, they begin to come towards you...",
 			"reward" : 5,
-			"path" : "res://scenes/enemies/Gremlin_Swarm.tscn"
+			"path" : "res://scenes/enemies/Gremlin_Swarm.tscn",
 			"healthMin" : 5,
 			"healthMax" : 10,
 			"diceNum" : 6,
@@ -195,7 +195,7 @@
 			"name" : "Stone Golem",
 			"notes" : "An unfaltering foe...",
 			"hasText" : true,
-			"text ": "A staunch and unfaltering behemoth sits before you. It towers above your head, and slowly begins to move with the sound of tectonic plates grinding together.",
+			"text": "A staunch and unfaltering behemoth sits before you. It towers above your head, and slowly begins to move with the sound of tectonic plates grinding together.",
 			"hasAbility" : true,
 			"ability" : "Steadfast",
 			"abilityDescription" : "Immune to odd-numbered rolls",
@@ -217,7 +217,7 @@
 			"name" : "Steel Golem",
 			"notes" : "A steely simulacrum...",
 			"hasText" : true,
-			"text ": "A steely humanoid figure towers over you, its arms unreasonably long. You feel the ground shake under its immense weight as it turns towards you.",
+			"text": "A steely humanoid figure towers over you, its arms unreasonably long. You feel the ground shake under its immense weight as it turns towards you.",
 			"hasAbility" : true,
 			"ability" : "Protective Poppy",
 			"abilityDescription" : "Can't lose more than 3 health per turn from dice effects.",
@@ -239,7 +239,7 @@
 			"name" : "Silver Golem",
 			"notes" : "A shiny automaton...",
 			"hasText" : true,
-			"text ": "A mechanical silver monstrosity looms over you. You can see your reflection in its silver skin, and you look scared...,", 
+			"text": "A mechanical silver monstrosity looms over you. You can see your reflection in its silver skin, and you look scared...,", 
 			"hasAbility" : true,
 			"ability" : "Reflective Skin",
 			"abilityDescription" : "Reflects all damage dealt to itself back onto the player",
@@ -250,8 +250,8 @@
 			"diceNum" : 3,
 			"dice" : [
 				"Guardian's Die",
-				"Healer's Die"
-				"Cozy Campfire"
+				"Healer's Die",
+				"Cozy Campfire",
 			],
 		},
 		{
@@ -260,7 +260,7 @@
 			"name" : "Kobold Saboteur",
 			"notes" : "A miniature dragon-like humanoid...",
 			"hasText" : true,
-			"text ": "A crafty looking kobold sits in this room, tinkering with a number of confusing-looking components.", 
+			"text": "A crafty looking kobold sits in this room, tinkering with a number of confusing-looking components.", 
 			"hasAbility" : true,
 			"ability" : "Dirty Trick",
 			"abilityDescription" : "Reduces one of the player's selected dice faces by a random amount.",
@@ -282,7 +282,7 @@
 			"name" : "Sun Priest",
 			"notes" : "A glowing figure...",
 			"hasText" : true,
-			"text ": "A priest dressed in white robes stands before you, an unnatural glow emanating from his skin."
+			"text": "A priest dressed in white robes stands before you, an unnatural glow emanating from his skin.",
 			"hasAbility" : true,
 			"ability" : "Radiant Revival",
 			"abilityDescription" : "Revives himself with 30% of original health after death.",
@@ -293,7 +293,7 @@
 			"diceNum" : 4,
 			"dice" : [
 				"Swordsman's Gambit",
-				"Swordsman's Gambit"
+				"Swordsman's Gambit",
 				"Healer's Die",
 				"Healer's Die",
 			],

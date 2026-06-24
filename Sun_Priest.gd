@@ -11,13 +11,11 @@ extends enemy_template
 @onready var eDieControl1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1")
 @onready var eDieControl2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2")
 @onready var eDieControl3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3")
-@onready var eDieControl4 : Node = get_node("EnemyDiceTray/EDiceContainer/Control4")
 
 @onready var eDie0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0/EDie0")
 @onready var eDie1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1/EDie1")
 @onready var eDie2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2/EDie2")
 @onready var eDie3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3/EDie3")
-@onready var eDie4 : Node = get_node("EnemyDiceTray/EDiceContainer/Control4/EDie4")
 
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
@@ -161,6 +159,7 @@ func update_health_with_aoe(rolls : Array[Dictionary]) :
 func update_health_with_heal() -> void :
 	enemyHealth += curEHeal
 	if enemyHealth < 0 : enemyHealth = 0
+	if enemyHealth > maxHealth : enemyHealth = maxHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_poison() -> void :
@@ -178,8 +177,11 @@ func get_total_health() -> int :
 	return enemyHealth
 	
 func death_effect() :
-	if deathEffectUsed : return
-	var enemyHealth = maxHealth / 3
+	#if deathEffectUsed : 
+	#	return
+	print(maxHealth)
+	enemyHealth = maxHealth / 3
+	print(enemyHealth)
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	curEPoisonCounter = 0
 	ePoisonNode.text = "P: " + str(curEPoisonCounter)

@@ -98,7 +98,7 @@
 		"faces": [
 			{ "index" : 0, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 2},
 			{ "index" : 1, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 2},
-			{ "index" : 2, "effect": "damage", "value": 5, "sprite": "resources/faces/damage/4-damage.png", "weight": 1 },
+			{ "index" : 2, "effect": "damage", "value": 5, "sprite": "resources/faces/damage/5-damage.png", "weight": 1 },
 			{ "index" : 3, "effect": "damage", "value": 5, "sprite": "resources/faces/damage/5-damage.png", "weight": 1 },
 			{ "index" : 4, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 },
 			{ "index" : 5, "effect": "shield", "value": 1, "sprite": "resources/faces/shield/1-shield.png", "weight": 1 }

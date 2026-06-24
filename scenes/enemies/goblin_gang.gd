@@ -33,6 +33,10 @@ var goblin3Health : int
 
 var maxHealth : int
 
+var maxg1 : int
+var maxg2 : int
+var maxg3 : int
+
 var curEDamage : int
 var curEHeal : int
 var curEShield : int
@@ -59,6 +63,11 @@ func _ready() -> void :
 	goblin3Health = randi_range(4, 8)
 	
 	maxHealth = goblin1Health + goblin2Health + goblin3Health
+	
+	maxg1 = goblin1Health
+	maxg2 = goblin2Health
+	maxg3 = goblin3Health
+	
 	
 	goblin1HealthNode.text = "H:" + str(goblin1Health)
 	goblin2HealthNode.text = "H:" + str(goblin2Health)
@@ -262,12 +271,18 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 func update_health_with_heal() -> void :
 	if goblin1Alive:
 		goblin1Health += curEHeal
+		if goblin1Health < 0 : goblin1Health = 0
+		if goblin1Health > maxg1 : goblin1Health = maxg1
 		goblin1HealthNode.text = "H:" + str(goblin1Health)
 	elif goblin1Alive:
 		goblin2Health += curEHeal
+		if goblin2Health < 0 : goblin2Health = 0
+		if goblin2Health > maxg2 : goblin2Health = maxg2
 		goblin2HealthNode.text = "H:" + str(goblin2Health)
 	if goblin3Alive:
 		goblin3Health += curEHeal
+		if goblin3Health < 0 : goblin3Health = 0
+		if goblin3Health > maxg3 : goblin3Health = maxg3
 		goblin3HealthNode.text = "H:" + str(goblin3Health)
 	
 func update_health_with_poison() -> void :

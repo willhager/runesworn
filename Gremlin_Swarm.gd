@@ -12,24 +12,28 @@ extends enemy_template
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
 @onready var ePoisonNode : Node = get_node("EnemyDiceTray/EInfoContainer/EPoison")
 
-@onready var gremlin1HealthNode : Node = get_node("EnemyDiceTray/VBoxContainer1/gremlin1Health")
-@onready var gremlin2HealthNode : Node = get_node("EnemyDiceTray/VBoxContainer2/gremlin2Health")
-@onready var gremlin3HealthNode : Node = get_node("EnemyDiceTray/VBoxContainer3/gremlin3Health")
+@onready var gremlin1HealthNode : Node = get_node("EnemyDiceTray/VBoxContainer1/Gremlin1Health")
+@onready var gremlin2HealthNode : Node = get_node("EnemyDiceTray/VBoxContainer2/Gremlin2Health")
+@onready var gremlin3HealthNode : Node = get_node("EnemyDiceTray/VBoxContainer3/Gremlin3Health")
 
-@onready var gremlin1NameNode : Node = get_node("EnemyDiceTray/VBoxContainer1/gremlin1Label")
-@onready var gremlin2NameNode : Node = get_node("EnemyDiceTray/VBoxContainer2/gremlin2Label")
-@onready var gremlin3NameNode : Node = get_node("EnemyDiceTray/VBoxContainer3/gremlin3Label")
+@onready var gremlin1NameNode : Node = get_node("EnemyDiceTray/VBoxContainer1/Gremlin1Label")
+@onready var gremlin2NameNode : Node = get_node("EnemyDiceTray/VBoxContainer2/Gremlin2Label")
+@onready var gremlin3NameNode : Node = get_node("EnemyDiceTray/VBoxContainer3/Gremlin3Label")
 
-@onready var eDie0 : Node = get_node("EnemyDiceTray/gremlin1Container/Control0/EDie0")
-@onready var eDie1 : Node = get_node("EnemyDiceTray/gremlin1Container/Control1/EDie1")
-@onready var eDie2 : Node = get_node("EnemyDiceTray/gremlin2Container/Control0/EDie2")
-@onready var eDie3 : Node = get_node("EnemyDiceTray/gremlin2Container/Control1/EDie3")
-@onready var eDie4 : Node = get_node("EnemyDiceTray/gremlin3Container/Control0/EDie4")
-@onready var eDie5 : Node = get_node("EnemyDiceTray/gremlin3Container/Control1/EDie5")
+@onready var eDie0 : Node = get_node("EnemyDiceTray/Gremlin1Container/Control0/EDie0")
+@onready var eDie1 : Node = get_node("EnemyDiceTray/Gremlin1Container/Control1/EDie1")
+@onready var eDie2 : Node = get_node("EnemyDiceTray/Gremlin2Container/Control0/EDie2")
+@onready var eDie3 : Node = get_node("EnemyDiceTray/Gremlin2Container/Control1/EDie3")
+@onready var eDie4 : Node = get_node("EnemyDiceTray/Gremlin3Container/Control0/EDie4")
+@onready var eDie5 : Node = get_node("EnemyDiceTray/Gremlin3Container/Control1/EDie5")
 
 var gremlin1Health : int
 var gremlin2Health : int
 var gremlin3Health : int
+
+var maxg1 : int
+var maxg2 : int
+var maxg3 : int
 
 var maxHealth : int
 
@@ -59,6 +63,11 @@ func _ready() -> void :
 	gremlin3Health = randi_range(5, 10)
 	
 	maxHealth = gremlin1Health + gremlin2Health + gremlin3Health
+	
+	maxg1 = gremlin1Health
+	maxg2 = gremlin2Health
+	maxg3 = gremlin3Health
+	
 	
 	gremlin1HealthNode.text = "H:" + str(gremlin1Health)
 	gremlin2HealthNode.text = "H:" + str(gremlin2Health)
@@ -262,12 +271,18 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 func update_health_with_heal() -> void :
 	if gremlin1Alive:
 		gremlin1Health += curEHeal
+		if gremlin1Health < 0 : gremlin1Health = 0
+		if gremlin1Health > maxg1 : gremlin1Health = maxg1
 		gremlin1HealthNode.text = "H:" + str(gremlin1Health)
 	elif gremlin1Alive:
 		gremlin2Health += curEHeal
+		if gremlin2Health < 0 : gremlin2Health = 0
+		if gremlin2Health > maxg2 : gremlin2Health = maxg2
 		gremlin2HealthNode.text = "H:" + str(gremlin2Health)
 	if gremlin3Alive:
 		gremlin3Health += curEHeal
+		if gremlin3Health < 0 : gremlin3Health = 0
+		if gremlin3Health > maxg3 : gremlin3Health = maxg3
 		gremlin3HealthNode.text = "H:" + str(gremlin3Health)
 	
 func update_health_with_poison() -> void :

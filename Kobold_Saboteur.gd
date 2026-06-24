@@ -1,10 +1,5 @@
 extends enemy_template
 
-# skeleton swordsman
-# dice: barb, barb, barb
-# health: 3-5
-# dicenum: 3
-
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
 @onready var eHealNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHeal")
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
@@ -22,7 +17,8 @@ var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
 
 var enemyHealth : int
-var maxHealth : String
+var maxHealth : int
+
 var curEDamage : int
 var curEHeal : int
 var curEShield : int
@@ -40,7 +36,7 @@ var addToPoison : bool = false
 
 func _ready() -> void :
 	enemyHealth = randi_range(15, 20)
-	maxHealth = str(enemyHealth)
+	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	EDice.resize(numDice)
 	eDiceRolls.resize(numDice)
@@ -68,7 +64,7 @@ func _ready() -> void :
 		
 	if(Global.playerType == "Assassin") :
 		ePoisonNode.text = "P:"
-	
+
 
 func roll_eDice() -> void :
 	for i in range(0, numDice) :
@@ -126,7 +122,7 @@ func roll_eDice() -> void :
 	
 func modify_player_rolls(rolls : Array[Dictionary]) -> Array[Dictionary] :
 	var random_change = randi_range(1, 5)
-	var random_idx = randi_range(0, len(rolls))
+	var random_idx = randi_range(0, len(rolls) - 1)
 	var old_value = rolls[random_idx].get("value")
 	var new_value = old_value - random_change
 	if new_value < 0 : new_value = 0
@@ -167,6 +163,7 @@ func update_health_with_aoe(rolls : Array[Dictionary]) :
 func update_health_with_heal() -> void :
 	enemyHealth += curEHeal
 	if enemyHealth < 0 : enemyHealth = 0
+	if enemyHealth > maxHealth : enemyHealth = maxHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_poison() -> void :
@@ -178,7 +175,7 @@ func update_health_with_poison() -> void :
 		ePoisonNode.text = "P: " + str(curEPoisonCounter)
 	
 func get_max_health() -> String : 
-	return maxHealth
+	return str(maxHealth)
 	
 func get_total_health() -> int : 
 	return enemyHealth
