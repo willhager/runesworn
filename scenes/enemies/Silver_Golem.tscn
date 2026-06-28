@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://doc8v0rsubhx7"]
 
-[ext_resource type="Script" uid="uid://hrbbpg46o87x" path="res://Silver_Golem.gd" id="1_of2sn"]
+[ext_resource type="Script" uid="uid://hrbbpg46o87x" path="res://scenes/enemies/Silver_Golem.gd" id="1_of2sn"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_tb7un"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qg875"]

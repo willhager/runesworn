@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cpuum45hftar2"]
 
-[ext_resource type="Script" uid="uid://hnln77q7f2bt" path="res://Gremlin_Swarm.gd" id="1_bten4"]
+[ext_resource type="Script" uid="uid://hnln77q7f2bt" path="res://scenes/enemies/Gremlin_Swarm.gd" id="1_bten4"]
 [ext_resource type="Texture2D" uid="uid://d2e17oqhbx5ab" path="res://resources/faces/damage/1-damage.png" id="2_dovoh"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="3_d6qqf"]
 
@@ -178,7 +178,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 theme = ExtResource("3_d6qqf")
 theme_override_font_sizes/font_size = 30
-text = "Goblin"
+text = "GREMLIN"
 autowrap_mode = 2
 
 [node name="Gremlin1Health" type="Label" parent="EnemyDiceTray/VBoxContainer1"]
@@ -204,7 +204,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 theme = ExtResource("3_d6qqf")
 theme_override_font_sizes/font_size = 30
-text = "GOBLIN"
+text = "GREMLIN"
 autowrap_mode = 2
 
 [node name="Gremlin2Health" type="Label" parent="EnemyDiceTray/VBoxContainer2"]
@@ -229,7 +229,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 theme = ExtResource("3_d6qqf")
 theme_override_font_sizes/font_size = 30
-text = "GOBLIN"
+text = "GREMLIN"
 autowrap_mode = 2
 
 [node name="Gremlin3Health" type="Label" parent="EnemyDiceTray/VBoxContainer3"]

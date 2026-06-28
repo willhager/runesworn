@@ -17,6 +17,10 @@ extends enemy_template
 @onready var eDie2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2/EDie2")
 @onready var eDie3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3/EDie3")
 
+@onready var abilityIconControl : Node = get_node("EnemyDiceTray/EDiceContainer/Control5")
+@onready var abilityIcon : Node = get_node("EnemyDiceTray/EDiceContainer/Control5/AbilityIcon")
+@onready var abilityTextLabel : Node = get_node("EnemyDiceTray/AbilityTextLabel")
+
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
 
@@ -30,27 +34,31 @@ var curEPoisonCounter : int
 var EDice : Array[Dictionary]
 var eDiceRolls : Array[Dictionary]
 
+var numDice = 4
+
 var freezeCounter : Array[int]
 
 var addToPoison : bool = false
 
-var numDice : int = 4
-
-var deathEffectUsed : bool = false
+var playerIsEntangled : bool = false
+var removeEntangle : int
+var playerEntangleDamage : int
 
 
 func _ready() -> void :
-	enemyHealth = randi_range(15, 21)
+	enemyHealth = randi_range(16, 20)
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	EDice.resize(numDice)
 	eDiceRolls.resize(numDice)
-	freezeCounter.resize(numDice)
+	
+	removeEntangle = 8
+	playerEntangleDamage = 0
 	
 	EDice[0] = DiceData.get_die_by_name("Swordsman's Gambit")
 	EDice[1] = DiceData.get_die_by_name("Swordsman's Gambit")
-	EDice[2] = DiceData.get_die_by_name("Healer's Die")
-	EDice[3] = DiceData.get_die_by_name("Healer's Die")
+	EDice[2] = DiceData.get_die_by_name("Carnival McMarkus")
+	EDice[3] = DiceData.get_die_by_name("Cozy Campfire")
 
 	
 	#set faces from dice dictionary
@@ -67,11 +75,27 @@ func _ready() -> void :
 		node.play("faces")
 		node.pause()
 		
+	var abilityTexture : SpriteFrames = SpriteFrames.new()
+	abilityTexture.add_animation("ability")
+	abilityTexture.set_animation_speed("ability", 0)
+	abilityTexture.add_frame("ability", load("resources/icons/entangle_icon.png"))
+	abilityIcon.set_sprite_frames(abilityTexture)
+	abilityIcon.set_frame(0)
+	abilityIcon.play("ability")
+	abilityIcon.pause()
+		
 	if(Global.playerType == "Assassin") :
 		ePoisonNode.text = "P:"
 	
 
 func roll_eDice() -> void :
+	if playerIsEntangled == false :
+		abilityIcon.offset = Vector2(-20, 0)
+		playerIsEntangled = true
+		playerEntangleDamage = 0
+		abilityTextLabel.text = "Remove Entangle: " + str(playerEntangleDamage) + "/" + str(removeEntangle)
+		return
+		
 	for i in range(0, numDice) :
 		if !EDice[i].get("freeze") :
 			var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
@@ -96,10 +120,10 @@ func roll_eDice() -> void :
 			pool.erase(value)
 			
 	pool.shuffle()
-	if len(pool) < 2 :
+	if len(pool) < 3 :
 		indices = pool
 	else :
-		indices = pool.slice(0, 2)
+		indices = pool.slice(0, 3)
 	
 	await get_tree().create_timer(0.3).timeout
 
@@ -117,6 +141,10 @@ func roll_eDice() -> void :
 				curEShield += roll.get("value")
 			Global.piercingEffectName :
 				curEPiercing += roll.get("value")
+	
+	if playerIsEntangled : 
+		curEDamage = int(curEDamage * 1.5)
+		curEPiercing = int(curEPiercing * 1.5)
 	
 	if curEPiercing > 0:
 		eDamageNode.text = "D:" + str(curEDamage) + "+" + str(curEPiercing)
@@ -140,6 +168,13 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 		enemyHealth -= eDamage
 	if (curPiercing > 0) :
 		enemyHealth -= curPiercing
+	if playerIsEntangled :
+			if eDamage > 0 : playerEntangleDamage += eDamage
+			if curPiercing > 0 : playerEntangleDamage += curPiercing
+			if playerEntangleDamage >= removeEntangle :
+				playerIsEntangled = false
+				playerEntangleDamage = 0
+			abilityTextLabel.text = "Remove Entangle: " + str(playerEntangleDamage) + "/" + str(removeEntangle)
 	if((eDamage > 0 || curPiercing > 0) && Global.playerType == "Assassin") :
 		addToPoison = true
 	if enemyHealth < 0 : enemyHealth = 0
@@ -153,6 +188,13 @@ func update_health_with_aoe(rolls : Array[Dictionary]) :
 				aoeDamage += roll.get("value")
 	var eExplosive = aoeDamage - curEShield
 	enemyHealth -= eExplosive
+	if playerIsEntangled :
+			playerEntangleDamage += eExplosive
+			if playerEntangleDamage >= removeEntangle :
+				playerIsEntangled = false
+				playerEntangleDamage = 0
+				
+			abilityTextLabel.text = "Remove Entangle: " + str(playerEntangleDamage) + "/" + str(removeEntangle)
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 
@@ -176,17 +218,6 @@ func get_max_health() -> String :
 func get_total_health() -> int : 
 	return enemyHealth
 	
-func death_effect() :
-	#if deathEffectUsed : 
-	#	return
-	print(maxHealth)
-	enemyHealth = maxHealth / 3
-	print(enemyHealth)
-	eHealthNode.text = "Health:" + str(enemyHealth)
-	curEPoisonCounter = 0
-	ePoisonNode.text = "P: " + str(curEPoisonCounter)
-	deathEffectUsed = true
-	
 func clear() -> void :
 	curEDamage = 0
 	curEShield = 0
@@ -198,6 +229,9 @@ func clear() -> void :
 	eDamageNode.text = "D:"
 	eHealNode.text = "H:"
 	eShieldNode.text = "S:"	
+	
+	if abilityIcon.offset != Vector2(0, 0) :
+		abilityIcon.offset = Vector2(0, 0)
 	
 	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))

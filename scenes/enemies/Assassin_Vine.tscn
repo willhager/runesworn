@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://crq3gryil4aj6"]
+[gd_scene load_steps=7 format=3 uid="uid://dqswau3og7r3j"]
 
-[ext_resource type="Script" uid="uid://c2h5cfywsk66i" path="res://scenes/enemies/Sun_Priest.gd" id="1_p0lhn"]
-[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_armf2"]
+[ext_resource type="Script" uid="uid://bqcxxpqapxt3k" path="res://scenes/enemies/Assassin_Vine.gd" id="1_hott4"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_8kq1e"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_abxm6"]
 
@@ -19,7 +19,7 @@ anchor_right = 0.9
 anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_p0lhn")
+script = ExtResource("1_hott4")
 
 [node name="EnemyDiceTray" type="Panel" parent="."]
 layout_mode = 1
@@ -76,6 +76,24 @@ size_flags_vertical = 6
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_maxnv")
 
+[node name="Control4" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie4" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control4"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_maxnv")
+
+[node name="Control5" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="AbilityIcon" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control5"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_gv1lv")
+
 [node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray"]
 layout_mode = 1
 anchors_preset = -1
@@ -85,29 +103,42 @@ anchor_bottom = 0.224
 
 [node name="EHealth" type="Label" parent="EnemyDiceTray/EInfoContainer"]
 layout_mode = 2
-theme = ExtResource("2_armf2")
+theme = ExtResource("2_8kq1e")
 theme_override_font_sizes/font_size = 40
 text = "x/x"
 
 [node name="EDamage" type="Label" parent="EnemyDiceTray/EInfoContainer"]
 layout_mode = 2
-theme = ExtResource("2_armf2")
+theme = ExtResource("2_8kq1e")
 theme_override_font_sizes/font_size = 60
 text = "D:"
 
 [node name="EShield" type="Label" parent="EnemyDiceTray/EInfoContainer"]
 layout_mode = 2
-theme = ExtResource("2_armf2")
+theme = ExtResource("2_8kq1e")
 theme_override_font_sizes/font_size = 60
 text = "S:"
 
 [node name="EHeal" type="Label" parent="EnemyDiceTray/EInfoContainer"]
 layout_mode = 2
-theme = ExtResource("2_armf2")
+theme = ExtResource("2_8kq1e")
 theme_override_font_sizes/font_size = 60
 text = "H:"
 
 [node name="EPoison" type="Label" parent="EnemyDiceTray/EInfoContainer"]
 layout_mode = 2
-theme = ExtResource("2_armf2")
+theme = ExtResource("2_8kq1e")
 theme_override_font_sizes/font_size = 60
+
+[node name="AbilityTextLabel" type="Label" parent="EnemyDiceTray"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.845
+anchor_bottom = 0.845
+offset_top = -153.15
+offset_right = 244.0
+offset_bottom = -0.149963
+grow_vertical = 0
+theme = ExtResource("2_8kq1e")
+theme_override_font_sizes/font_size = 40
+autowrap_mode = 2

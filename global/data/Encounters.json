@@ -1,5 +1,5 @@
 {
-	"max1" : 7,
+	"max1" : 6,
 	"1" : [
 		{
 			"id" : 0,
@@ -133,24 +133,6 @@
 				"Guardian's Die"
 			]
 		},
-		{
-			"id" : 7,
-			"weight" : 5,
-			"name" : "Giant Rat",
-			"notes" : "A truly massive vermin",
-			"hasText" : false,
-			"hasAbility" : false,
-			"reward" : 1,
-			"path" : "res://scenes/enemies/giant_rat.tscn",
-			"healthMin" : 4,
-			"healthMax" : 8,
-			"diceNum" : 3,
-			"dice" : [
-				"Mosquito's Die",
-				"Swordsman's Gambit",
-				"Guardian's Die"
-			]
-		}
 	],
 	"max2" : 6,
 	"2" : [
@@ -298,5 +280,27 @@
 				"Healer's Die",
 			],
 		},
+		{
+			"id" : 7,
+			"weight" : 100,
+			"name" : "Assassin Vine",
+			"notes" : "Leafy green vines undulate slowly in the gloom...",
+			"hasText" : true,
+			"text" : "As you enter this room, you see a tangle of spiky, verdant green vines begin to reach out towards you...",
+			"hasAbility" : true,
+			"ability" : "Entangle",
+			"abilityDescription" : "Traps you in vines, cutting your damage in half until you free yourself by dealing 8 damage.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Assassin_Vine.tscn",
+			"healthMin" : 16,
+			"healthMax" : 20,
+			"diceNum" : 2,
+			"dice" : [
+				"Swordsman's Gambit",
+				"Swordsman's Gambit",
+				"Carnival McMarkus",
+				"Cozy Campfire"
+			]
+		}
 	]
 }
