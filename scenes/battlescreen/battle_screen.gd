@@ -55,7 +55,7 @@ var rolled : bool = false
 var numSelected : int = 0
 var selectedArry : Array[bool]
 var selectedAttackDice : int = 0
-var maxDieNum : int = 3
+var maxDieNum : int = Global.maxSelectableDice
 
 var curDamage : int
 var curHeal : int
@@ -65,8 +65,6 @@ var curFreeze : int
 var curExplosive : int
 
 var pDiceRolls : Array[Dictionary]
-
-var selectedText = "0/" + str(maxDieNum)
 
 
 func _ready() -> void:
@@ -110,6 +108,10 @@ func _process(_delta) -> void :
 		
 func reready() :
 	hideAllNodes()
+	
+	maxDieNum = Global.maxSelectableDice
+	pSelectedNode.text = "0/" + str(maxDieNum)
+	
 	eInfoPanelNode.reready()
 	bookControlNode.remove_child(enemy_instance)
 	enemy_instance.queue_free()
@@ -239,10 +241,11 @@ func dieButtonEffects(dieNum : int) -> void:
 		
 	if Global.playerType == "Champion" :
 		if selectedAttackDice == 3 :
-			maxDieNum = 4
+			maxDieNum = maxDieNum + 1
 			pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
 		elif selectedAttackDice < 3 :
-			maxDieNum = 3
+			if maxDieNum > Global.maxSelectableDice :
+				maxDieNum = Global.maxSelectableDice
 			pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
 	
 	if numSelected == maxDieNum :
@@ -258,7 +261,9 @@ func _on_end_turn_pressed() -> void:
 	# reset
 	numSelected = 0
 	selectedAttackDice = 0
-	maxDieNum = 3
+	if enemy_instance.has_method("post_turn_effect") :
+		maxDieNum = enemy_instance.post_turn_effect(maxDieNum)
+	else : maxDieNum = Global.maxSelectableDice
 	
 	var rolls = get_rolls()
 	
@@ -378,7 +383,7 @@ func clear() -> void :
 			var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
 			node.offset -= Vector2(20, 0)
 		selectedArry[i] = false
-	pSelectedNode.text = selectedText
+	pSelectedNode.text = "0/" + str(maxDieNum)
 	pDamageNode.text = damageLabelText
 	pHealNode.text = healLabelText
 	pShieldNode.text = shieldLabelText

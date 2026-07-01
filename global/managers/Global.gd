@@ -31,6 +31,7 @@ var encounterNum = 1
 var lootMult = 1
 var maxLootNum = 8
 var totalDiceIndex : int = 10
+var maxSelectableDice : int = 3
 
 var JSON_PATH : String
 var playerDataLoaded = false
@@ -48,11 +49,11 @@ var freezeEffectName = "freeze"
 var explosiveEffectName = "explosive"
 
 var seeded_run = false
-var random_seed = 123456
+var seed_value = 123456
 
 func _ready() :
 	if seeded_run :
-		seed(random_seed)
+		seed(seed_value)
 	else : randomize()
 	
 func get_modifier_0() -> String :

@@ -1,10 +1,5 @@
 extends enemy_template
 
-#GIANT RAT 
-#dice: mosquito, swordsman, guardian
-#health: 4-8
-#diceNum: 3
-
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
 @onready var eHealNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHeal")
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
@@ -34,23 +29,27 @@ var EDice : Array[Dictionary] # Array of dice themselves, should remain static a
 var eDiceRolls : Array[Dictionary] # Array of dice rolls, should contain individual faces as values
 var freezeCounter : Array[int]
 
+var reducedDieNum : bool = false
+
 var addToPoison : bool = false
+
+var numDice = 3
 
 
 func _ready() -> void :
-	enemyHealth = randi_range(4, 8)
+	enemyHealth = randi_range(18, 24)
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
-	EDice.resize(3)
-	eDiceRolls.resize(3)
-	freezeCounter.resize(3)
+	EDice.resize(numDice)
+	eDiceRolls.resize(numDice)
+	freezeCounter.resize(numDice)
 	
-	EDice[0] = DiceData.get_die_by_name("Mosquito's Die")
-	EDice[1] = DiceData.get_die_by_name("Swordsman's Gambit")
-	EDice[2] = DiceData.get_die_by_name("Guardian's Die")
+	EDice[0] = DiceData.get_die_by_name("Healer's Die")
+	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[2] = DiceData.get_die_by_name("Mosquito's Die")
 	
 	#set faces from dice dictionary
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		var nodePath = eDieSpritePath + str(i) + eDieSpritePath2 + str(i)
 		var node = get_node(nodePath)
 		var dieTexture : SpriteFrames = SpriteFrames.new()
@@ -68,7 +67,7 @@ func _ready() -> void :
 	
 
 func roll_eDice() -> void :
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(randi_range(0, 5))
 		eNode.play("faces")
@@ -77,7 +76,7 @@ func roll_eDice() -> void :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.pause()
 		
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		eDiceRolls[i] = DiceData.roll_die(EDice[i].get("name"))
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(eDiceRolls[i].get("index"))
@@ -138,6 +137,7 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
+	
 func update_health_with_aoe(rolls : Array[Dictionary]) :
 	var aoeDamage = 0
 	for roll in rolls :
@@ -163,7 +163,14 @@ func update_health_with_poison() -> void :
 	if addToPoison :
 		curEPoisonCounter += 1
 		ePoisonNode.text = "P: " + str(curEPoisonCounter)
-	
+		
+func post_turn_effect(maxDieNum : int) -> int :
+	if curEPiercing > 0 and !reducedDieNum :
+		reducedDieNum = true
+		return maxDieNum - 1
+	return maxDieNum
+
+
 func get_max_health() -> String : 
 	return str(maxHealth)
 	
@@ -182,8 +189,9 @@ func clear() -> void :
 	eDamageNode.text = "D:"
 	eHealNode.text = "H:"
 	eShieldNode.text = "S:"
+	
 		
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.offset = Vector2(0, 0)
 	

@@ -282,7 +282,7 @@
 		},
 		{
 			"id" : 7,
-			"weight" : 100,
+			"weight" : 5,
 			"name" : "Assassin Vine",
 			"notes" : "Leafy green vines undulate slowly in the gloom...",
 			"hasText" : true,
@@ -294,12 +294,33 @@
 			"path" : "res://scenes/enemies/Assassin_Vine.tscn",
 			"healthMin" : 16,
 			"healthMax" : 20,
-			"diceNum" : 2,
+			"diceNum" : 4,
 			"dice" : [
 				"Swordsman's Gambit",
 				"Swordsman's Gambit",
 				"Carnival McMarkus",
 				"Cozy Campfire"
+			]
+		},
+		{
+			"id" : 8,
+			"weight" : 100,
+			"name" : "Manticore",
+			"notes" : "A confusing looking beast...",
+			"hasText" : true,
+			"text" : "As you enter this room, your eyes can barely comprehend what they see... a monstrous creature with the head of a human, the body of a lion, and the tail of a scorpion.",
+			"hasAbility" : true,
+			"ability" : "Paralyzing Poison",
+			"abilityDescription" : "When Manticore does piercing damage, it freezes one of your dice for the remainder of the fight.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Manticore.tscn",
+			"healthMin" : 18,
+			"healthMax" : 24,
+			"diceNum" : 3,
+			"dice" : [
+				"Healer's Die",
+				"Barbarian's Die",
+				"Mosquito's Die"
 			]
 		}
 	]
