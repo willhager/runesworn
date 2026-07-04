@@ -10,5 +10,8 @@
 		"Healer's Die": 1,
 		"Mosquito's Die": 1.0,
 		"The Bomb": 1.0
-	}
+	},
+	"modifier_paths" : [
+		"res://resources/icons/poison_icon.png",
+	]
 }

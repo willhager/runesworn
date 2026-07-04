@@ -9,5 +9,8 @@
 		"Guardian's Die": 1,
 		"Healer's Die": 1.0,
 		"Swordsman's Gambit": 1.0
-	}
+	},
+	"modifier_paths" : [
+		"res://resources/icons/chain_icon.png",
+	]
 }

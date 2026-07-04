@@ -10,5 +10,8 @@
 		"Healer's Die": 1.0,
 		"Mosquito's Die": 1.0,
 		"Swordsman's Gambit": 1.0
-	}
+	},
+	"modifier_paths" : [
+		"res://resources/icons/wall_icon.png",
+	]
 }

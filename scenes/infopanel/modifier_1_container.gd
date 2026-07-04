@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Control
 
 var tooltip_title : String
 var tooltip_body : String
@@ -9,6 +9,7 @@ func set_tooltip(title : String, body : String) :
 
 func _on_mouse_entered() :
 	if(tooltip_title) :
+		print("modifier1")
 		tooltip_manager.show_tooltip(tooltip_title, tooltip_body, Vector2(310, 290))
 	
 func _on_mouse_exited() :

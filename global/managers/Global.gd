@@ -67,6 +67,11 @@ func get_modifier_0() -> String :
 				return "The Dagger\n"
 	return ""
 	
+func get_modifier_0_icon_path() -> String :
+	if(hasModifier0 and player_data) :
+		return player_data.get("modifier_paths")[0]
+	return ""	
+	
 func get_modifier_0_tooltip() -> String :
 	if(hasModifier0) :
 		match playerType :
@@ -89,6 +94,11 @@ func get_modifier_1() -> String :
 				return "Coming soon!\n"
 	return ""
 	
+func get_modifier_1_icon_path() -> String :
+	if(hasModifier1 and player_data) :
+		return player_data.get("modifier_paths")[1]
+	return ""
+	
 func get_modifier_1_tooltip() -> String :
 	if(hasModifier1) :
 		match playerType :
@@ -109,6 +119,11 @@ func get_modifier_2() -> String :
 				return "Coming soon!\n"
 			"Assassin" :
 				return "Coming soon!\n"
+	return ""
+	
+func get_modifier_2_icon_path() -> String :
+	if(hasModifier2 and player_data) :
+		return player_data.get("modifier_paths")[2]
 	return ""
 	
 func get_modifier_2_tooltip() -> String :

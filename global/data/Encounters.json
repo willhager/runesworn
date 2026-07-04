@@ -134,7 +134,7 @@
 			]
 		},
 	],
-	"max2" : 6,
+	"max2" : 8,
 	"2" : [
 		{
 			"id" : 0,
@@ -304,7 +304,7 @@
 		},
 		{
 			"id" : 8,
-			"weight" : 100,
+			"weight" : 5,
 			"name" : "Manticore",
 			"notes" : "A confusing looking beast...",
 			"hasText" : true,

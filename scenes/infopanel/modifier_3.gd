@@ -1,4 +1,4 @@
-extends Label
+extends Sprite2D
 
 var tooltip_title : String
 var tooltip_body : String

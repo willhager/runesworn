@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Control
 
 var tooltip_title : String
 var tooltip_body : String
@@ -14,4 +14,3 @@ func _on_mouse_entered() :
 func _on_mouse_exited() :
 	if(tooltip_title) :
 		tooltip_manager.hide_tooltip()
-	
