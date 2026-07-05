@@ -17,12 +17,14 @@ extends enemy_template
 @onready var eDieControl2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2")
 @onready var eDieControl3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3")
 @onready var eDieControl4 : Node = get_node("EnemyDiceTray/EDiceContainer/Control4")
+@onready var eDieControl5 : Node = get_node("EnemyDiceTray/EDiceContainer/Control5")
 
 @onready var eDie0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0/EDie0")
 @onready var eDie1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1/EDie1")
 @onready var eDie2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2/EDie2")
 @onready var eDie3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3/EDie3")
 @onready var eDie4 : Node = get_node("EnemyDiceTray/EDiceContainer/Control4/EDie4")
+@onready var eDie5 : Node = get_node("EnemyDiceTray/EDiceContainer/Control5/EDie5")
 
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
@@ -45,18 +47,17 @@ var numDice : int = 5
 
 
 func _ready() -> void :
-	enemyHealth = randi_range(12, 15)
+	var enemyDict = EncounterData.get_encounter_by_name(2, "Ghast")
+	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
-	EDice.resize(numDice)
-	eDiceRolls.resize(numDice)
-	freezeCounter.resize(numDice)
+	EDice.resize(enemyDict.get("numDice"))
+	eDiceRolls.resize(enemyDict.get("numDice"))
 	
-	EDice[0] = DiceData.get_die_by_name("Carnival McMarkus")
-	EDice[1] = DiceData.get_die_by_name("Carnival McMarkus")
-	EDice[2] = DiceData.get_die_by_name("Healer's Die")
-	EDice[3] = DiceData.get_die_by_name("Guardian's Die")
-	EDice[4] = DiceData.get_die_by_name("Cube of Chance")
+	numDice = enemyDict.get("numDice")
+	
+	for i in range(0, enemyDict.get("numDice")) :
+		EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
 
 	
 	#set faces from dice dictionary

@@ -85,6 +85,15 @@ size_flags_vertical = 6
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_maxnv")
 
+[node name="Control5" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="EDie5" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control5"]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_maxnv")
+
 [node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray"]
 layout_mode = 1
 anchors_preset = -1

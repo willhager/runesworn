@@ -40,22 +40,23 @@ var addToPoison : bool = false
 var EDice : Array[Dictionary]
 var eDiceRolls : Array[Dictionary]
 
-
+var numDice
 
 func _ready() -> void :
-	enemyHealth = randi_range(8, 12)
+	var enemyDict = EncounterData.get_encounter_by_name(1, "Chaos Slime")
+	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
-	eHealthNode.text = "Health:" + str(enemyHealth) + "/" + str(maxHealth)
-	EDice.resize(3)
-	eDiceRolls.resize(3)
-	freezeCounter.resize(3)
+	eHealthNode.text = "Health:" + str(enemyHealth)
+	EDice.resize(enemyDict.get("numDice"))
+	eDiceRolls.resize(enemyDict.get("numDice"))
 	
-	EDice[0] = DiceData.get_die_by_name("Cube of Chance")
-	EDice[1] = DiceData.get_die_by_name("Cube of Chance")
-	EDice[2] = DiceData.get_die_by_name("Cube of Chance")
+	numDice = enemyDict.get("numDice")
+	
+	for i in range(0, enemyDict.get("numDice")) :
+		EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
 	
 	#set faces from dice dictionary
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		var nodePath = eDieSpritePath + str(i) + eDieSpritePath2 + str(i)
 		var node = get_node(nodePath)
 		var dieTexture : SpriteFrames = SpriteFrames.new()
@@ -73,16 +74,16 @@ func _ready() -> void :
 	
 
 func roll_eDice() -> void :
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(randi_range(0, 5))
 		eNode.play("faces")
 	await get_tree().create_timer(0.75).timeout
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.pause()
 		
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		eDiceRolls[i] = DiceData.roll_die(EDice[i].get("name"))
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(eDiceRolls[i].get("index"))
@@ -195,7 +196,7 @@ func clear() -> void :
 	eShieldNode.text = "S:"
 	
 	
-	for i in range(0, 3) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.offset = Vector2(0, 0)
 	

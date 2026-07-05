@@ -81,11 +81,11 @@ func _ready() -> void :
 
 	
 	EDice[0] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[1] = DiceData.get_die_by_name("Barbarian's Riposte")
 	EDice[2] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[3] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[3] = DiceData.get_die_by_name("Barbarian's Riposte")
 	EDice[4] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[5] = DiceData.get_die_by_name("Barbarian's Die")
+	EDice[5] = DiceData.get_die_by_name("Barbarian's Riposte")
 	
 	#set faces from dice dictionary
 	set_eDice_faces(eDie0, EDice[0].get("name"))

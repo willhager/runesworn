@@ -35,20 +35,23 @@ var freezeCounter : Array[int]
 
 var addToPoison : bool = false
 
+var numDice : int
 
 func _ready() -> void :
-	enemyHealth = randi_range(12, 16)
+	var enemyDict = EncounterData.get_encounter_by_name(1, "The Toll Troll")
+	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
-	EDice.resize(2)
-	eDiceRolls.resize(2)
-	freezeCounter.resize(2)
+	EDice.resize(enemyDict.get("numDice"))
+	eDiceRolls.resize(enemyDict.get("numDice"))
 	
-	EDice[0] = DiceData.get_die_by_name("Carnival McMarkus")
-	EDice[1] = DiceData.get_die_by_name("Carnival McMarkus")
+	numDice = enemyDict.get("numDice")
+	
+	for i in range(0, enemyDict.get("numDice")) :
+		EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
 	
 	#set faces from dice dictionary
-	for i in range(0, 2) :
+	for i in range(0, numDice) :
 		var nodePath = eDieSpritePath + str(i) + eDieSpritePath2 + str(i)
 		var node = get_node(nodePath)
 		var dieTexture : SpriteFrames = SpriteFrames.new()
@@ -66,16 +69,16 @@ func _ready() -> void :
 	
 
 func roll_eDice() -> void :
-	for i in range(0, 2) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(randi_range(0, 5))
 		eNode.play("faces")
 	await get_tree().create_timer(0.75).timeout
-	for i in range(0, 2) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.pause()
 		
-	for i in range(0, 2) :
+	for i in range(0, numDice) :
 		eDiceRolls[i] = DiceData.roll_die(EDice[i].get("name"))
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.set_frame(eDiceRolls[i].get("index"))
@@ -181,7 +184,7 @@ func clear() -> void :
 	eShieldNode.text = "S:"
 	
 	
-	for i in range(0, 2) :
+	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.offset = Vector2(0, 0)
 	

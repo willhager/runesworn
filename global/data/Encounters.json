@@ -12,7 +12,7 @@
 			"path" : "res://scenes/enemies/Goblin.tscn",
 			"healthMin" : 4,
 			"healthMax" : 8,
-			"diceNum" : 3,
+			"numDice" : 3,
 			"dice" : [
 				"Beginner's Die",
 				"Barbarian's Die",
@@ -31,7 +31,7 @@
 			"path" : "res://scenes/enemies/GoblinGang.tscn",
 			"healthMin" : 4,
 			"healthMax" : 8,
-			"diceNum" : 2,
+			"numDice" : 2,
 			"dice" : [
 				"Beginner's Die",
 				"Barbarian's Die",
@@ -51,7 +51,7 @@
 			"path" : "res://scenes/enemies/ChaosSlime.tscn",
 			"healthMin" : 6,
 			"healthMax" : 10,
-			"diceNum" : 3,
+			"numDice" : 3,
 			"dice" : [
 				"Cube of Chance",
 				"Cube of Chance",
@@ -69,7 +69,7 @@
 			"path" : "res://scenes/enemies/Troll.tscn",
 			"healthMin" : 12,
 			"healthMax" : 16,
-			"diceNum" : 2,
+			"numDice" : 2,
 			"dice" : [
 				"Carnival McMarkus",
 				"Carnival McMarkus",
@@ -87,7 +87,7 @@
 			"path" : "res://scenes/enemies/skeleton_swordsman.tscn",
 			"healthMin" : 3,
 			"healthMax" : 5,
-			"diceNum" : 3,
+			"numDice" : 3,
 			"dice" : [
 				"Barbarian's Die",
 				"Barbarian's Die",
@@ -108,7 +108,7 @@
 			"path" : "res://scenes/enemies/volcano_imp.tscn",
 			"healthMin" : 3,
 			"healthMax" : 5,
-			"diceNum" : 3,
+			"numDice" : 3,
 			"dice" : [
 				"Barbarian's Die",
 				"Barbarian's Die",
@@ -126,7 +126,7 @@
 			"path" : "res://scenes/enemies/giant_rat.tscn",
 			"healthMin" : 4,
 			"healthMax" : 8,
-			"diceNum" : 3,
+			"numDice" : 3,
 			"dice" : [
 				"Mosquito's Die",
 				"Swordsman's Gambit",
@@ -145,13 +145,14 @@
 			"path" : "res://scenes/enemies/Ghast.tscn",
 			"healthMin" : 12,
 			"healthMax" : 15,
-			"diceNum" : 5,
+			"numDice" : 6,
 			"dice" : [
 				"Carnival McMarkus",
 				"Carnival McMarkus",
 				"Healer's Die",
-				"Guardian's Die",
-				"Cube of Chance"
+				"Sentinel's Die",
+				"Cube of Chance",
+				"Barbarian's Riposte"
 			],
 		},
 		{
@@ -165,10 +166,10 @@
 			"path" : "res://scenes/enemies/Gremlin_Swarm.tscn",
 			"healthMin" : 5,
 			"healthMax" : 10,
-			"diceNum" : 6,
+			"numDice" : 6,
 			"dice" : [
 				"Barbarian's Die",
-				"Barbarian's Die",
+				"Barbarian's Riposte",
 			],
 		},
 		{
@@ -185,7 +186,7 @@
 			"path" : "res://scenes/enemies/Stone_Golem.tscn",
 			"healthMin" : 18,
 			"healthMax" : 24,
-			"diceNum" : 4,
+			"numDice" : 4,
 			"dice" : [
 				"Carnival McMarkus",
 				"Swordsman's Gambit",
@@ -207,7 +208,7 @@
 			"path" : "res://scenes/enemies/Steel_Golem.tscn",
 			"healthMin" : 14,
 			"healthMax" : 20,
-			"diceNum" : 4,
+			"numDice" : 4,
 			"dice" : [
 				"Barbarian's Die",
 				"Swordsman's Gambit",
@@ -229,7 +230,7 @@
 			"path" : "res://scenes/enemies/Silver_Golem.tscn",
 			"healthMin" : 16,
 			"healthMax" : 22,
-			"diceNum" : 3,
+			"numDice" : 3,
 			"dice" : [
 				"Guardian's Die",
 				"Healer's Die",
@@ -250,11 +251,11 @@
 			"path" : "res://scenes/enemies/Kobold_Saboteur.tscn",
 			"healthMin" : 15,
 			"healthMax" : 20,
-			"diceNum" : 4,
+			"numDice" : 4,
 			"dice" : [
 				"Carnival McMarkus",
-				"Barbarian's Die",
-				"Mosquito's Die",
+				"Barbarian's Riposte",
+				"Legionnaire's Die",
 				"Cozy Campfire"
 			],
 		},
@@ -272,11 +273,11 @@
 			"path" : "res://scenes/enemies/Sun_Priest.tscn",
 			"healthMin" : 15,
 			"healthMax" : 21,
-			"diceNum" : 4,
+			"numDice" : 4,
 			"dice" : [
 				"Swordsman's Gambit",
 				"Swordsman's Gambit",
-				"Healer's Die",
+				"First Aid Kit",
 				"Healer's Die",
 			],
 		},
@@ -292,9 +293,9 @@
 			"abilityDescription" : "Traps you in vines, cutting your damage in half until you free yourself by dealing 8 damage.",
 			"reward" : 1,
 			"path" : "res://scenes/enemies/Assassin_Vine.tscn",
-			"healthMin" : 16,
-			"healthMax" : 20,
-			"diceNum" : 4,
+			"healthMin" : 24,
+			"healthMax" : 28,
+			"numDice" : 4,
 			"dice" : [
 				"Swordsman's Gambit",
 				"Swordsman's Gambit",
@@ -311,15 +312,15 @@
 			"text" : "As you enter this room, your eyes can barely comprehend what they see... a monstrous creature with the head of a human, the body of a lion, and the tail of a scorpion.",
 			"hasAbility" : true,
 			"ability" : "Paralyzing Poison",
-			"abilityDescription" : "When Manticore does piercing damage, it freezes one of your dice for the remainder of the fight.",
+			"abilityDescription" : "When Manticore does piercing damage, it lowers your selectable die count by one for the remainder of the fight.",
 			"reward" : 1,
 			"path" : "res://scenes/enemies/Manticore.tscn",
 			"healthMin" : 18,
 			"healthMax" : 24,
-			"diceNum" : 3,
+			"numDice" : 3,
 			"dice" : [
 				"Healer's Die",
-				"Barbarian's Die",
+				"Barbarian's Riposte",
 				"Mosquito's Die"
 			]
 		}

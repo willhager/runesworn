@@ -151,3 +151,19 @@ func get_encounter_by_index(tier : int, id : int) -> Dictionary:
 				if tier3[i].get("id") == id :
 					return tier3[i]
 	return tier1[0] #fallback
+
+func get_encounter_by_name(tier: int, name : String) -> Dictionary :
+	match tier :
+		1:
+			for i in range (0, tier1.size()) :
+				if tier1[i].get("name") == name :
+					return tier1[i]
+		2:
+			for i in range (0, tier2.size()) :
+				if tier2[i].get("name") == name :
+					return tier2[i]
+		3:
+			for i in range (0, tier3.size()) :
+				if tier3[i].get("name") == name :
+					return tier3[i]
+	return tier1[0]

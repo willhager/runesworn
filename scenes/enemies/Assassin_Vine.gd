@@ -34,7 +34,7 @@ var curEPoisonCounter : int
 var EDice : Array[Dictionary]
 var eDiceRolls : Array[Dictionary]
 
-var numDice = 4
+var numDice
 
 var freezeCounter : Array[int]
 
@@ -46,21 +46,21 @@ var playerEntangleDamage : int
 
 
 func _ready() -> void :
-	enemyHealth = randi_range(16, 20)
+	var enemyDict = EncounterData.get_encounter_by_name(2, "Assassin Vine")
+	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
-	EDice.resize(numDice)
-	eDiceRolls.resize(numDice)
+	EDice.resize(enemyDict.get("numDice"))
+	eDiceRolls.resize(enemyDict.get("numDice"))
+	
+	numDice = enemyDict.get("numDice")
 	
 	removeEntangle = 8
 	playerEntangleDamage = 0
 	
-	EDice[0] = DiceData.get_die_by_name("Swordsman's Gambit")
-	EDice[1] = DiceData.get_die_by_name("Swordsman's Gambit")
-	EDice[2] = DiceData.get_die_by_name("Carnival McMarkus")
-	EDice[3] = DiceData.get_die_by_name("Cozy Campfire")
+	for i in range(0, enemyDict.get("numDice")) :
+		EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
 
-	
 	#set faces from dice dictionary
 	for i in range(0, numDice) :
 		var nodePath = eDieSpritePath + str(i) + eDieSpritePath2 + str(i)

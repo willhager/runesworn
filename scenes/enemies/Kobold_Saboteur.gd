@@ -35,17 +35,17 @@ var addToPoison : bool = false
 
 
 func _ready() -> void :
-	enemyHealth = randi_range(15, 20)
+	var enemyDict = EncounterData.get_encounter_by_name(2, "Kobold Saboteur")
+	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
-	EDice.resize(numDice)
-	eDiceRolls.resize(numDice)
-	freezeCounter.resize(numDice)
+	EDice.resize(enemyDict.get("numDice"))
+	eDiceRolls.resize(enemyDict.get("numDice"))
 	
-	EDice[0] = DiceData.get_die_by_name("Carnival McMarkus")
-	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[2] = DiceData.get_die_by_name("Mosquito's Die")
-	EDice[3] = DiceData.get_die_by_name("Cozy Campfire")
+	numDice = enemyDict.get("numDice")
+	
+	for i in range(0, enemyDict.get("numDice")) :
+		EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
 
 	
 	#set faces from dice dictionary

@@ -1,5 +1,5 @@
 {
-	"maxDice" : 10,
+	"maxDice" : 14,
 	"dice": [
 	{
 	  "id" : 0,
@@ -130,6 +130,58 @@
 			{"index" : 5, "effect" : "explosive", "value" : 3, "sprite" : "resources/faces/explosive/3-explosive.png", "weight" : 1},
 		],
 		"freeze" : false
-	}
+	},
+	{
+		"id" : 10,
+		"name" : "Legionnaire's Die",
+		"faces" : [
+			{"index" : 0, "effect" : "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1},
+			{"index" : 1, "effect" : "piercing", "value": 1, "sprite": "resources/faces/piercing/1-piercing.png", "weight": 1},
+			{"index" : 2, "effect" : "damage", "value": 3, "sprite": "resources/faces/damage/3-damage.png", "weight": 1},
+			{"index" : 3, "effect" : "shield", "value": 3, "sprite": "resources/faces/shield/3-shield.png", "weight": 1},
+			{"index" : 4, "effect" : "shield", "value": 4, "sprite": "resources/faces/shield/4-shield.png", "weight": 1},
+			{"index" : 5, "effect" : "shield", "value": 5, "sprite": "resources/faces/shield/5-shield.png", "weight": 1},
+		],
+		"freeze" : false
+	},
+	{
+		"id" : 11,
+		"name" : "Barbarian's Riposte",
+		"faces" : [
+			{ "index" : 0, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 1},
+			{ "index" : 1, "effect": "damage", "value": 4, "sprite": "resources/faces/damage/4-damage.png", "weight": 1},
+			{ "index" : 2, "effect": "damage", "value": 6, "sprite": "resources/faces/damage/6-damage.png", "weight": 1},
+			{ "index" : 3, "effect": "damage", "value": 6, "sprite": "resources/faces/damage/6-damage.png", "weight": 1},
+			{ "index" : 4, "effect": "damage", "value": 8, "sprite": "resources/faces/damage/8-damage.png", "weight": 1},
+			{ "index" : 5, "effect": "damage", "value": 8, "sprite": "resources/faces/damage/8-damage.png", "weight": 1}
+		],
+		"freeze" : false
+	},
+	{
+		"id" : 12,
+		"name" : "Sentinel's Die",
+		"faces" : [
+			{ "index" : 0, "effect": "shield", "value": 3, "sprite": "resources/faces/shield/3-shield.png", "weight": 1 },
+			{ "index" : 1, "effect": "shield", "value": 3, "sprite": "resources/faces/shield/3-shield.png", "weight": 1 },
+			{ "index" : 2, "effect": "shield", "value": 4, "sprite": "resources/faces/shield/4-shield.png", "weight": 1 },
+			{ "index" : 3, "effect": "shield", "value": 5, "sprite": "resources/faces/shield/5-shield.png", "weight": 1 },
+			{ "index" : 4, "effect": "shield", "value": 6, "sprite": "resources/faces/shield/6-shield.png", "weight": 1 },
+			{ "index" : 5, "effect": "shield", "value": 7, "sprite": "resources/faces/shield/7-shield.png", "weight": 1 }
+		],
+		"freeze" : false
+	},
+	{
+		"id" : 13,
+		"name" : "First Aid Kit",
+		"faces" : [
+			{ "index" : 0, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 1 },
+			{ "index" : 1, "effect": "heal", "value": 2, "sprite": "resources/faces/heal/2-heal.png", "weight": 1 },
+			{ "index" : 2, "effect": "heal", "value": 3, "sprite": "resources/faces/heal/3-heal.png", "weight": 1 },
+			{ "index" : 3, "effect": "heal", "value": 4, "sprite": "resources/faces/heal/4-heal.png", "weight": 1},
+			{ "index" : 4, "effect": "heal", "value": 3, "sprite": "resources/faces/heal/3-heal.png", "weight": 1 },
+			{ "index" : 5, "effect": "heal", "value": 3, "sprite": "resources/faces/heal/3-heal.png", "weight": 1 }
+		],
+		"freeze" : false
+	},
   ]
 }
