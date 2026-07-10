@@ -1,5 +1,5 @@
 {
-	"max1" : 6,
+	"max1" : 9,
 	"1" : [
 		{
 			"id" : 0,
@@ -133,6 +133,99 @@
 				"Guardian's Die"
 			]
 		},
+		{
+			"id" : 7,
+			"weight" : 5,
+			"name" : "Owlbear",
+			"notes" : "A bear with unusually large eyes...",
+			"hasText" : true,
+			"text" : "As you enter this room, you see a curious sight: a tremendous bear-looking creature, but with the head and feathers of an owl.",
+			"hasAbility" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Owlbear.tscn",
+			"healthMin" : 12,
+			"healthMax" : 16,
+			"numDice" : 3,
+			"dice" : [
+				"Barbarian's Riposte",
+				"Swordsman's Gambit",
+				"Guardian's Die"
+			]
+		},
+		{
+			"id" : 8,
+			"weight" : 5,
+			"name" : "Acidic Slime",
+			"notes" : "The acrid smell of burning...",
+			"hasText" : true,
+			"text" : "This room contains a menacing looking ooze that emits a foul smelling smoke. As you walk in, you see the bones of a previous adventurer dissolving in the slime...",
+			"hasAbility" : true,
+			"ability": "Corrosion",
+			"abilityDescription" : "Every turn that you deal damage to Acidic Slime, your outgoing damage is reduced by 1.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Acidic_Slime.tscn",
+			"healthMin" : 8,
+			"healthMax" : 10,
+			"numDice" : 2,
+			"dice" : [
+				"Swordsman's Gambit",
+				"Guardian's Die"
+			]
+		},
+		{
+			"id" : 9,
+			"weight" : 5,
+			"name" : "Brownie",
+			"notes" : "A small, elf-like creature...",
+			"hasAbility" : true,
+			"ability": "Blend",
+			"abilityDescription" : "Removes one of your damage rolls each turn.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Brownie.tscn",
+			"healthMin" : 6,
+			"healthMax" : 8,
+			"numDice" : 2,
+			"dice" : [
+				"Beginner's Die",
+				"Mosquito's Die"
+			]
+		},
+		{
+			"id" : 10,
+			"weight" : 5,
+			"name" : "Killer Wasp",
+			"notes" : "A horrifying buzzing sound...",
+			"hasText" : true,
+			"text" : "This room contains a horrific sight: a massive wasp, easily 3 feet long, sits menacingly before you.",
+			"hasAbility" : false,
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Killer_Wasp.tscn",
+			"healthMin" : 6,
+			"healthMax" : 8,
+			"numDice" : 2,
+			"dice" : [
+				"Mosquito's Die",
+				"Mosquito's Die"
+			]
+		},
+		{
+			"id" : 11,
+			"weight" : 1000,
+			"name" : "Giant Worm",
+			"notes" : "A writhing, snake-like creature...",
+			"hasAbility" : true,
+			"ability" : "Burrow",
+			"abilityDescription" : "1 in 4 chance to skip a turn entirely.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Giant_Worm.tscn",
+			"healthMin" : 8,
+			"healthMax" : 15,
+			"numDice" : 2,
+			"dice" : [
+				"Barbarian's Die",
+				"Healer's Die"
+			]
+		}
 	],
 	"max2" : 8,
 	"2" : [

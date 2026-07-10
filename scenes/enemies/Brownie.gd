@@ -1,10 +1,5 @@
 extends enemy_template
 
-#Steel Golem 
-#dice: Barb, swordsman, guardian, cozy
-#health: 14-20
-#diceNum: 4
-
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
 @onready var eHealNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHeal")
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
@@ -14,13 +9,9 @@ extends enemy_template
 
 @onready var eDieControl0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0")
 @onready var eDieControl1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1")
-@onready var eDieControl2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2")
-@onready var eDieControl3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3")
 
 @onready var eDie0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0/EDie0")
 @onready var eDie1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1/EDie1")
-@onready var eDie2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2/EDie2")
-@onready var eDie3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3/EDie3")
 
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
@@ -32,18 +23,17 @@ var curEHeal : int
 var curEShield : int
 var curEPiercing : int
 var curEPoisonCounter : int
-var EDice : Array[Dictionary]
-var numDice = 4
-var eDiceRolls : Array[Dictionary]
-
+var EDice : Array[Dictionary] # Array of dice themselves, should remain static aside from freeze
+var eDiceRolls : Array[Dictionary] # Array of dice rolls, should contain individual faces as values
 var freezeCounter : Array[int]
 
 var addToPoison : bool = false
 
-var remaining : int = 3
+var numDice : int
+
 
 func _ready() -> void :
-	var enemyDict = EncounterData.get_encounter_by_name(2, "Steel Golem")
+	var enemyDict = EncounterData.get_encounter_by_name(1, "Brownie")
 	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
@@ -54,7 +44,6 @@ func _ready() -> void :
 	
 	for i in range(0, enemyDict.get("numDice")) :
 		EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
-
 	
 	#set faces from dice dictionary
 	for i in range(0, numDice) :
@@ -80,7 +69,7 @@ func roll_eDice() -> void :
 		eNode.set_frame(randi_range(0, 5))
 		eNode.play("faces")
 	await get_tree().create_timer(0.75).timeout
-	for i in range(0, numDice) :
+	for i in range(0, 3) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.pause()
 		
@@ -90,16 +79,16 @@ func roll_eDice() -> void :
 		eNode.set_frame(eDiceRolls[i].get("index"))
 	
 	var indices : Array
-	var pool = [0, 1, 2, 3]
+	var pool = [0, 1, 2]
 	for value in pool.duplicate() :
 		if EDice[value].get("freeze") == true :
 			pool.erase(value)
 			
 	pool.shuffle()
-	if len(pool) < 4 :
+	if len(pool) < 2 :
 		indices = pool
 	else :
-		indices = pool.slice(0, 3)
+		indices = pool.slice(0, 2)
 	
 	await get_tree().create_timer(0.3).timeout
 
@@ -124,7 +113,7 @@ func roll_eDice() -> void :
 		eDamageNode.text = "D:" + str(curEDamage)
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
-
+	
 func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	var curDamage = 0
 	var curPiercing = 0
@@ -134,20 +123,12 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 				curDamage += roll.get("value")
 			Global.piercingEffectName :
 				curPiercing += roll.get("value")
+	
 	var eDamage = curDamage - curEShield
-	if (curPiercing > 0) :
-		if curPiercing > 3 : 
-			enemyHealth -= 3
-			remaining = 0
-		else :
-			enemyHealth -= curPiercing
-			remaining -= curPiercing
 	if(eDamage > 0) :
-		if eDamage > remaining :
-			enemyHealth -= remaining
-		else :
-			enemyHealth -= eDamage
-			remaining -= eDamage
+		enemyHealth -= eDamage
+	if (curPiercing > 0) :
+		enemyHealth -= curPiercing
 	if((eDamage > 0 || curPiercing > 0) && Global.playerType == "Assassin") :
 		addToPoison = true
 	if enemyHealth < 0 : enemyHealth = 0
@@ -161,19 +142,14 @@ func update_health_with_aoe(rolls : Array[Dictionary]) :
 				aoeDamage += roll.get("value")
 	var eExplosive = aoeDamage - curEShield
 	if eExplosive > 0 :
-		if remaining < eExplosive :
-			enemyHealth -= remaining
-			remaining = 0
-		else :
-			enemyHealth -= eExplosive
-			remaining -= eExplosive
+		enemyHealth -= eExplosive
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 
 func update_health_with_heal() -> void :
 	enemyHealth += curEHeal
-	if enemyHealth < 0 : enemyHealth = 0
 	if enemyHealth > maxHealth : enemyHealth = maxHealth
+	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_poison() -> void :
@@ -183,6 +159,13 @@ func update_health_with_poison() -> void :
 	if addToPoison :
 		curEPoisonCounter += 1
 		ePoisonNode.text = "P: " + str(curEPoisonCounter)
+		
+func modify_player_rolls(rolls : Array[Dictionary]) -> Array[Dictionary] :
+	for roll in rolls :
+		if roll.get("effect") == Global.damageEffectName :
+			roll.set("value", 0)
+			break
+	return rolls
 	
 func get_max_health() -> String : 
 	return str(maxHealth)
@@ -196,7 +179,6 @@ func clear() -> void :
 	curEHeal = 0
 	curEPiercing = 0
 	
-	remaining = 3
 	
 	addToPoison = false
 	
@@ -204,10 +186,11 @@ func clear() -> void :
 	eHealNode.text = "H:"
 	eShieldNode.text = "S:"
 	
+	
 	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.offset = Vector2(0, 0)
-	
+
 	
 func hideAllNodes() -> void :
 	$enemyDiceTray.visible = false

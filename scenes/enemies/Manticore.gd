@@ -165,7 +165,7 @@ func update_health_with_poison() -> void :
 		curEPoisonCounter += 1
 		ePoisonNode.text = "P: " + str(curEPoisonCounter)
 		
-func post_turn_effect(maxDieNum : int) -> int :
+func die_num_effect(maxDieNum : int) -> int :
 	if curEPiercing > 0 and !reducedDieNum :
 		reducedDieNum = true
 		return maxDieNum - 1

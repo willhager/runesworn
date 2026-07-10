@@ -241,7 +241,8 @@ func dieButtonEffects(dieNum : int) -> void:
 		
 	if Global.playerType == "Champion" :
 		if selectedAttackDice == 3 :
-			maxDieNum = maxDieNum + 1
+			if maxDieNum <= Global.maxSelectableDice :
+				maxDieNum = maxDieNum + 1
 			pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
 		elif selectedAttackDice < 3 :
 			if maxDieNum > Global.maxSelectableDice :
@@ -261,9 +262,22 @@ func _on_end_turn_pressed() -> void:
 	# reset
 	numSelected = 0
 	selectedAttackDice = 0
-	if enemy_instance.has_method("post_turn_effect") :
-		maxDieNum = enemy_instance.post_turn_effect(maxDieNum)
+	if enemy_instance.has_method("die_num_effect") :
+		maxDieNum = enemy_instance.die_num_effect(maxDieNum)
 	else : maxDieNum = Global.maxSelectableDice
+	
+	if enemy_instance.has_method("skip_turn_effect") :
+		var skip = enemy_instance.skip_turn_effect()
+		print(skip)
+		if skip :
+			rolled = false
+			rollButtonNode.disabled = false
+	
+			if(Global.playerType == "Goliath") :
+				goliathClear()
+			else :
+				clear()
+			return
 	
 	var rolls = get_rolls()
 	
