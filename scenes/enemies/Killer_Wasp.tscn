@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1pedniob0dcv"]
+[gd_scene format=3 uid="uid://c1pedniob0dcv"]
 
 [ext_resource type="Script" uid="uid://xnbr8dtwdj2x" path="res://scenes/enemies/Killer_Wasp.gd" id="1_u7480"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_ppmf0"]
