@@ -9,7 +9,7 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0sh4t"]
 
-[node name="Control" type="Control"]
+[node name="Control3" type="Control"]
 layout_mode = 3
 anchor_left = 0.585
 anchor_top = 0.15

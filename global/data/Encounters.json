@@ -108,11 +108,10 @@
 			"path" : "res://scenes/enemies/volcano_imp.tscn",
 			"healthMin" : 3,
 			"healthMax" : 5,
-			"numDice" : 3,
+			"numDice" : 2,
 			"dice" : [
 				"Barbarian's Die",
 				"Barbarian's Die",
-				"Barbarian's Die"
 			]
 		},
 		{
@@ -210,7 +209,7 @@
 		},
 		{
 			"id" : 11,
-			"weight" : 1000,
+			"weight" : 5,
 			"name" : "Giant Worm",
 			"notes" : "A writhing, snake-like creature...",
 			"hasAbility" : true,
@@ -415,6 +414,27 @@
 				"Healer's Die",
 				"Barbarian's Riposte",
 				"Mosquito's Die"
+			]
+		},
+		{
+			"id" : 9,
+			"weight" : 5,
+			"name" : "Hellhound",
+			"notes" : "A fiery hound...",
+			"hasText" : true,
+			"text" : "The stench of sulfure emanates from this room, filling the air with the smell of rotten eggs. Inside, you see a fiery beast, a hound on a massive scale that turns its head and growls as you enter.",
+			"hasAbility" : true,
+			"ability" : "Hellfire Burn",
+			"abilityDescription" : "Adds additional damage, increases by 1 each turn. Regains 50% of additional damage as health.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Hellhound.tscn",
+			"healthMin" : 16,
+			"healthMax" : 18,
+			"numDice" : 3,
+			"dice" : [
+				"Barbarian's Riposte",
+				"Carnival McMarkus",
+				"Sentinel's Die"
 			]
 		}
 	]
