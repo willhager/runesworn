@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bhc1bxci2uvrd"]
+[gd_scene load_steps=6 format=3 uid="uid://bhc1bxci2uvrd"]
 
 [ext_resource type="Script" uid="uid://dpshhkc0yrond" path="res://scenes/enemies/Brownie.gd" id="1_5l48n"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_3ubx8"]
@@ -9,7 +9,7 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s4grb"]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 layout_mode = 3
 anchor_left = 0.585
 anchor_top = 0.15

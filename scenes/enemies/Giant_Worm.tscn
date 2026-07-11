@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://btwt6ouky5hux"]
+[gd_scene load_steps=6 format=3 uid="uid://btwt6ouky5hux"]
 
 [ext_resource type="Script" uid="uid://bvsp7btj3l8rf" path="res://scenes/enemies/Giant_Worm.gd" id="1_7i32l"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_uudwg"]
