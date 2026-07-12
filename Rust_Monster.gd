@@ -22,6 +22,7 @@ var eDieSpritePath2 : String  = "/EDie"
 
 var enemyHealth : int
 var maxHealth : int
+
 var curEDamage : int
 var curEHeal : int
 var curEShield : int
@@ -30,17 +31,16 @@ var curEPoisonCounter : int
 var EDice : Array[Dictionary]
 var eDiceRolls : Array[Dictionary]
 
+var numDice : int
+
 var freezeCounter : Array[int]
 
 var addToPoison : bool = false
 
-var numDice : int
-
-var deathEffectUsed : bool = false
-
+var removeShield : int = 0
 
 func _ready() -> void :
-	var enemyDict = EncounterData.get_encounter_by_name(2, "Sun Priest")
+	var enemyDict = EncounterData.get_encounter_by_name(2, "Rust Monster")
 	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
@@ -69,7 +69,7 @@ func _ready() -> void :
 		
 	if(Global.playerType == "Assassin") :
 		ePoisonNode.text = "P:"
-	
+
 
 func roll_eDice() -> void :
 	for i in range(0, numDice) :
@@ -96,10 +96,10 @@ func roll_eDice() -> void :
 			pool.erase(value)
 			
 	pool.shuffle()
-	if len(pool) < 2 :
+	if len(pool) < 3 :
 		indices = pool
 	else :
-		indices = pool.slice(0, 2)
+		indices = pool.slice(0, 3)
 	
 	await get_tree().create_timer(0.3).timeout
 
@@ -124,6 +124,19 @@ func roll_eDice() -> void :
 		eDamageNode.text = "D:" + str(curEDamage)
 	eHealNode.text = "H:" + str(curEHeal)
 	eShieldNode.text = "S:" + str(curEShield)
+	
+func modify_player_rolls(rolls : Array[Dictionary]) -> Array[Dictionary] :
+	var tempRemoval = removeShield
+	for roll in rolls :
+		if roll.get("effect") == Global.shieldEffectName :
+			if roll.get("value") <= tempRemoval :
+				tempRemoval -= roll.get("value")
+				roll.set("value", 0)
+			else: 
+				roll.set("value", roll.get("value") - tempRemoval)
+				tempRemoval = 0
+				return rolls
+	return rolls
 
 func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	var curDamage = 0
@@ -176,16 +189,6 @@ func get_max_health() -> String :
 func get_total_health() -> int : 
 	return enemyHealth
 	
-func death_effect() -> int:
-	if deathEffectUsed : 
-		return 0
-	enemyHealth = maxHealth / 3
-	eHealthNode.text = "Health:" + str(enemyHealth)
-	curEPoisonCounter = 0
-	ePoisonNode.text = "P: " + str(curEPoisonCounter)
-	deathEffectUsed = true
-	return 0
-	
 func clear() -> void :
 	curEDamage = 0
 	curEShield = 0
@@ -201,6 +204,8 @@ func clear() -> void :
 	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
 		eNode.offset = Vector2(0, 0)
+		
+	removeShield += 1
 	
 func hideAllNodes() -> void :
 	$enemyDiceTray.visible = false

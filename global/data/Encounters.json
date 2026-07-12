@@ -436,6 +436,49 @@
 				"Carnival McMarkus",
 				"Sentinel's Die"
 			]
+		},
+		{
+			"id" : 10,
+			"weight" : 5,
+			"name" : "Bozak Draconian",
+			"notes" : "A fierce dragon-like humanoid",
+			"hasText" : true,
+			"text" : "This room contains a fearsome looking humanoid creature, but with the head, scales, and wings of a dragon. It's armed with a sword, and readies itself for battle as you enter.",
+			"hasAbility" : true,
+			"ability" : "Exploding Bones",
+			"abilityDescription" : "Bozak Draconian's bones explode on death, dealing 4 damage to you.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Bozak_Draconian.tscn",
+			"healthMin" : 18,
+			"healthMax" : 22,
+			"numDice" : 3,
+			"dice" : [
+				"Legionnaire's Die",
+				"Carnival McMarkus",
+				"First Aid Kit"
+			]
+		},
+		{
+			"id" : 11,
+			"weight" : 1000,
+			"name" : "Rust Monster",
+			"notes" : "The smell of old iron...",
+			"hasText" : true,
+			"text" : "A rusty brown, cockroach-like creature the size of a wolf turns towards you, hissing as it approaches.",
+			"hasAbility" : true,
+			"ability" : "Rust Metal",
+			"abilityDescription" : "Corrodes your equipment, removing 1 additional shield each turn.",
+			"reward" : 1,
+			"path" : "res://scenes/enemies/Rust_Monster.tscn",
+			"healthMin" : 20,
+			"healthMax" : 26,
+			"numDice" : 4,
+			"dice" : [
+				"Barbarian's Die",
+				"Barbarian's Riposte",
+				"Sentinel's Die",
+				"Cube of Chance"
+			]
 		}
 	]
 }

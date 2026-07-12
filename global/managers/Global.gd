@@ -26,7 +26,7 @@ var hasModifier2 : bool = false
 var die : Array[String] = ["", "", "", "", ""]
 var health : int
 var maxHealth : int
-var difficulty = 1
+var difficulty = 2
 var encounterNum = 1
 var lootMult = 1
 var maxLootNum = 8

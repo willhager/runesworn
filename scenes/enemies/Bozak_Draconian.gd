@@ -10,12 +10,10 @@ extends enemy_template
 @onready var eDieControl0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0")
 @onready var eDieControl1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1")
 @onready var eDieControl2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2")
-@onready var eDieControl3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3")
 
 @onready var eDie0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0/EDie0")
 @onready var eDie1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1/EDie1")
 @onready var eDie2 : Node = get_node("EnemyDiceTray/EDiceContainer/Control2/EDie2")
-@onready var eDie3 : Node = get_node("EnemyDiceTray/EDiceContainer/Control3/EDie3")
 
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
@@ -33,14 +31,10 @@ var eDiceRolls : Array[Dictionary]
 var freezeCounter : Array[int]
 
 var addToPoison : bool = false
-
 var numDice : int
 
-var deathEffectUsed : bool = false
-
-
 func _ready() -> void :
-	var enemyDict = EncounterData.get_encounter_by_name(2, "Sun Priest")
+	var enemyDict = EncounterData.get_encounter_by_name(2, "Bozak Draconian")
 	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
 	maxHealth = enemyHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
@@ -90,7 +84,7 @@ func roll_eDice() -> void :
 			eNode.set_frame(eDiceRolls[i].get("index"))
 	
 	var indices : Array
-	var pool = [0, 1, 2, 3]
+	var pool = [0, 1, 2]
 	for value in pool.duplicate() :
 		if EDice[value].get("freeze") == true :
 			pool.erase(value)
@@ -177,14 +171,7 @@ func get_total_health() -> int :
 	return enemyHealth
 	
 func death_effect() -> int:
-	if deathEffectUsed : 
-		return 0
-	enemyHealth = maxHealth / 3
-	eHealthNode.text = "Health:" + str(enemyHealth)
-	curEPoisonCounter = 0
-	ePoisonNode.text = "P: " + str(curEPoisonCounter)
-	deathEffectUsed = true
-	return 0
+	return 4
 	
 func clear() -> void :
 	curEDamage = 0

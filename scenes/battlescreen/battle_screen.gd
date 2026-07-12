@@ -268,7 +268,6 @@ func _on_end_turn_pressed() -> void:
 	
 	if enemy_instance.has_method("skip_turn_effect") :
 		var skip = enemy_instance.skip_turn_effect()
-		print(skip)
 		if skip :
 			rolled = false
 			rollButtonNode.disabled = false
@@ -279,7 +278,40 @@ func _on_end_turn_pressed() -> void:
 				clear()
 			return
 	
+	curDamage = 0
+	curHeal = 0
+	curShield = 0
+	curPiercing = 0
+	curExplosive = 0
 	var rolls = get_rolls()
+	for roll in rolls :
+		match roll.get("effect") : 
+			damageEffectName : 
+				curDamage += roll.get("value")
+				selectedAttackDice += 1
+				if curPiercing > 0 :
+					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				else :
+					pDamageNode.text = damageLabelText + str(curDamage)
+			
+			healEffectName :
+				curHeal += roll.get("value")
+				pHealNode.text = healLabelText + str(curHeal)
+			
+			shieldEffectName :
+				curShield += roll.get("value")
+				pShieldNode.text = shieldLabelText + str(curShield)
+			
+			piercingEffectName :
+				curPiercing += roll.get("value")
+				if curPiercing > 0 :
+					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				else :
+					pDamageNode.text = damageLabelText + str(curDamage)
+			
+			explosiveEffectName :
+				curExplosive += roll.get("value")
+				pExplosiveNode.text = explosiveLabelText + str(curExplosive)
 	
 	enemy_instance.update_health_with_damage(rolls)
 	enemy_instance.update_health_with_aoe(rolls)
@@ -300,7 +332,13 @@ func _on_end_turn_pressed() -> void:
 		return
 	elif(enemy_instance.get_total_health() <= 0) :
 		if enemy_instance.has_method("death_effect") :
-			enemy_instance.death_effect()
+			health -= enemy_instance.death_effect()
+			Global.health = health
+			$InfoPanel.update_health(health)
+			if(health <= 0) :
+				clear()
+				$defeat.callDefeat()
+				return
 		if enemy_instance.get_total_health() <= 0 :
 			clear()
 			Global.health = health
