@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cq48xwvwtdocb"]
+[gd_scene load_steps=0 format=3 uid="uid://cq48xwvwtdocb"]
 
 [ext_resource type="Script" uid="uid://o0qa1fbd2pv8" path="res://Rust_Monster.gd" id="1_x380d"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="2_8mvw8"]
