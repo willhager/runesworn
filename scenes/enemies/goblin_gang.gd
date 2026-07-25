@@ -56,6 +56,8 @@ var goblin1Alive: bool = true
 var goblin2Alive: bool = true
 var goblin3Alive : bool = true
 
+var selected : Array[Dictionary] = []
+
 
 func _ready() -> void :
 	goblin1Health = randi_range(4, 8)
@@ -162,6 +164,7 @@ func roll_eDice() -> void :
 
 	if goblin1Alive :
 		var roll = eDiceRolls1[goblin1Selected]
+		selected.append(roll)
 		var eNode : Node
 		match goblin1Selected :
 			0 : eNode = eDie0
@@ -180,6 +183,7 @@ func roll_eDice() -> void :
 				
 	if goblin2Alive :
 		var roll = eDiceRolls2[goblin2Selected]
+		selected.append(roll)
 		var eNode : Node
 		match goblin2Selected :
 			0 : eNode = eDie2
@@ -198,6 +202,7 @@ func roll_eDice() -> void :
 				
 	if goblin3Alive :
 		var roll = eDiceRolls3[goblin3Selected]
+		selected.append(roll)
 		var eNode : Node
 		match goblin3Selected :
 			0 : eNode = eDie4
@@ -323,6 +328,9 @@ func get_max_health() -> String :
 	
 func get_total_health() -> int : 
 	return goblin1Health + goblin2Health + goblin3Health
+
+func get_rolls() -> Array[Dictionary]:
+	return selected
 	
 func clear() -> void :
 	curEDamage = 0
@@ -342,6 +350,8 @@ func clear() -> void :
 	eDie3.offset = Vector2(0, 0)
 	eDie4.offset = Vector2(0, 0)
 	eDie5.offset = Vector2(0, 0)
+	
+	selected = []
 	
 	
 func hideAllNodes() -> void :

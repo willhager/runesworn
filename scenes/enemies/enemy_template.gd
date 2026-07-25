@@ -26,6 +26,10 @@ func get_max_health() -> String :
 func get_total_health() -> int : 
 	push_warning("function \"get_total_health()\" not implemented in enemy")
 	return 0
+	
+func get_rolls() -> Array[Dictionary] :
+	push_warning("function \"get_rolls()\" not implemented in enemy")
+	return []
 
 func clear() -> void :
 	push_warning("function \"clear()\" not implemented in enemy")

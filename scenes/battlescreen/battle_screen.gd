@@ -1,17 +1,10 @@
 extends Control
 
-@onready var pDamageNode : Node = get_node("BookControl/PlayerDiceTray/PInfoContainer/Damage")
-@onready var pHealNode : Node = get_node("BookControl/PlayerDiceTray/PInfoContainer/Heal")
-@onready var pShieldNode : Node = get_node("BookControl/PlayerDiceTray/PInfoContainer/Shield")
-@onready var pFreezeNode : Node = get_node("BookControl/PlayerDiceTray/PInfoContainer/Freeze")
-@onready var pExplosiveNode : Node = get_node("BookControl/PlayerDiceTray/PInfoContainer/Explosive")
-@onready var pSelectedNode : Node = get_node("BookControl/PlayerDiceTray/Selected")
-
-@onready var playerDiceTrayNode : Node = get_node("BookControl/PlayerDiceTray")
 @onready var bookNode : Node = get_node("BookControl/BookContainer/Book")
 @onready var bookControlNode : Node = get_node("BookControl")
 
 @onready var enemy_instance : Node = null
+@onready var player_instance : Node = null
 
 @onready var eInfoPanelNode : Node = get_node("EInfoPanel")
 
@@ -31,17 +24,6 @@ extends Control
 @onready var rollButtonNode : Node = get_node("ButtonTray/VBoxContainer/RollButton")
 @onready var endTurnButtonNode : Node = get_node("ButtonTray/VBoxContainer/EndTurn")
 
-var pDiePath : String = "BookControl/PlayerDiceTray/PDiceContainer/Die"
-var pDiePath2 : String = "/CenterContainer/Faces"
-
-var healthLabelText = "H: "
-var damageLabelText = "D:"
-var shieldLabelText = "S:"
-var healLabelText = "H:"
-var freezeLabelText = "F:"
-var explosiveLabelText = "E:"
-var poisonLabelText = "P:"
-
 var damageEffectName = Global.damageEffectName
 var shieldEffectName = Global.shieldEffectName
 var healEffectName = Global.healEffectName
@@ -50,51 +32,35 @@ var freezeEffectName = Global.freezeEffectName
 var explosiveEffectName = Global.explosiveEffectName
 
 var enemy : Dictionary
-var health : int
+
 var rolled : bool = false
-var numSelected : int = 0
-var selectedArry : Array[bool]
-var selectedAttackDice : int = 0
-var maxDieNum : int = Global.maxSelectableDice
-
-var curDamage : int
-var curHeal : int
-var curShield : int
-var curPiercing : int
-var curFreeze : int
-var curExplosive : int
-
-var pDiceRolls : Array[Dictionary]
 
 
 func _ready() -> void:
 	ProgressTrayNode.update_encounters()
+	
+	match Global.playerType :
+		"Goliath" :
+			var scene_res = load("res://scenes/players/Goliath.tscn")
+			if scene_res is PackedScene :
+				var instance = scene_res.instantiate()
+				bookControlNode.add_child(instance)
+				player_instance = instance
+			else :
+				push_error("Invalid scene path: " + Global.enemy.get("path"))
+			
 	hideAllNodes()
-	health = Global.health
+	
+	player_instance.selected_max_dice.connect(on_player_selected_max_dice)
+	player_instance.selected_less_than_max_dice.connect(on_player_selected_less_than_max_dice)
+	
 	rollButtonNode.disabled = true
 	endTurnButtonNode.disabled = true
-		
+	
 	bookNode.play("open")
 	await bookNode.animation_finished
 	
-	pDiceRolls.resize(5)
-	selectedArry.resize(5)
-	
-	#initialize player dice and set textures
-	for i in range(0, 5) :
-		var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
-		var dieTexture : SpriteFrames = SpriteFrames.new()
-		dieTexture.add_animation("faces")
-		dieTexture.set_animation_speed("faces", 10)
-		for j in range(0, 6) :
-			dieTexture.add_frame("faces", load(DiceData.get_die_by_name(Global.die[i]).get("faces")[j].get("sprite")))
-		node.set_sprite_frames(dieTexture)
-		node.set_frame(0)
-		node.play("faces")
-		node.pause()
-		selectedArry[i] = false
-	
-	playerDiceTrayNode.show()
+	player_instance.showAllNodes()
 	
 	#start "summoning circle"
 	showNodes_circleStart()
@@ -109,8 +75,7 @@ func _process(_delta) -> void :
 func reready() :
 	hideAllNodes()
 	
-	maxDieNum = Global.maxSelectableDice
-	pSelectedNode.text = "0/" + str(maxDieNum)
+	player_instance.reready()
 	
 	eInfoPanelNode.reready()
 	bookControlNode.remove_child(enemy_instance)
@@ -118,7 +83,6 @@ func reready() :
 	rollButtonNode.disabled = true
 	
 	endTurnButtonNode.disabled = true
-	playerDiceTrayNode.show()
 	
 	circleControl.reready()
 	$InfoPanel.reready()
@@ -126,9 +90,6 @@ func reready() :
 	showNodes_circleStart()
 	
 func _on_roll_button_pressed() -> void:
-	for i in range(0, Global.die.size()) :
-		var die = get_node(pDiePath + str(i))
-		die.disabled = true
 	if(!rolled) : 
 		rolled = true
 		rollButtonNode.disabled = true
@@ -136,212 +97,57 @@ func _on_roll_button_pressed() -> void:
 		return
 	
 	enemy_instance.roll_eDice()
-	#start and stop roll animation
-	for i in range(0, 5) :
-		var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
-		node.set_frame(randi_range(0, 5))
-		node.play()
-	await get_tree().create_timer(0.75).timeout
-	for i in range(0, 5) :
-		var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
-		node.pause()
-	
-	#store dice rolls in pDiceRolls arry, set frames
-	for i in range (0, 5) :
-		pDiceRolls[i] = DiceData.roll_die(Global.die[i])
-		var pNode = get_node(pDiePath + str(i) + pDiePath2 + str(i))
-		pNode.set_frame(pDiceRolls[i].get("index"))
-		
-	for i in range(0, Global.die.size()) :
-		var die = get_node(pDiePath + str(i))
-		die.disabled = false
-		
-		
-func dieButtonEffects(dieNum : int) -> void:
-	var roll = pDiceRolls[dieNum]
-	var node = get_node(pDiePath + str(dieNum) + pDiePath2 + str(dieNum))
-	
-	if(selectedArry[dieNum] == false && numSelected < maxDieNum) : 
-		node.offset += Vector2(20, 0)
-		
-		match roll.get("effect") : 
-			damageEffectName : 
-				curDamage += pDiceRolls[dieNum].get("value")
-				selectedAttackDice += 1
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
-				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
-			
-			healEffectName :
-				curHeal += pDiceRolls[dieNum].get("value")
-				pHealNode.text = healLabelText + str(curHeal)
-			
-			shieldEffectName :
-				curShield += pDiceRolls[dieNum].get("value")
-				pShieldNode.text = shieldLabelText + str(curShield)
-			
-			piercingEffectName :
-				curPiercing += pDiceRolls[dieNum].get("value")
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
-				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
-			
-			freezeEffectName :
-				curFreeze += pDiceRolls[dieNum].get("value")
-				pFreezeNode.text = freezeLabelText + str(curFreeze)
-			
-			explosiveEffectName :
-				curExplosive += pDiceRolls[dieNum].get("value")
-				pExplosiveNode.text = explosiveLabelText + str(curExplosive)
-		
-		numSelected += 1
-		pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
-		selectedArry[dieNum] = true
-		
-	elif(selectedArry[dieNum] == true) :
-		node.offset -= Vector2(20, 0)
-		
-		match roll.get("effect") : 
-			damageEffectName : 
-				curDamage -= pDiceRolls[dieNum].get("value")
-				selectedAttackDice -= 1
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
-				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
-			
-			healEffectName :
-				curHeal -= pDiceRolls[dieNum].get("value")
-				pHealNode.text = healLabelText + str(curHeal)
-			
-			shieldEffectName :
-				curShield -= pDiceRolls[dieNum].get("value")
-				pShieldNode.text = shieldLabelText + str(curShield)
-			
-			piercingEffectName :
-				curPiercing -= pDiceRolls[dieNum].get("value")
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
-				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
-			
-			freezeEffectName :
-				curFreeze -= pDiceRolls[dieNum].get("value")
-				pFreezeNode.text = freezeLabelText + str(curFreeze)
-			
-			explosiveEffectName :
-				curExplosive -= pDiceRolls[dieNum].get("value")
-				pExplosiveNode.text = explosiveLabelText + str(curExplosive)
-		
-		numSelected -= 1
-		pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
-		selectedArry[dieNum] = false
-		
-	if Global.playerType == "Champion" :
-		if selectedAttackDice == 3 :
-			if maxDieNum <= Global.maxSelectableDice :
-				maxDieNum = maxDieNum + 1
-			pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
-		elif selectedAttackDice < 3 :
-			if maxDieNum > Global.maxSelectableDice :
-				maxDieNum = Global.maxSelectableDice
-			pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
-	
-	if numSelected == maxDieNum :
-		endTurnButtonNode.disabled = false
-	else :
-		endTurnButtonNode.disabled = true
-	
-func _on_end_turn_pressed() -> void:
-	if(numSelected != maxDieNum):
-		return
+	player_instance.roll_dice()
+
+func on_player_selected_max_dice() :
+	endTurnButtonNode.disabled = false
+func on_player_selected_less_than_max_dice() :
 	endTurnButtonNode.disabled = true
 	
-	# reset
-	numSelected = 0
-	selectedAttackDice = 0
+func _on_end_turn_pressed() -> void:
+	endTurnButtonNode.disabled = true
+	
 	if enemy_instance.has_method("die_num_effect") :
-		maxDieNum = enemy_instance.die_num_effect(maxDieNum)
-	else : maxDieNum = Global.maxSelectableDice
+		player_instance.set_max_dice_num(enemy_instance.die_num_effect(player_instance.maxDieNum))
+	else : player_instance.set_max_dice_num(Global.maxSelectableDice)
 	
 	if enemy_instance.has_method("skip_turn_effect") :
 		var skip = enemy_instance.skip_turn_effect()
 		if skip :
 			rolled = false
 			rollButtonNode.disabled = false
-	
-			if(Global.playerType == "Goliath") :
-				goliathClear()
-			else :
-				clear()
+			player_instance.clear()
+			enemy_instance.clear()
 			return
 	
-	curDamage = 0
-	curHeal = 0
-	curShield = 0
-	curPiercing = 0
-	curExplosive = 0
-	var rolls = get_rolls()
-	for roll in rolls :
-		match roll.get("effect") : 
-			damageEffectName : 
-				curDamage += roll.get("value")
-				selectedAttackDice += 1
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
-				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
-			
-			healEffectName :
-				curHeal += roll.get("value")
-				pHealNode.text = healLabelText + str(curHeal)
-			
-			shieldEffectName :
-				curShield += roll.get("value")
-				pShieldNode.text = shieldLabelText + str(curShield)
-			
-			piercingEffectName :
-				curPiercing += roll.get("value")
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
-				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
-			
-			explosiveEffectName :
-				curExplosive += roll.get("value")
-				pExplosiveNode.text = explosiveLabelText + str(curExplosive)
+	var rolls = modify_player_rolls()
+	
+	player_instance.update_current_values(rolls)
 	
 	enemy_instance.update_health_with_damage(rolls)
 	enemy_instance.update_health_with_aoe(rolls)
 		
-	var damage = enemy_instance.curEDamage - curShield
-	if(damage > 0) :
-		health -= damage
-	if enemy_instance.curEPiercing > 0 :
-		health -= enemy_instance.curEPiercing
-	if health < 0 :
-		health = 0
-	Global.health = health
-	$InfoPanel.update_health(health)
+	player_instance.update_health_with_damage(enemy_instance.get_rolls())
 	
-	if(health <= 0) :
+	Global.health = player_instance.health
+	$InfoPanel.update_health(player_instance.health)
+	
+	if(player_instance.health <= 0) :
 		clear()
 		$defeat.callDefeat()
 		return
 	elif(enemy_instance.get_total_health() <= 0) :
 		if enemy_instance.has_method("death_effect") :
-			health -= enemy_instance.death_effect()
-			Global.health = health
-			$InfoPanel.update_health(health)
-			if(health <= 0) :
+			player_instance.health -= enemy_instance.death_effect()
+			Global.health = player_instance.health
+			$InfoPanel.update_health(player_instance.health)
+			if(player_instance.health <= 0) :
 				clear()
 				$defeat.callDefeat()
 				return
 		if enemy_instance.get_total_health() <= 0 :
 			clear()
-			Global.health = health
+			Global.health = player_instance.health
 			Global.encounterNum += 1
 			if (Global.encounterNum == 7) :
 				Global.encounterNum = 1
@@ -352,10 +158,8 @@ func _on_end_turn_pressed() -> void:
 			return
 	
 	enemy_instance.update_health_with_heal()
-	if health + curHeal > Global.maxHealth :
-		health = Global.maxHealth
-	else :
-		health += curHeal
+	
+	player_instance.update_health_with_heal()
 	
 	enemy_instance.update_health_with_poison()
 	
@@ -364,7 +168,7 @@ func _on_end_turn_pressed() -> void:
 			enemy_instance.death_effect()
 		if enemy_instance.get_total_health() <= 0 :
 			clear()
-			Global.health = health
+			Global.health = player_instance.health
 			Global.encounterNum += 1
 			if (Global.encounterNum == 7) :
 				Global.encounterNum = 1
@@ -377,80 +181,26 @@ func _on_end_turn_pressed() -> void:
 	rolled = false
 	rollButtonNode.disabled = false
 	
-	if(Global.playerType == "Goliath") :
-		goliathClear()
-	else :
-		clear()
-	Global.health = health
-	$InfoPanel.update_health(health)
+	clear()
+	Global.health = player_instance.health
+	$InfoPanel.update_health(player_instance.health)
 	
-func get_rolls() -> Array[Dictionary] :
-	var ret : Array[Dictionary]
-	for i in range(0, pDiceRolls.size()) :
-		if selectedArry[i] :
-			ret.append(pDiceRolls[i].duplicate())
+func modify_player_rolls() -> Array[Dictionary] :
+	var ret = player_instance.get_player_rolls()
 	if enemy_instance.has_method("modify_player_rolls") :
 		ret = enemy_instance.modify_player_rolls(ret)
 	return ret
-	
-func _on_die_0_pressed() -> void:
-	if(rolled) :
-		dieButtonEffects(0)
 
-func _on_die_1_pressed() -> void:
-	if(rolled) :
-		dieButtonEffects(1)
-
-func _on_die_2_pressed() -> void:
-	if(rolled) :
-		dieButtonEffects(2)
-
-func _on_die_3_pressed() -> void:
-	if(rolled) :
-		dieButtonEffects(3)
-
-func _on_die_4_pressed() -> void:
-	if(rolled) :
-		dieButtonEffects(4)
-
-func goliathClear() -> void :
-	var golShield = curShield - enemy_instance.curEDamage
-	clear()
-	if golShield < 0 :
-		curShield = 0
-	else :
-		curShield = golShield
-	pShieldNode.text = shieldLabelText + str(curShield)
-	
 func clear() -> void :
-	curDamage = 0
-	curHeal = 0
-	curShield = 0
-	curPiercing = 0
-	curExplosive = 0
-	curFreeze = 0
-	
-	for i in range (0, 5) :
-		if selectedArry[i] == true :
-			var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
-			node.offset -= Vector2(20, 0)
-		selectedArry[i] = false
-	pSelectedNode.text = "0/" + str(maxDieNum)
-	pDamageNode.text = damageLabelText
-	pHealNode.text = healLabelText
-	pShieldNode.text = shieldLabelText
-	pExplosiveNode.text = explosiveLabelText
-	pFreezeNode.text = freezeLabelText
 	
 	enemy_instance.clear()
-
+	player_instance.clear()
+	
 	rolled = false
-	numSelected = 0
-	selectedAttackDice = 0
 	
 func hideAllNodes() :
 	circleNode.hide()
-	playerDiceTrayNode.hide()
+	player_instance.hideAllNodes()
 	
 func showNodes_circleStart() :
 	nextButtonNode.show()

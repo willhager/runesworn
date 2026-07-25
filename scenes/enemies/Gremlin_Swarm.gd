@@ -56,6 +56,8 @@ var gremlin1Alive: bool = true
 var gremlin2Alive: bool = true
 var gremlin3Alive : bool = true
 
+var selected : Array[Dictionary] = []
+
 
 func _ready() -> void :
 	gremlin1Health = randi_range(5, 10)
@@ -162,6 +164,7 @@ func roll_eDice() -> void :
 
 	if gremlin1Alive :
 		var roll = eDiceRolls1[gremlin1Selected]
+		selected.append(roll)
 		var eNode : Node
 		match gremlin1Selected :
 			0 : eNode = eDie0
@@ -180,6 +183,7 @@ func roll_eDice() -> void :
 				
 	if gremlin2Alive :
 		var roll = eDiceRolls2[gremlin2Selected]
+		selected.append(roll)
 		var eNode : Node
 		match gremlin2Selected :
 			0 : eNode = eDie2
@@ -198,6 +202,7 @@ func roll_eDice() -> void :
 				
 	if gremlin3Alive :
 		var roll = eDiceRolls3[gremlin3Selected]
+		selected.append(roll)
 		var eNode : Node
 		match gremlin3Selected :
 			0 : eNode = eDie4
@@ -324,6 +329,9 @@ func get_max_health() -> String :
 func get_total_health() -> int : 
 	return gremlin1Health + gremlin2Health + gremlin3Health
 	
+func get_rolls() -> Array[Dictionary]:
+	return selected
+	
 func clear() -> void :
 	curEDamage = 0
 	curEShield = 0
@@ -342,6 +350,8 @@ func clear() -> void :
 	eDie3.offset = Vector2(0, 0)
 	eDie4.offset = Vector2(0, 0)
 	eDie5.offset = Vector2(0, 0)
+	
+	selected = []
 	
 	
 func hideAllNodes() -> void :

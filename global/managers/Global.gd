@@ -51,6 +51,8 @@ var explosiveEffectName = "explosive"
 var seeded_run = false
 var seed_value = 123456
 
+
+
 func _ready() :
 	if seeded_run :
 		seed(seed_value)

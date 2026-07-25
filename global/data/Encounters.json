@@ -460,7 +460,7 @@
 		},
 		{
 			"id" : 11,
-			"weight" : 1000,
+			"weight" : 5,
 			"name" : "Rust Monster",
 			"notes" : "The smell of old iron...",
 			"hasText" : true,

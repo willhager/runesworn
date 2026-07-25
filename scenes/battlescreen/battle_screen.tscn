@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://0rsco4j5cktx"]
+[gd_scene format=3 uid="uid://0rsco4j5cktx"]
 
 [ext_resource type="Script" uid="uid://cpcwu0n1xrylf" path="res://scenes/battlescreen/battle_screen.gd" id="1_iugxu"]
 [ext_resource type="Texture2D" uid="uid://da67qyndk2wpn" path="res://resources/dungeonbg.png" id="2_vjihi"]
@@ -9,11 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cnhqb6h46ebdq" path="res://resources/book/book-closed.png" id="7_gqtop"]
 [ext_resource type="Texture2D" uid="uid://lax3568jmk1n" path="res://resources/book/book-opening-1.png" id="8_naixd"]
 [ext_resource type="Texture2D" uid="uid://c343uf7ikj0er" path="res://resources/book/book-opening-2.png" id="9_q128j"]
-[ext_resource type="Script" uid="uid://donddvv8q6oy6" path="res://scenes/battlescreen/die_0.gd" id="10_doxqx"]
-[ext_resource type="Script" uid="uid://bvq18h7jsmo1y" path="res://scenes/battlescreen/die_1.gd" id="11_pjvr3"]
-[ext_resource type="Script" uid="uid://bkop44d2a2liu" path="res://scenes/battlescreen/die_2.gd" id="12_grr2h"]
-[ext_resource type="Script" uid="uid://dulwjl645bch5" path="res://scenes/battlescreen/die_3.gd" id="13_1h6xx"]
-[ext_resource type="Script" uid="uid://b1kwya6xq05nf" path="res://scenes/battlescreen/die_4.gd" id="14_gwf84"]
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="15_16put"]
 [ext_resource type="Texture2D" uid="uid://bt2ge763af8kx" path="res://resources/circle-1.png" id="16_jun3f"]
 [ext_resource type="Script" uid="uid://sa2uhkpunhoa" path="res://scenes/battlescreen/circle_control.gd" id="16_nt5ra"]
@@ -59,7 +54,7 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 10.0
 }, {
@@ -76,32 +71,10 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_qakt8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"open",
 "speed": 10.0
 }]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ikkpg"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjy5n"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qo5xu"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxt2d"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0sais"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3jdw"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjc3k"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_jd2wk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qm3lx"]
 content_margin_left = 30.0
@@ -210,7 +183,7 @@ content_margin_right = 30.0
 content_margin_bottom = 30.0
 texture = ExtResource("27_ubuyo")
 
-[node name="BattleScreen" type="Control"]
+[node name="BattleScreen" type="Control" unique_id=1453039936]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -219,7 +192,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iugxu")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1499166314]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -228,7 +201,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_vjihi")
 
-[node name="BookControl" type="Control" parent="."]
+[node name="BookControl" type="Control" parent="." unique_id=780910030]
 layout_mode = 1
 anchor_left = 0.2
 anchor_top = 0.05
@@ -237,7 +210,7 @@ anchor_bottom = 0.922
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BookContainer" type="Control" parent="BookControl"]
+[node name="BookContainer" type="Control" parent="BookControl" unique_id=136680972]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -247,209 +220,11 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Book" type="AnimatedSprite2D" parent="BookControl/BookContainer"]
+[node name="Book" type="AnimatedSprite2D" parent="BookControl/BookContainer" unique_id=819354892]
 scale = Vector2(1.06, 1.06)
 sprite_frames = SubResource("SpriteFrames_bgqsx")
 
-[node name="PlayerDiceTray" type="Panel" parent="BookControl"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.18
-anchor_right = 0.415
-anchor_bottom = 0.9
-scale = Vector2(0.999322, 1)
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ikkpg")
-
-[node name="PDiceContainer" type="VBoxContainer" parent="BookControl/PlayerDiceTray"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.05
-anchor_right = 0.34
-anchor_bottom = 0.95
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-
-[node name="Die0" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
-keep_pressed_outside = true
-script = ExtResource("10_doxqx")
-
-[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die0"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Faces0" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die0/CenterContainer"]
-scale = Vector2(1.8, 1.8)
-sprite_frames = SubResource("SpriteFrames_jd2wk")
-
-[node name="Die1" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
-script = ExtResource("11_pjvr3")
-
-[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die1"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Faces1" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die1/CenterContainer"]
-scale = Vector2(1.8, 1.8)
-sprite_frames = SubResource("SpriteFrames_jd2wk")
-
-[node name="Die2" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
-script = ExtResource("12_grr2h")
-
-[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Faces2" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die2/CenterContainer"]
-scale = Vector2(1.8, 1.8)
-sprite_frames = SubResource("SpriteFrames_jd2wk")
-
-[node name="Die3" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
-script = ExtResource("13_1h6xx")
-
-[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die3"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Faces3" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die3/CenterContainer"]
-scale = Vector2(1.8, 1.8)
-sprite_frames = SubResource("SpriteFrames_jd2wk")
-
-[node name="Die4" type="Button" parent="BookControl/PlayerDiceTray/PDiceContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxFlat_tjy5n")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_qo5xu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fxt2d")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0sais")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l3jdw")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tjc3k")
-script = ExtResource("14_gwf84")
-
-[node name="CenterContainer" type="CenterContainer" parent="BookControl/PlayerDiceTray/PDiceContainer/Die4"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Faces4" type="AnimatedSprite2D" parent="BookControl/PlayerDiceTray/PDiceContainer/Die4/CenterContainer"]
-scale = Vector2(1.8, 1.8)
-sprite_frames = SubResource("SpriteFrames_jd2wk")
-
-[node name="PInfoContainer" type="VBoxContainer" parent="BookControl/PlayerDiceTray"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.782
-anchor_top = 0.211
-anchor_right = 0.782
-anchor_bottom = 0.299
-offset_right = 108.0
-offset_bottom = 166.48
-
-[node name="Damage" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 60
-text = "D:"
-
-[node name="Shield" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 60
-text = "S:"
-
-[node name="Heal" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 60
-text = "H:"
-
-[node name="Freeze" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 60
-text = "F:"
-
-[node name="Explosive" type="Label" parent="BookControl/PlayerDiceTray/PInfoContainer"]
-layout_mode = 2
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 60
-text = "E:"
-
-[node name="Selected" type="Label" parent="BookControl/PlayerDiceTray"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.95
-anchor_top = 0.864
-anchor_right = 0.95
-anchor_bottom = 0.925
-grow_horizontal = 0
-theme = ExtResource("15_16put")
-theme_override_font_sizes/font_size = 60
-text = "0/3"
-
-[node name="CircleControl" type="Control" parent="BookControl"]
+[node name="CircleControl" type="Control" parent="BookControl" unique_id=1541640358]
 layout_mode = 1
 anchor_left = 0.45
 anchor_top = 0.25
@@ -459,7 +234,7 @@ grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("16_nt5ra")
 
-[node name="Circle" type="TextureRect" parent="BookControl/CircleControl"]
+[node name="Circle" type="TextureRect" parent="BookControl/CircleControl" unique_id=1072362449]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -469,7 +244,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("16_jun3f")
 
-[node name="Button1" type="TextureButton" parent="BookControl/CircleControl/Circle"]
+[node name="Button1" type="TextureButton" parent="BookControl/CircleControl/Circle" unique_id=555868182]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
@@ -483,7 +258,7 @@ texture_pressed = ExtResource("18_2rm4h")
 texture_hover = ExtResource("19_o76mj")
 stretch_mode = 0
 
-[node name="Button2" type="TextureButton" parent="BookControl/CircleControl/Circle"]
+[node name="Button2" type="TextureButton" parent="BookControl/CircleControl/Circle" unique_id=785117583]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.9
@@ -497,7 +272,7 @@ texture_pressed = ExtResource("18_2rm4h")
 texture_hover = ExtResource("19_o76mj")
 stretch_mode = 0
 
-[node name="Button3" type="TextureButton" parent="BookControl/CircleControl/Circle"]
+[node name="Button3" type="TextureButton" parent="BookControl/CircleControl/Circle" unique_id=1433468939]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
@@ -510,7 +285,7 @@ texture_pressed = ExtResource("18_2rm4h")
 texture_hover = ExtResource("19_o76mj")
 stretch_mode = 0
 
-[node name="DescriptionContainer" type="VBoxContainer" parent="BookControl/CircleControl/Circle"]
+[node name="DescriptionContainer" type="VBoxContainer" parent="BookControl/CircleControl/Circle" unique_id=634269375]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.265
@@ -522,12 +297,12 @@ grow_vertical = 2
 theme = ExtResource("15_16put")
 theme_override_constants/separation = 20
 
-[node name="NotesPanel" type="Panel" parent="BookControl/CircleControl/Circle/DescriptionContainer"]
+[node name="NotesPanel" type="Panel" parent="BookControl/CircleControl/Circle/DescriptionContainer" unique_id=1788895376]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("15_16put")
 
-[node name="Notes" type="Label" parent="BookControl/CircleControl/Circle/DescriptionContainer/NotesPanel"]
+[node name="Notes" type="Label" parent="BookControl/CircleControl/Circle/DescriptionContainer/NotesPanel" unique_id=1939651345]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
@@ -541,12 +316,12 @@ theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="RewardPanel" type="Panel" parent="BookControl/CircleControl/Circle/DescriptionContainer"]
+[node name="RewardPanel" type="Panel" parent="BookControl/CircleControl/Circle/DescriptionContainer" unique_id=1835337202]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("15_16put")
 
-[node name="Reward" type="Label" parent="BookControl/CircleControl/Circle/DescriptionContainer/RewardPanel"]
+[node name="Reward" type="Label" parent="BookControl/CircleControl/Circle/DescriptionContainer/RewardPanel" unique_id=1374950024]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.08
@@ -559,7 +334,7 @@ theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 
-[node name="NextButton" type="Button" parent="BookControl"]
+[node name="NextButton" type="Button" parent="BookControl" unique_id=1600860197]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.743
@@ -570,7 +345,7 @@ theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 40
 text = "SUmmon!"
 
-[node name="ButtonTray" type="Panel" parent="."]
+[node name="ButtonTray" type="Panel" parent="." unique_id=464387181]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.864
@@ -581,7 +356,7 @@ scale = Vector2(1, 1.00447)
 theme = ExtResource("15_16put")
 theme_override_styles/panel = SubResource("StyleBoxTexture_qm3lx")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ButtonTray"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonTray" unique_id=2084003161]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
@@ -591,23 +366,23 @@ anchor_bottom = 0.85
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RollButton" type="Button" parent="ButtonTray/VBoxContainer"]
+[node name="RollButton" type="Button" parent="ButtonTray/VBoxContainer" unique_id=789393375]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "ROLL"
 
-[node name="EndTurn" type="Button" parent="ButtonTray/VBoxContainer"]
+[node name="EndTurn" type="Button" parent="ButtonTray/VBoxContainer" unique_id=534884047]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
 text = "END TURN"
 
-[node name="InfoPanel" parent="." instance=ExtResource("22_15bqh")]
+[node name="InfoPanel" parent="." unique_id=1338175463 instance=ExtResource("22_15bqh")]
 layout_mode = 1
 
-[node name="EInfoPanel" type="Panel" parent="."]
+[node name="EInfoPanel" type="Panel" parent="." unique_id=1865348072]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.864
@@ -618,7 +393,7 @@ rotation = -0.00267314
 theme_override_styles/panel = SubResource("StyleBoxTexture_c5bog")
 script = ExtResource("23_j2lwq")
 
-[node name="MarginContainer" type="MarginContainer" parent="EInfoPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="EInfoPanel" unique_id=325518078]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -630,32 +405,32 @@ theme_override_constants/margin_top = 55
 theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EInfoPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EInfoPanel/MarginContainer" unique_id=1875165824]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="EName" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+[node name="EName" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer" unique_id=1309228009]
 layout_mode = 2
 theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 20
 text = "ENEMY"
 horizontal_alignment = 1
 
-[node name="EHealth" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+[node name="EHealth" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer" unique_id=891778357]
 layout_mode = 2
 theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 25
 text = "MaX HEALTH:"
 horizontal_alignment = 1
 
-[node name="EReward" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+[node name="EReward" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer" unique_id=272056782]
 layout_mode = 2
 theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 25
 text = "REWARD:"
 horizontal_alignment = 1
 
-[node name="EAbilities" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer"]
+[node name="EAbilities" type="Label" parent="EInfoPanel/MarginContainer/VBoxContainer" unique_id=618051827]
 layout_mode = 2
 mouse_filter = 0
 theme = ExtResource("15_16put")
@@ -665,7 +440,7 @@ text = "Abilities:
 horizontal_alignment = 1
 script = ExtResource("23_nt5ra")
 
-[node name="ProgressTray" type="Panel" parent="."]
+[node name="ProgressTray" type="Panel" parent="." unique_id=1703152112]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.864
@@ -677,7 +452,7 @@ theme = ExtResource("15_16put")
 theme_override_styles/panel = SubResource("StyleBoxTexture_qm3lx")
 script = ExtResource("25_oqtd8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ProgressTray"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ProgressTray" unique_id=1713584012]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.19
@@ -687,50 +462,50 @@ anchor_bottom = 0.85
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="ProgressTray/VBoxContainer"]
+[node name="Label" type="Label" parent="ProgressTray/VBoxContainer" unique_id=597398463]
 layout_mode = 2
 theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 25
 text = "Progress:"
 horizontal_alignment = 1
 
-[node name="Encounter1" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+[node name="Encounter1" type="TextureRect" parent="ProgressTray/VBoxContainer" unique_id=2061381890]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("23_dfu5w")
 expand_mode = 3
 
-[node name="Encounter2" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+[node name="Encounter2" type="TextureRect" parent="ProgressTray/VBoxContainer" unique_id=511937218]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("23_dfu5w")
 expand_mode = 3
 
-[node name="Encounter3" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+[node name="Encounter3" type="TextureRect" parent="ProgressTray/VBoxContainer" unique_id=1598014429]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("23_dfu5w")
 expand_mode = 3
 
-[node name="Encounter4" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+[node name="Encounter4" type="TextureRect" parent="ProgressTray/VBoxContainer" unique_id=399334896]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("23_dfu5w")
 expand_mode = 3
 
-[node name="Encounter5" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+[node name="Encounter5" type="TextureRect" parent="ProgressTray/VBoxContainer" unique_id=1456041686]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("23_dfu5w")
 expand_mode = 3
 
-[node name="Encounter6" type="TextureRect" parent="ProgressTray/VBoxContainer"]
+[node name="Encounter6" type="TextureRect" parent="ProgressTray/VBoxContainer" unique_id=23444708]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("23_dfu5w")
 expand_mode = 3
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=128612991]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.2
@@ -748,24 +523,22 @@ text = "Choose Your Path..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CircleStart" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_sq6bu")
-}
+[node name="CircleStart" type="AnimationPlayer" parent="." unique_id=1875713549]
+libraries/ = SubResource("AnimationLibrary_sq6bu")
 
-[node name="victory" parent="." instance=ExtResource("24_t67x6")]
+[node name="victory" parent="." unique_id=1540942168 instance=ExtResource("24_t67x6")]
 visible = false
 layout_mode = 1
 
-[node name="defeat" parent="." instance=ExtResource("25_i71ea")]
+[node name="defeat" parent="." unique_id=700643872 instance=ExtResource("25_i71ea")]
 visible = false
 layout_mode = 1
 
-[node name="SettingsMenu" parent="." instance=ExtResource("26_341mp")]
+[node name="SettingsMenu" parent="." unique_id=1667607218 instance=ExtResource("26_341mp")]
 visible = false
 layout_mode = 1
 
-[node name="Dimmer" type="ColorRect" parent="."]
+[node name="Dimmer" type="ColorRect" parent="." unique_id=888529288]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -775,7 +548,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="TextBoxPanel" type="Panel" parent="."]
+[node name="TextBoxPanel" type="Panel" parent="." unique_id=1219208097]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.255
@@ -783,13 +556,13 @@ anchor_top = 0.416
 anchor_right = 0.77
 anchor_bottom = 0.75
 offset_left = 1760.4
-offset_top = 112.32
-offset_right = 1760.4
-offset_bottom = 112.32
+offset_top = 112.31998
+offset_right = 1760.3999
+offset_bottom = 112.32001
 theme = ExtResource("15_16put")
 theme_override_styles/panel = SubResource("StyleBoxTexture_fxt2d")
 
-[node name="MarginContainer" type="MarginContainer" parent="TextBoxPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="TextBoxPanel" unique_id=1521318168]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -801,14 +574,14 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="TextLabel" type="Label" parent="TextBoxPanel/MarginContainer"]
+[node name="TextLabel" type="Label" parent="TextBoxPanel/MarginContainer" unique_id=1920575747]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 theme = ExtResource("15_16put")
 theme_override_font_sizes/font_size = 30
 autowrap_mode = 2
 
-[node name="ContinueButton" type="Button" parent="TextBoxPanel"]
+[node name="ContinueButton" type="Button" parent="TextBoxPanel" unique_id=1417648974]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.796
@@ -819,21 +592,6 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 20
 text = "CONTINUE"
 
-[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die0" to="BookControl/PlayerDiceTray/PDiceContainer/Die0" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die0" to="BookControl/PlayerDiceTray/PDiceContainer/Die0" method="_on_mouse_exited"]
-[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die0" to="." method="_on_die_0_pressed"]
-[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die1" to="BookControl/PlayerDiceTray/PDiceContainer/Die1" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die1" to="BookControl/PlayerDiceTray/PDiceContainer/Die1" method="_on_mouse_exited"]
-[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die1" to="." method="_on_die_1_pressed"]
-[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die2" to="BookControl/PlayerDiceTray/PDiceContainer/Die2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die2" to="BookControl/PlayerDiceTray/PDiceContainer/Die2" method="_on_mouse_exited"]
-[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die2" to="." method="_on_die_2_pressed"]
-[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die3" to="BookControl/PlayerDiceTray/PDiceContainer/Die3" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die3" to="BookControl/PlayerDiceTray/PDiceContainer/Die3" method="_on_mouse_exited"]
-[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die3" to="." method="_on_die_3_pressed"]
-[connection signal="mouse_entered" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="BookControl/PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="BookControl/PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_exited"]
-[connection signal="pressed" from="BookControl/PlayerDiceTray/PDiceContainer/Die4" to="." method="_on_die_4_pressed"]
 [connection signal="pressed" from="BookControl/CircleControl/Circle/Button1" to="BookControl/CircleControl" method="_on_top_pressed"]
 [connection signal="pressed" from="BookControl/CircleControl/Circle/Button2" to="BookControl/CircleControl" method="_on_right_pressed"]
 [connection signal="pressed" from="BookControl/CircleControl/Circle/Button3" to="BookControl/CircleControl" method="_on_bottom_pressed"]

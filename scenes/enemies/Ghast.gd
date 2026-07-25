@@ -1,10 +1,5 @@
 extends enemy_template
 
-# skeleton swordsman
-# dice: barb, barb, barb
-# health: 3-5
-# dicenum: 3
-
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
 @onready var eHealNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHeal")
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
@@ -45,6 +40,7 @@ var addToPoison : bool = false
 
 var numDice : int = 5
 
+var selected : Array[Dictionary] = []
 
 func _ready() -> void :
 	var enemyDict = EncounterData.get_encounter_by_name(2, "Ghast")
@@ -106,12 +102,13 @@ func roll_eDice() -> void :
 	if len(pool) < 3 :
 		indices = pool
 	else :
-		indices = pool.slice(0, 3)
+		indices = pool.slice(0, 4)
 	
 	await get_tree().create_timer(0.3).timeout
 
 	for i in range (0, indices.size()) :
 		var roll = eDiceRolls[indices[i]]
+		selected.append(roll)
 		var eNode = get_node(eDieSpritePath + str(indices[i]) + eDieSpritePath2 + str(indices[i]))
 		await get_tree().create_timer(0.2).timeout
 		eNode.offset += Vector2(-20, 0)
@@ -184,6 +181,9 @@ func get_max_health() -> String :
 func get_total_health() -> int : 
 	return enemyHealth
 	
+func get_rolls() -> Array[Dictionary]:
+	return selected
+	
 func clear() -> void :
 	curEDamage = 0
 	curEShield = 0
@@ -194,7 +194,9 @@ func clear() -> void :
 	
 	eDamageNode.text = "D:"
 	eHealNode.text = "H:"
-	eShieldNode.text = "S:"	
+	eShieldNode.text = "S:"
+	
+	selected = []
 	
 	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))

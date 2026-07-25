@@ -1,10 +1,5 @@
 extends enemy_template
 
-#Troll 
-#dice: carnival, carnival
-#health: 12-16
-#diceNum: 2
-
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
 @onready var eHealNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHeal")
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
@@ -41,6 +36,8 @@ var numDice : int
 
 var damageReduction = 0
 var updateDamageReduction : bool = false
+
+var selected : Array[Dictionary] = []
 
 func _ready() -> void :
 	var enemyDict = EncounterData.get_encounter_by_name(1, "Acidic Slime")
@@ -104,6 +101,7 @@ func roll_eDice() -> void :
 
 	for i in range (0, indices.size()) :
 		var roll = eDiceRolls[indices[i]]
+		selected.append(roll)
 		var eNode = get_node(eDieSpritePath + str(indices[i]) + eDieSpritePath2 + str(indices[i]))
 		await get_tree().create_timer(0.2).timeout
 		eNode.offset += Vector2(-20, 0)
@@ -196,6 +194,9 @@ func get_max_health() -> String :
 func get_total_health() -> int : 
 	return enemyHealth
 	
+func get_rolls() -> Array[Dictionary] :
+	return selected
+	
 func clear() -> void :
 	curEDamage = 0
 	curEShield = 0
@@ -207,6 +208,8 @@ func clear() -> void :
 	eDamageNode.text = "D:"
 	eHealNode.text = "H:"
 	eShieldNode.text = "S:"
+	
+	selected = []
 	
 	if updateDamageReduction :
 		damageReduction += 1

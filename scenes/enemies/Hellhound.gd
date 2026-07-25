@@ -36,6 +36,8 @@ var turnIndex: int = 0
 
 var numDice : int
 
+var selected : Array[Dictionary] = []
+
 func _ready() -> void :
 	var enemyDict = EncounterData.get_encounter_by_name(2, "Hellhound")
 	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
@@ -98,6 +100,7 @@ func roll_eDice() -> void :
 
 	for i in range (0, indices.size()) :
 		var roll = eDiceRolls[indices[i]]
+		selected.append(roll)
 		var eNode = get_node(eDieSpritePath + str(indices[i]) + eDieSpritePath2 + str(indices[i]))
 		await get_tree().create_timer(0.2).timeout
 		eNode.offset += Vector2(-20, 0)
@@ -174,6 +177,9 @@ func get_max_health() -> String :
 func get_total_health() -> int : 
 	return enemyHealth
 	
+func get_rolls() -> Array[Dictionary]:
+	return selected
+	
 func clear() -> void :
 	curEDamage = 0
 	curEShield = 0
@@ -186,6 +192,7 @@ func clear() -> void :
 	eHealNode.text = "H:"
 	eShieldNode.text = "S:"
 	
+	selected = []
 	
 	for i in range(0, numDice) :
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))

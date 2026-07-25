@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boltessuq1u3n"
-path="res://.godot/imported/6-shield.png-fcc0910bdc52ea705280634c8c401a7e.ctex"
+uid="uid://b78iw2mc6u05q"
+path="res://.godot/imported/5-explosive.PNG-b3c84178c077c5071191b9c48e6cb58e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/faces/shield/6-shield.png"
-dest_files=["res://.godot/imported/6-shield.png-fcc0910bdc52ea705280634c8c401a7e.ctex"]
+source_file="res://resources/faces/explosive/5-explosive.PNG"
+dest_files=["res://.godot/imported/5-explosive.PNG-b3c84178c077c5071191b9c48e6cb58e.ctex"]
 
 [params]
 
