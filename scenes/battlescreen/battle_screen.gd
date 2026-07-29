@@ -48,6 +48,14 @@ func _ready() -> void:
 				player_instance = instance
 			else :
 				push_error("Invalid scene path: " + Global.enemy.get("path"))
+		"Champion" :
+			var scene_res = load("res://scenes/players/Champion.tscn")
+			if scene_res is PackedScene :
+				var instance = scene_res.instantiate()
+				bookControlNode.add_child(instance)
+				player_instance = instance
+			else :
+				push_error("Invalid scene path: " + Global.enemy.get("path"))
 			
 	hideAllNodes()
 	

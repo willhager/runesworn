@@ -181,7 +181,6 @@ func dieButtonEffects(dieNum : int) -> void:
 		numSelected -= 1
 		pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
 		selectedArry[dieNum] = false
-
 	
 	if numSelected == maxDieNum :
 		selected_max_dice.emit()
@@ -242,16 +241,7 @@ func clear() -> void :
 	curPiercing = 0
 	curExplosive = 0
 	curFreeze = 0
-	
-	var remainingShield = curShield - enemy_damage_cache
-	if remainingShield < 0 :
-		curShield = 0
-	else :
-		curShield = remainingShield
-	prevShield = curShield
-	pShieldNode.text = shieldLabelText + str(curShield)
-	
-	enemy_damage_cache = 0
+	curShield = 0
 
 	for i in range (0, 5) :
 		if selectedArry[i] == true :

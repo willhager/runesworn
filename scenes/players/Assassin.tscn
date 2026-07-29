@@ -1,0 +1,258 @@
+[gd_scene format=3 uid="uid://cyvobn3ysihde"]
+
+[ext_resource type="Script" uid="uid://b57wraqsn2w0a" path="res://Assassin.gd" id="1_gq4q1"]
+[ext_resource type="Script" uid="uid://donddvv8q6oy6" path="res://scenes/battlescreen/die_0.gd" id="2_bxb5u"]
+[ext_resource type="Script" uid="uid://bvq18h7jsmo1y" path="res://scenes/battlescreen/die_1.gd" id="3_jjwf6"]
+[ext_resource type="Script" uid="uid://bkop44d2a2liu" path="res://scenes/battlescreen/die_2.gd" id="4_3eex8"]
+[ext_resource type="Script" uid="uid://dulwjl645bch5" path="res://scenes/battlescreen/die_3.gd" id="5_2aevt"]
+[ext_resource type="Script" uid="uid://b1kwya6xq05nf" path="res://scenes/battlescreen/die_4.gd" id="6_t1cml"]
+[ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="7_u2jir"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5www7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xihnl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dvmi6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah1ca"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvkcm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc52y"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wcatl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_srvrs"]
+
+[node name="Control" type="Control" unique_id=608344864]
+layout_mode = 3
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.467
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gq4q1")
+
+[node name="PlayerDiceTray" type="Panel" parent="." unique_id=54302663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.999322, 1)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5www7")
+
+[node name="PDiceContainer" type="VBoxContainer" parent="PlayerDiceTray" unique_id=1021749076]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 0.34
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Die0" type="Button" parent="PlayerDiceTray/PDiceContainer" unique_id=851752329]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xihnl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dvmi6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah1ca")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_yvkcm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cc52y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wcatl")
+keep_pressed_outside = true
+script = ExtResource("2_bxb5u")
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerDiceTray/PDiceContainer/Die0" unique_id=1795099589]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces0" type="AnimatedSprite2D" parent="PlayerDiceTray/PDiceContainer/Die0/CenterContainer" unique_id=620358513]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_srvrs")
+
+[node name="Die1" type="Button" parent="PlayerDiceTray/PDiceContainer" unique_id=1082813580]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xihnl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dvmi6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah1ca")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_yvkcm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cc52y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wcatl")
+script = ExtResource("3_jjwf6")
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerDiceTray/PDiceContainer/Die1" unique_id=147817273]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces1" type="AnimatedSprite2D" parent="PlayerDiceTray/PDiceContainer/Die1/CenterContainer" unique_id=1940077234]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_srvrs")
+
+[node name="Die2" type="Button" parent="PlayerDiceTray/PDiceContainer" unique_id=1058953540]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xihnl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dvmi6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah1ca")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_yvkcm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cc52y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wcatl")
+script = ExtResource("4_3eex8")
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerDiceTray/PDiceContainer/Die2" unique_id=958892271]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces2" type="AnimatedSprite2D" parent="PlayerDiceTray/PDiceContainer/Die2/CenterContainer" unique_id=377196864]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_srvrs")
+
+[node name="Die3" type="Button" parent="PlayerDiceTray/PDiceContainer" unique_id=1733985123]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xihnl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dvmi6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah1ca")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_yvkcm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cc52y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wcatl")
+script = ExtResource("5_2aevt")
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerDiceTray/PDiceContainer/Die3" unique_id=1619575040]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces3" type="AnimatedSprite2D" parent="PlayerDiceTray/PDiceContainer/Die3/CenterContainer" unique_id=978466340]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_srvrs")
+
+[node name="Die4" type="Button" parent="PlayerDiceTray/PDiceContainer" unique_id=750423667]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xihnl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dvmi6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ah1ca")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_yvkcm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cc52y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wcatl")
+script = ExtResource("6_t1cml")
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerDiceTray/PDiceContainer/Die4" unique_id=1699344970]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faces4" type="AnimatedSprite2D" parent="PlayerDiceTray/PDiceContainer/Die4/CenterContainer" unique_id=111197383]
+scale = Vector2(1.8, 1.8)
+sprite_frames = SubResource("SpriteFrames_srvrs")
+
+[node name="PInfoContainer" type="VBoxContainer" parent="PlayerDiceTray" unique_id=138849815]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.189
+anchor_right = 1.0
+anchor_bottom = 0.189
+offset_left = -108.0
+offset_bottom = 286.0
+grow_horizontal = 0
+
+[node name="Damage" type="Label" parent="PlayerDiceTray/PInfoContainer" unique_id=609037756]
+layout_mode = 2
+theme = ExtResource("7_u2jir")
+theme_override_font_sizes/font_size = 60
+text = "D:"
+
+[node name="Shield" type="Label" parent="PlayerDiceTray/PInfoContainer" unique_id=2111071142]
+layout_mode = 2
+theme = ExtResource("7_u2jir")
+theme_override_font_sizes/font_size = 60
+text = "S:"
+
+[node name="Heal" type="Label" parent="PlayerDiceTray/PInfoContainer" unique_id=1772123448]
+layout_mode = 2
+theme = ExtResource("7_u2jir")
+theme_override_font_sizes/font_size = 60
+text = "H:"
+
+[node name="Freeze" type="Label" parent="PlayerDiceTray/PInfoContainer" unique_id=1434577924]
+layout_mode = 2
+theme = ExtResource("7_u2jir")
+theme_override_font_sizes/font_size = 60
+text = "F:"
+
+[node name="Explosive" type="Label" parent="PlayerDiceTray/PInfoContainer" unique_id=255641575]
+layout_mode = 2
+theme = ExtResource("7_u2jir")
+theme_override_font_sizes/font_size = 60
+text = "E:"
+
+[node name="Selected" type="Label" parent="PlayerDiceTray" unique_id=435007476]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.778
+anchor_right = 1.0
+anchor_bottom = 0.778
+offset_left = -108.0
+offset_bottom = 54.0
+grow_horizontal = 0
+theme = ExtResource("7_u2jir")
+theme_override_font_sizes/font_size = 60
+text = "0/3"
+
+[connection signal="mouse_entered" from="PlayerDiceTray/PDiceContainer/Die0" to="PlayerDiceTray/PDiceContainer/Die0" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerDiceTray/PDiceContainer/Die0" to="PlayerDiceTray/PDiceContainer/Die0" method="_on_mouse_exited"]
+[connection signal="pressed" from="PlayerDiceTray/PDiceContainer/Die0" to="." method="_on_die_0_pressed"]
+[connection signal="mouse_entered" from="PlayerDiceTray/PDiceContainer/Die1" to="PlayerDiceTray/PDiceContainer/Die1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerDiceTray/PDiceContainer/Die1" to="PlayerDiceTray/PDiceContainer/Die1" method="_on_mouse_exited"]
+[connection signal="pressed" from="PlayerDiceTray/PDiceContainer/Die1" to="." method="_on_die_1_pressed"]
+[connection signal="mouse_entered" from="PlayerDiceTray/PDiceContainer/Die2" to="PlayerDiceTray/PDiceContainer/Die2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerDiceTray/PDiceContainer/Die2" to="PlayerDiceTray/PDiceContainer/Die2" method="_on_mouse_exited"]
+[connection signal="pressed" from="PlayerDiceTray/PDiceContainer/Die2" to="." method="_on_die_2_pressed"]
+[connection signal="mouse_entered" from="PlayerDiceTray/PDiceContainer/Die3" to="PlayerDiceTray/PDiceContainer/Die3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerDiceTray/PDiceContainer/Die3" to="PlayerDiceTray/PDiceContainer/Die3" method="_on_mouse_exited"]
+[connection signal="pressed" from="PlayerDiceTray/PDiceContainer/Die3" to="." method="_on_die_3_pressed"]
+[connection signal="mouse_entered" from="PlayerDiceTray/PDiceContainer/Die4" to="PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerDiceTray/PDiceContainer/Die4" to="PlayerDiceTray/PDiceContainer/Die4" method="_on_mouse_exited"]
+[connection signal="pressed" from="PlayerDiceTray/PDiceContainer/Die4" to="." method="_on_die_4_pressed"]
