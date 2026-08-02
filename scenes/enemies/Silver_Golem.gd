@@ -23,16 +23,8 @@ extends enemy_template
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
 
-var enemyHealth : int
-var maxHealth : int
-var curEDamage : int
-var curEHeal : int
-var curEShield : int
-var curEPiercing : int
-var curEPoisonCounter : int
-var EDice : Array[Dictionary]
+
 var numDice = 3
-var eDiceRolls : Array[Dictionary]
 
 var freezeCounter : Array[int]
 
@@ -108,20 +100,20 @@ func roll_eDice() -> void :
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				curEDamage += roll.get("value")
+				enemy_damage += roll.get("value")
 			Global.healEffectName :
-				curEHeal += roll.get("value")
+				enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				curEShield += roll.get("value")
+				enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				curEPiercing += roll.get("value")
+				enemy_piercing += roll.get("value")
 	
-	if curEPiercing > 0:
-		eDamageNode.text = "D:" + str(curEDamage) + "+" + str(curEPiercing)
+	if enemy_piercing > 0:
+		eDamageNode.text = "D:" + str(enemy_damage) + "+" + str(enemy_piercing)
 	else :
-		eDamageNode.text = "D:" + str(curEDamage)
-	eHealNode.text = "H:" + str(curEHeal)
-	eShieldNode.text = "S:" + str(curEShield)
+		eDamageNode.text = "D:" + str(enemy_damage)
+	eHealNode.text = "H:" + str(enemy_heal)
+	eShieldNode.text = "S:" + str(enemy_shield)
 
 func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	var curDamage = 0
@@ -132,8 +124,8 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 				curDamage += roll.get("value")
 			Global.piercingEffectName :
 				curPiercing += roll.get("value")
-	var eDamage = curDamage - curEShield
-	curEDamage += curDamage
+	var eDamage = curDamage - enemy_shield
+	enemy_damage += curDamage
 	if(eDamage > 0) :
 		enemyHealth -= eDamage
 	if (curPiercing > 0) :
@@ -149,27 +141,27 @@ func update_health_with_aoe(rolls : Array[Dictionary]) :
 		match roll.get("effect") :
 			Global.explosiveEffectName :
 				aoeDamage += roll.get("value")
-	curEDamage += aoeDamage
-	var eExplosive = aoeDamage - curEShield
+	enemy_damage += aoeDamage
+	var eExplosive = aoeDamage - enemy_shield
 	if eExplosive > 0 :
 		enemyHealth -= eExplosive
 	if enemyHealth < 0 : enemyHealth = 0
 	eHealthNode.text = "Health:" + str(enemyHealth)
 
 func update_health_with_heal() -> void :
-	enemyHealth += curEHeal
+	enemyHealth += enemy_heal
 	if enemyHealth < 0 : enemyHealth = 0
 	if enemyHealth > maxHealth : enemyHealth = maxHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	
 func update_health_with_poison() -> void :
-	enemyHealth -= curEPoisonCounter
+	enemyHealth -= enemy_poison_counter
 	if enemyHealth < 0 : enemyHealth = 0
 	if enemyHealth > maxHealth : enemyHealth = maxHealth
 	eHealthNode.text = "Health:" + str(enemyHealth)
 	if addToPoison :
-		curEPoisonCounter += 1
-		ePoisonNode.text = "P: " + str(curEPoisonCounter)
+		enemy_poison_counter += 1
+		ePoisonNode.text = "P: " + str(enemy_poison_counter)
 	
 func get_max_health() -> String : 
 	return str(maxHealth)
@@ -181,10 +173,10 @@ func get_rolls() -> Array[Dictionary]:
 	return selected
 	
 func clear() -> void :
-	curEDamage = 0
-	curEShield = 0
-	curEHeal = 0
-	curEPiercing = 0
+	enemy_damage = 0
+	enemy_shield = 0
+	enemy_heal = 0
+	enemy_piercing = 0
 	
 	addToPoison = false
 	
