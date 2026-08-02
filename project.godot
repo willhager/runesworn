@@ -27,6 +27,7 @@ LootData="*res://global/managers/LootData.gd"
 DiceData="*res://global/managers/DiceData.gd"
 EncounterData="*res://global/managers/EncounterData.gd"
 Global="*res://global/managers/Global.gd"
+GameState="*uid://cnxvn7rh0lmoe"
 
 [display]
 

@@ -30,30 +30,14 @@ var piercingEffectName = Global.piercingEffectName
 var freezeEffectName = Global.freezeEffectName
 var explosiveEffectName = Global.explosiveEffectName
 
-var enemy : Dictionary
-var health : int
-var numSelected : int = 0
-var selectedArry : Array[bool]
-var selectedAttackDice : int = 0
-var maxDieNum : int = Global.maxSelectableDice
-
-var curDamage : int
-var curHeal : int
-var curShield : int
-var curPiercing : int
-var curFreeze : int
-var curExplosive : int
-
 var prevShield : int = 0
 
 var enemy_damage_cache : int = 0
 
-var pDiceRolls : Array[Dictionary]
-
 func _ready() -> void :
-	health = Global.health
-	pDiceRolls.resize(5)
-	selectedArry.resize(5)
+	GameState.health = Global.health
+	GameState.pDiceRolls.resize(5)
+	GameState.selectedArry.resize(5)
 	for i in range(0, 5) :
 		var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
 		var button = get_node(pDiePath + str(i))
@@ -66,12 +50,12 @@ func _ready() -> void :
 		node.set_frame(0)
 		node.play("faces")
 		node.pause()
-		selectedArry[i] = false
+		GameState.selectedArry[i] = false
 		button.disabled = true
 
 func reready() -> void :
-	maxDieNum = Global.maxSelectableDice
-	pSelectedNode.text = "0/" + str(maxDieNum)
+	GameState.maxDieNum = Global.maxSelectableDice
+	pSelectedNode.text = "0/" + str(GameState.maxDieNum)
 	
 	playerDiceTrayNode.show()
 
@@ -92,105 +76,105 @@ func roll_dice() -> void :
 	
 	#store dice rolls in pDiceRolls arry, set frames
 	for i in range (0, 5) :
-		pDiceRolls[i] = DiceData.roll_die(Global.die[i])
+		GameState.pDiceRolls[i] = DiceData.roll_die(Global.die[i])
 		var pNode = get_node(pDiePath + str(i) + pDiePath2 + str(i))
-		pNode.set_frame(pDiceRolls[i].get("index"))
+		pNode.set_frame(GameState.pDiceRolls[i].get("index"))
 		
 	for i in range(0, Global.die.size()) :
 		var die = get_node(pDiePath + str(i))
 		die.disabled = false
 		
 func dieButtonEffects(dieNum : int) -> void:
-	var roll = pDiceRolls[dieNum]
+	var roll = GameState.pDiceRolls[dieNum]
 	var node = get_node(pDiePath + str(dieNum) + pDiePath2 + str(dieNum))
 	
-	if(selectedArry[dieNum] == false && numSelected < maxDieNum) : 
+	if(GameState.selectedArry[dieNum] == false && GameState.numSelected < GameState.maxDieNum) : 
 		node.offset += Vector2(20, 0)
 		
 		match roll.get("effect") : 
 			damageEffectName : 
-				curDamage += pDiceRolls[dieNum].get("value")
-				selectedAttackDice += 1
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				GameState.player_damage += GameState.pDiceRolls[dieNum].get("value")
+				GameState.selectedAttackDice += 1
+				if GameState.player_piercing > 0 :
+					pDamageNode.text = damageLabelText + str(GameState.player_damage) + "+" + str(GameState.player_piercing)
 				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
+					pDamageNode.text = damageLabelText + str(GameState.player_damage)
 			
 			healEffectName :
-				curHeal += pDiceRolls[dieNum].get("value")
-				pHealNode.text = healLabelText + str(curHeal)
+				GameState.player_heal += GameState.pDiceRolls[dieNum].get("value")
+				pHealNode.text = healLabelText + str(GameState.player_heal)
 			
 			shieldEffectName :
-				curShield += pDiceRolls[dieNum].get("value")
-				pShieldNode.text = shieldLabelText + str(curShield)
+				GameState.player_shield += GameState.pDiceRolls[dieNum].get("value")
+				pShieldNode.text = shieldLabelText + str(GameState.player_shield)
 			
 			piercingEffectName :
-				curPiercing += pDiceRolls[dieNum].get("value")
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				GameState.player_piercing += GameState.pDiceRolls[dieNum].get("value")
+				if GameState.player_piercing > 0 :
+					pDamageNode.text = damageLabelText + str(GameState.player_damage) + "+" + str(GameState.player_piercing)
 				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
+					pDamageNode.text = damageLabelText + str(GameState.player_damage)
 			
 			freezeEffectName :
-				curFreeze += pDiceRolls[dieNum].get("value")
-				pFreezeNode.text = freezeLabelText + str(curFreeze)
+				GameState.player_freeze += GameState.pDiceRolls[dieNum].get("value")
+				pFreezeNode.text = freezeLabelText + str(GameState.player_freeze)
 			
 			explosiveEffectName :
-				curExplosive += pDiceRolls[dieNum].get("value")
-				pExplosiveNode.text = explosiveLabelText + str(curExplosive)
+				GameState.player_explosive += GameState.pDiceRolls[dieNum].get("value")
+				pExplosiveNode.text = explosiveLabelText + str(GameState.player_explosive)
 		
-		numSelected += 1
-		pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
-		selectedArry[dieNum] = true
+		GameState.numSelected += 1
+		pSelectedNode.text = str(GameState.numSelected) + "/" + str(GameState.maxDieNum)
+		GameState.selectedArry[dieNum] = true
 		
-	elif(selectedArry[dieNum] == true) :
+	elif(GameState.selectedArry[dieNum] == true) :
 		node.offset -= Vector2(20, 0)
 		
 		match roll.get("effect") : 
 			damageEffectName : 
-				curDamage -= pDiceRolls[dieNum].get("value")
-				selectedAttackDice -= 1
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				GameState.player_damage -= GameState.pDiceRolls[dieNum].get("value")
+				GameState.selectedAttackDice -= 1
+				if GameState.player_piercing > 0 :
+					pDamageNode.text = damageLabelText + str(GameState.player_damage) + "+" + str(GameState.player_piercing)
 				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
+					pDamageNode.text = damageLabelText + str(GameState.player_damage)
 			
 			healEffectName :
-				curHeal -= pDiceRolls[dieNum].get("value")
-				pHealNode.text = healLabelText + str(curHeal)
+				GameState.player_heal -= GameState.pDiceRolls[dieNum].get("value")
+				pHealNode.text = healLabelText + str(GameState.player_heal)
 			
 			shieldEffectName :
-				curShield -= pDiceRolls[dieNum].get("value")
-				pShieldNode.text = shieldLabelText + str(curShield)
+				GameState.player_GameState.shield -= GameState.pDiceRolls[dieNum].get("value")
+				pShieldNode.text = shieldLabelText + str(GameState.player_shield)
 			
 			piercingEffectName :
-				curPiercing -= pDiceRolls[dieNum].get("value")
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				GameState.player_piercing -= GameState.pDiceRolls[dieNum].get("value")
+				if GameState.player_piercing > 0 :
+					pDamageNode.text = damageLabelText + str(GameState.player_damage) + "+" + str(GameState.player_piercing)
 				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
+					pDamageNode.text = damageLabelText + str(GameState.player_damage)
 			
 			freezeEffectName :
-				curFreeze -= pDiceRolls[dieNum].get("value")
-				pFreezeNode.text = freezeLabelText + str(curFreeze)
+				GameState.player_freeze -= GameState.pDiceRolls[dieNum].get("value")
+				pFreezeNode.text = freezeLabelText + str(GameState.player_freeze)
 			
 			explosiveEffectName :
-				curExplosive -= pDiceRolls[dieNum].get("value")
-				pExplosiveNode.text = explosiveLabelText + str(curExplosive)
+				GameState.player_explosive -= GameState.pDiceRolls[dieNum].get("value")
+				pExplosiveNode.text = explosiveLabelText + str(GameState.player_explosive)
 		
-		numSelected -= 1
-		pSelectedNode.text = str(numSelected) + "/" + str(maxDieNum)
-		selectedArry[dieNum] = false
+		GameState.numSelected -= 1
+		pSelectedNode.text = str(GameState.numSelected) + "/" + str(GameState.maxDieNum)
+		GameState.selectedArry[dieNum] = false
 
 	
-	if numSelected == maxDieNum :
+	if GameState.numSelected == GameState.maxDieNum :
 		selected_max_dice.emit()
 	else :
 		selected_less_than_max_dice.emit()
 
 func end_turn() :
-	numSelected = 0
-	selectedAttackDice = 0
+	GameState.numSelected = 0
+	GameState.selectedAttackDice = 0
 
 
 func update_health_with_damage(enemy_rolls : Array[Dictionary]) :
@@ -204,22 +188,22 @@ func update_health_with_damage(enemy_rolls : Array[Dictionary]) :
 				incomingPiercing += roll.get("value")
 	
 	enemy_damage_cache = incomingDamage
-	var damage_post_shield = incomingDamage - curShield
+	var damage_post_shield = incomingDamage - GameState.player_shield
 	
 	if damage_post_shield > 0 :
-		health -= damage_post_shield
+		GameState.health -= damage_post_shield
 	if incomingPiercing > 0 :
-		health -= incomingPiercing
-	if health < 0 : health = 0
+		GameState.health -= incomingPiercing
+	if GameState.health < 0 : GameState.health = 0
 
 func update_health_with_heal() :
-	if health + curHeal > Global.maxHealth :
-		health = Global.maxHealth
+	if GameState.health + GameState.player_heal > Global.maxHealth :
+		GameState.health = Global.maxHealth
 	else :
-		health += curHeal
+		GameState.health += GameState.player_heal
 
 func set_max_dice_num(newNum) -> void :
-	maxDieNum = newNum
+	GameState.maxDieNum = newNum
 	
 func _on_die_0_pressed() -> void:
 	dieButtonEffects(0)
@@ -237,43 +221,43 @@ func _on_die_4_pressed() -> void:
 	dieButtonEffects(4)
 
 func clear() -> void :
-	curDamage = 0
-	curHeal = 0
-	curPiercing = 0
-	curExplosive = 0
-	curFreeze = 0
+	GameState.player_damage = 0
+	GameState.player_heal = 0
+	GameState.player_piercing = 0
+	GameState.player_explosive = 0
+	GameState.player_freeze = 0
 	
-	var remainingShield = curShield - enemy_damage_cache
+	var remainingShield = GameState.player_shield - enemy_damage_cache
 	if remainingShield < 0 :
-		curShield = 0
+		GameState.player_shield = 0
 	else :
-		curShield = remainingShield
-	prevShield = curShield
-	pShieldNode.text = shieldLabelText + str(curShield)
+		GameState.player_shield = remainingShield
+	prevShield = GameState.player_shield
+	pShieldNode.text = shieldLabelText + str(GameState.player_shield)
 	
 	enemy_damage_cache = 0
 
 	for i in range (0, 5) :
-		if selectedArry[i] == true :
+		if GameState.selectedArry[i] == true :
 			var node = get_node(pDiePath + str(i) + pDiePath2 + str(i))
 			var button = get_node(pDiePath + str(i))
 			node.offset -= Vector2(20, 0)
 			button.disabled = true
-		selectedArry[i] = false
-	pSelectedNode.text = "0/" + str(maxDieNum)
+		GameState.selectedArry[i] = false
+	pSelectedNode.text = "0/" + str(GameState.maxDieNum)
 	pDamageNode.text = damageLabelText
 	pHealNode.text = healLabelText
 	pExplosiveNode.text = explosiveLabelText
 	pFreezeNode.text = freezeLabelText
 	
-	numSelected = 0
-	selectedAttackDice = 0
+	GameState.numSelected = 0
+	GameState.selectedAttackDice = 0
 	
 func get_player_rolls() :
 	var ret : Array[Dictionary]
-	for i in range(0, pDiceRolls.size()) :
-		if selectedArry[i] :
-			ret.append(pDiceRolls[i].duplicate())
+	for i in range(0, GameState.pDiceRolls.size()) :
+		if GameState.selectedArry[i] :
+			ret.append(GameState.pDiceRolls[i].duplicate())
 	return ret
 
 func hideAllNodes() -> void :
@@ -283,37 +267,37 @@ func showAllNodes() -> void :
 	playerDiceTrayNode.show()
 	
 func update_current_values(rolls) -> void :
-	curDamage = 0
-	curShield = 0
-	curHeal = 0
-	curExplosive = 0
-	curPiercing = 0
+	GameState.player_damage = 0
+	GameState.player_shield = 0
+	GameState.player_heal = 0
+	GameState.player_explosive = 0
+	GameState.player_piercing = 0
 	for roll in rolls :
 		match roll.get("effect") : 
 			damageEffectName : 
-				curDamage += roll.get("value")
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				GameState.player_damage += roll.get("value")
+				if GameState.player_piercing > 0 :
+					pDamageNode.text = damageLabelText + str(GameState.player_damage) + "+" + str(GameState.player_piercing)
 				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
+					pDamageNode.text = damageLabelText + str(GameState.player_damage)
 			
 			healEffectName :
-				curHeal += roll.get("value")
-				pHealNode.text = healLabelText + str(curHeal)
+				GameState.player_heal += roll.get("value")
+				pHealNode.text = healLabelText + str(GameState.player_heal)
 			
 			shieldEffectName :
-				curShield += roll.get("value")
-				pShieldNode.text = shieldLabelText + str(curShield)
+				GameState.player_shield += roll.get("value")
+				pShieldNode.text = shieldLabelText + str(GameState.player_shield)
 			
 			piercingEffectName :
-				curPiercing += roll.get("value")
-				if curPiercing > 0 :
-					pDamageNode.text = damageLabelText + str(curDamage) + "+" + str(curPiercing)
+				GameState.player_piercing += roll.get("value")
+				if GameState.player_piercing > 0 :
+					pDamageNode.text = damageLabelText + str(GameState.player_damage) + "+" + str(GameState.player_piercing)
 				else :
-					pDamageNode.text = damageLabelText + str(curDamage)
+					pDamageNode.text = damageLabelText + str(GameState.player_damage)
 			
 			explosiveEffectName :
-				curExplosive += roll.get("value")
-				pExplosiveNode.text = explosiveLabelText + str(curExplosive)
-	curShield += prevShield
-	pShieldNode.text = shieldLabelText + str(curShield)
+				GameState.player_explosive += roll.get("value")
+				pExplosiveNode.text = explosiveLabelText + str(GameState.player_explosive)
+	GameState.player_shield += prevShield
+	pShieldNode.text = shieldLabelText + str(GameState.player_shield)

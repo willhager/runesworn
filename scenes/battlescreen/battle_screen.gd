@@ -56,6 +56,14 @@ func _ready() -> void:
 				player_instance = instance
 			else :
 				push_error("Invalid scene path: " + Global.enemy.get("path"))
+		"Assassin" :
+			var scene_res = load("res://scenes/players/Assassin.tscn")
+			if scene_res is PackedScene :
+				var instance = scene_res.instantiate()
+				bookControlNode.add_child(instance)
+				player_instance = instance
+			else :
+				push_error("Invalid scene path: " + Global.enemy.get("path"))
 			
 	hideAllNodes()
 	
@@ -97,6 +105,14 @@ func reready() :
 	ScreenLabelNode.text = "Choose Your Path..."
 	showNodes_circleStart()
 	
+	
+func pre_roll() -> void:
+	if player_instance.has_method("pre_roll") :
+		player_instance.pre_roll()
+	if enemy_instance.has_method("pre_roll") :
+		enemy_instance.pre_roll()
+	#RelicManager.pre_roll()
+
 func _on_roll_button_pressed() -> void:
 	if(!rolled) : 
 		rolled = true
@@ -106,13 +122,29 @@ func _on_roll_button_pressed() -> void:
 	
 	enemy_instance.roll_eDice()
 	player_instance.roll_dice()
+	
+func pre_select() -> void: 
+	if player_instance.has_method("pre_select") :
+		player_instance.pre_select()
+	if enemy_instance.has_method("pre_select") :
+		enemy_instance.pre_select()
+	#RelicManager.pre_select()
+
 
 func on_player_selected_max_dice() :
 	endTurnButtonNode.disabled = false
 func on_player_selected_less_than_max_dice() :
 	endTurnButtonNode.disabled = true
 	
+func pre_end() :
+	if player_instance.has_method("pre_end") :
+		player_instance.pre_end()
+	if enemy_instance.has_method("pre_end") :
+		enemy_instance.pre_end()
+	#RelicManager.pre_end()
+
 func _on_end_turn_pressed() -> void:
+	pre_end()
 	endTurnButtonNode.disabled = true
 	
 	if enemy_instance.has_method("die_num_effect") :
@@ -137,25 +169,25 @@ func _on_end_turn_pressed() -> void:
 		
 	player_instance.update_health_with_damage(enemy_instance.get_rolls())
 	
-	Global.health = player_instance.health
-	$InfoPanel.update_health(player_instance.health)
+	Global.health = GameState.health
+	$InfoPanel.update_health(GameState.health)
 	
-	if(player_instance.health <= 0) :
+	if(GameState.health <= 0) :
 		clear()
 		$defeat.callDefeat()
 		return
 	elif(enemy_instance.get_total_health() <= 0) :
 		if enemy_instance.has_method("death_effect") :
-			player_instance.health -= enemy_instance.death_effect()
-			Global.health = player_instance.health
-			$InfoPanel.update_health(player_instance.health)
-			if(player_instance.health <= 0) :
+			GameState.health -= enemy_instance.death_effect()
+			Global.health = GameState.health
+			$InfoPanel.update_health(GameState.health)
+			if(GameState.health <= 0) :
 				clear()
 				$defeat.callDefeat()
 				return
 		if enemy_instance.get_total_health() <= 0 :
 			clear()
-			Global.health = player_instance.health
+			Global.health = GameState.health
 			Global.encounterNum += 1
 			if (Global.encounterNum == 7) :
 				Global.encounterNum = 1
@@ -176,7 +208,7 @@ func _on_end_turn_pressed() -> void:
 			enemy_instance.death_effect()
 		if enemy_instance.get_total_health() <= 0 :
 			clear()
-			Global.health = player_instance.health
+			Global.health = GameState.health
 			Global.encounterNum += 1
 			if (Global.encounterNum == 7) :
 				Global.encounterNum = 1
@@ -189,9 +221,16 @@ func _on_end_turn_pressed() -> void:
 	rolled = false
 	rollButtonNode.disabled = false
 	
+	
+	if player_instance.has_method("pre_cleanup") :
+		player_instance.pre_cleanup()
+	if enemy_instance.has_method("pre_cleanup") :
+		enemy_instance.pre_cleanup()
+	#RelicManager.pre_cleanup()
+	
 	clear()
-	Global.health = player_instance.health
-	$InfoPanel.update_health(player_instance.health)
+	Global.health = GameState.health
+	$InfoPanel.update_health(GameState.health)
 	
 func modify_player_rolls() -> Array[Dictionary] :
 	var ret = player_instance.get_player_rolls()
