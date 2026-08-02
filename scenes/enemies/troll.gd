@@ -32,16 +32,16 @@ var selected : Array[Dictionary] = []
 
 func _ready() -> void :
 	var enemyDict = EncounterData.get_encounter_by_name(1, "The Toll Troll")
-	enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
-	maxHealth = enemyHealth
-	eHealthNode.text = "Health:" + str(enemyHealth)
-	EDice.resize(enemyDict.get("numDice"))
-	eDiceRolls.resize(enemyDict.get("numDice"))
+	GameState.enemyHealth = randi_range(enemyDict.get("healthMin"), enemyDict.get("healthMax"))
+	GameState.maxHealth = GameState.enemyHealth
+	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
+	GameState.EDice.resize(enemyDict.get("numDice"))
+	GameState.eDiceRolls.resize(enemyDict.get("numDice"))
 	
 	numDice = enemyDict.get("numDice")
 	
 	for i in range(0, enemyDict.get("numDice")) :
-		EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
+		GameState.EDice[i] = DiceData.get_die_by_name(enemyDict.dice[i])
 	
 	#set faces from dice dictionary
 	for i in range(0, numDice) :
@@ -51,7 +51,7 @@ func _ready() -> void :
 		dieTexture.add_animation("faces")
 		dieTexture.set_animation_speed("faces", 15)
 		for j in range(0, 6) :
-			dieTexture.add_frame("faces", load(EDice[i].get("faces")[j].get("sprite")))
+			dieTexture.add_frame("faces", load(GameState.EDice[i].get("faces")[j].get("sprite")))
 		node.set_sprite_frames(dieTexture)
 		node.set_frame(0)
 		node.play("faces")
@@ -72,14 +72,14 @@ func roll_eDice() -> void :
 		eNode.pause()
 		
 	for i in range(0, numDice) :
-		eDiceRolls[i] = DiceData.roll_die(EDice[i].get("name"))
+		GameState.eDiceRolls[i] = DiceData.roll_die(GameState.EDice[i].get("name"))
 		var eNode = get_node(eDieSpritePath + str(i) + eDieSpritePath2 + str(i))
-		eNode.set_frame(eDiceRolls[i].get("index"))
+		eNode.set_frame(GameState.eDiceRolls[i].get("index"))
 	
 	var indices : Array
 	var pool = [0, 1]
 	for value in pool.duplicate() :
-		if EDice[value].get("freeze") == true :
+		if GameState.EDice[value].get("freeze") == true :
 			pool.erase(value)
 			
 	pool.shuffle()
@@ -91,27 +91,27 @@ func roll_eDice() -> void :
 	await get_tree().create_timer(0.3).timeout
 
 	for i in range (0, indices.size()) :
-		var roll = eDiceRolls[indices[i]]
+		var roll = GameState.eDiceRolls[indices[i]]
 		selected.append(roll)
 		var eNode = get_node(eDieSpritePath + str(indices[i]) + eDieSpritePath2 + str(indices[i]))
 		await get_tree().create_timer(0.2).timeout
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				enemy_damage += roll.get("value")
+				GameState.enemy_damage += roll.get("value")
 			Global.healEffectName :
-				enemy_heal += roll.get("value")
+				GameState.enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				enemy_shield += roll.get("value")
+				GameState.enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				enemy_piercing += roll.get("value")
+				GameState.enemy_piercing += roll.get("value")
 	
-	if enemy_piercing > 0:
-		eDamageNode.text = "D:" + str(enemy_damage) + "+" + str(enemy_piercing)
+	if GameState.enemy_piercing > 0:
+		eDamageNode.text = "D:" + str(GameState.enemy_damage) + "+" + str(GameState.enemy_piercing)
 	else :
-		eDamageNode.text = "D:" + str(enemy_damage)
-	eHealNode.text = "H:" + str(enemy_heal)
-	eShieldNode.text = "S:" + str(enemy_shield)
+		eDamageNode.text = "D:" + str(GameState.enemy_damage)
+	eHealNode.text = "H:" + str(GameState.enemy_heal)
+	eShieldNode.text = "S:" + str(GameState.enemy_shield)
 
 func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	var curDamage = 0
@@ -123,15 +123,15 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 			Global.piercingEffectName :
 				curPiercing += roll.get("value")
 	
-	var eDamage = curDamage - enemy_shield
+	var eDamage = curDamage - GameState.enemy_shield
 	if(eDamage > 0) :
-		enemyHealth -= eDamage
+		GameState.enemyHealth -= eDamage
 	if (curPiercing > 0) :
-		enemyHealth -= curPiercing
+		GameState.enemyHealth -= curPiercing
 	if((eDamage > 0 || curPiercing > 0) && Global.playerType == "Assassin") :
 		addToPoison = true
-	if enemyHealth < 0 : enemyHealth = 0
-	eHealthNode.text = "Health:" + str(enemyHealth)
+	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
+	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	
 func update_health_with_aoe(rolls : Array[Dictionary]) :
 	var aoeDamage = 0
@@ -139,40 +139,40 @@ func update_health_with_aoe(rolls : Array[Dictionary]) :
 		match roll.get("effect") :
 			Global.explosiveEffectName :
 				aoeDamage += roll.get("value")
-	var eExplosive = aoeDamage - enemy_shield
+	var eExplosive = aoeDamage - GameState.enemy_shield
 	if eExplosive > 0 :
-		enemyHealth -= eExplosive
-	if enemyHealth < 0 : enemyHealth = 0
-	eHealthNode.text = "Health:" + str(enemyHealth)
+		GameState.enemyHealth -= eExplosive
+	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
+	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 
 func update_health_with_heal() -> void :
-	enemyHealth += enemy_heal
-	if enemyHealth < 0 : enemyHealth = 0
-	if enemyHealth > maxHealth : enemyHealth = maxHealth
-	eHealthNode.text = "Health:" + str(enemyHealth)
+	GameState.enemyHealth += GameState.enemy_heal
+	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
+	if GameState.enemyHealth > GameState.maxHealth : GameState.enemyHealth = GameState.maxHealth
+	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	
 func update_health_with_poison() -> void :
-	enemyHealth -= enemy_poison_counter
-	if enemyHealth < 0 : enemyHealth = 0
-	eHealthNode.text = "Health:" + str(enemyHealth)
+	GameState.enemyHealth -= GameState.enemy_poison_counter
+	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
+	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	if addToPoison :
-		enemy_poison_counter += 1
-		ePoisonNode.text = "P: " + str(enemy_poison_counter)
+		GameState.enemy_poison_counter += 1
+		ePoisonNode.text = "P: " + str(GameState.enemy_poison_counter)
 	
 func get_max_health() -> String : 
-	return str(maxHealth)
+	return str(GameState.maxHealth)
 	
 func get_total_health() -> int : 
-	return enemyHealth
+	return GameState.enemyHealth
 	
 func get_rolls() -> Array[Dictionary]:
 	return selected
 	
 func clear() -> void :
-	enemy_damage = 0
-	enemy_shield = 0
-	enemy_heal = 0
-	enemy_piercing = 0
+	GameState.enemy_damage = 0
+	GameState.enemy_shield = 0
+	GameState.enemy_heal = 0
+	GameState.enemy_piercing = 0
 	
 	addToPoison = false
 	

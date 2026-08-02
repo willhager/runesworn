@@ -64,7 +64,7 @@ func _ready() -> void :
 	goblin2Health = randi_range(4, 8)
 	goblin3Health = randi_range(4, 8)
 	
-	maxHealth = goblin1Health + goblin2Health + goblin3Health
+	GameState.maxHealth = goblin1Health + goblin2Health + goblin3Health
 	
 	maxg1 = goblin1Health
 	maxg2 = goblin2Health
@@ -75,27 +75,27 @@ func _ready() -> void :
 	goblin2HealthNode.text = "H:" + str(goblin2Health)
 	goblin3HealthNode.text = "H:" + str(goblin3Health)
 
-	EDice.resize(6)
+	GameState.EDice.resize(6)
 	
 	eDiceRolls1.resize(2)
 	eDiceRolls2.resize(2)
 	eDiceRolls3.resize(2)
 
 	
-	EDice[0] = DiceData.get_die_by_name("Beginner's Die")
-	EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[2] = DiceData.get_die_by_name("Beginner's Die")
-	EDice[3] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[4] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[5] = DiceData.get_die_by_name("Barbarian's Die")
+	GameState.EDice[0] = DiceData.get_die_by_name("Beginner's Die")
+	GameState.EDice[1] = DiceData.get_die_by_name("Barbarian's Die")
+	GameState.EDice[2] = DiceData.get_die_by_name("Beginner's Die")
+	GameState.EDice[3] = DiceData.get_die_by_name("Barbarian's Die")
+	GameState.EDice[4] = DiceData.get_die_by_name("Barbarian's Die")
+	GameState.EDice[5] = DiceData.get_die_by_name("Barbarian's Die")
 	
 	#set faces from dice dictionary
-	set_eDice_faces(eDie0, EDice[0].get("name"))
-	set_eDice_faces(eDie1, EDice[1].get("name"))
-	set_eDice_faces(eDie2, EDice[2].get("name"))
-	set_eDice_faces(eDie3, EDice[3].get("name"))
-	set_eDice_faces(eDie4, EDice[4].get("name"))
-	set_eDice_faces(eDie5, EDice[5].get("name"))
+	set_eDice_faces(eDie0, GameState.EDice[0].get("name"))
+	set_eDice_faces(eDie1, GameState.EDice[1].get("name"))
+	set_eDice_faces(eDie2, GameState.EDice[2].get("name"))
+	set_eDice_faces(eDie3, GameState.EDice[3].get("name"))
+	set_eDice_faces(eDie4, GameState.EDice[4].get("name"))
+	set_eDice_faces(eDie5, GameState.EDice[5].get("name"))
 	
 		
 	if(Global.playerType == "Assassin") :
@@ -139,20 +139,20 @@ func roll_eDice() -> void :
 	eDie5.pause()
 	
 	if goblin1Alive :
-		eDiceRolls1[0] = DiceData.roll_die(EDice[0].get("name"))
-		eDiceRolls1[1] = DiceData.roll_die(EDice[1].get("name"))
+		eDiceRolls1[0] = DiceData.roll_die(GameState.EDice[0].get("name"))
+		eDiceRolls1[1] = DiceData.roll_die(GameState.EDice[1].get("name"))
 		eDie0.set_frame(eDiceRolls1[0].get("index"))
 		eDie1.set_frame(eDiceRolls1[1].get("index"))
 	
 	if goblin2Alive :
-		eDiceRolls2[0] = DiceData.roll_die(EDice[2].get("name"))
-		eDiceRolls2[1] = DiceData.roll_die(EDice[3].get("name"))
+		eDiceRolls2[0] = DiceData.roll_die(GameState.EDice[2].get("name"))
+		eDiceRolls2[1] = DiceData.roll_die(GameState.EDice[3].get("name"))
 		eDie2.set_frame(eDiceRolls2[0].get("index"))
 		eDie3.set_frame(eDiceRolls2[1].get("index"))
 		
 	if goblin3Alive :
-		eDiceRolls3[0] = DiceData.roll_die(EDice[4].get("name"))
-		eDiceRolls3[1] = DiceData.roll_die(EDice[5].get("name"))
+		eDiceRolls3[0] = DiceData.roll_die(GameState.EDice[4].get("name"))
+		eDiceRolls3[1] = DiceData.roll_die(GameState.EDice[5].get("name"))
 		eDie4.set_frame(eDiceRolls3[0].get("index"))
 		eDie5.set_frame(eDiceRolls3[1].get("index"))
 	
@@ -173,13 +173,13 @@ func roll_eDice() -> void :
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				enemy_damage += roll.get("value")
+				GameState.enemy_damage += roll.get("value")
 			Global.healEffectName :
-				enemy_heal += roll.get("value")
+				GameState.enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				enemy_shield += roll.get("value")
+				GameState.enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				enemy_piercing += roll.get("value")
+				GameState.enemy_piercing += roll.get("value")
 				
 	if goblin2Alive :
 		var roll = eDiceRolls2[goblin2Selected]
@@ -192,13 +192,13 @@ func roll_eDice() -> void :
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				enemy_damage += roll.get("value")
+				GameState.enemy_damage += roll.get("value")
 			Global.healEffectName :
-				enemy_heal += roll.get("value")
+				GameState.enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				enemy_shield += roll.get("value")
+				GameState.enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				enemy_piercing += roll.get("value")
+				GameState.enemy_piercing += roll.get("value")
 				
 	if goblin3Alive :
 		var roll = eDiceRolls3[goblin3Selected]
@@ -211,20 +211,20 @@ func roll_eDice() -> void :
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				enemy_damage += roll.get("value")
+				GameState.enemy_damage += roll.get("value")
 			Global.healEffectName :
-				enemy_heal += roll.get("value")
+				GameState.enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				enemy_shield += roll.get("value")
+				GameState.enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				enemy_piercing += roll.get("value")
+				GameState.enemy_piercing += roll.get("value")
 
-	if enemy_piercing > 0:
-		eDamageNode.text = "D:" + str(enemy_damage) + "+" + str(enemy_piercing)
+	if GameState.enemy_piercing > 0:
+		eDamageNode.text = "D:" + str(GameState.enemy_damage) + "+" + str(GameState.enemy_piercing)
 	else :
-		eDamageNode.text = "D:" + str(enemy_damage)
-	eHealNode.text = "H:" + str(enemy_heal)
-	eShieldNode.text = "S:" + str(enemy_shield)
+		eDamageNode.text = "D:" + str(GameState.enemy_damage)
+	eHealNode.text = "H:" + str(GameState.enemy_heal)
+	eShieldNode.text = "S:" + str(GameState.enemy_shield)
 
 func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	var curDamage = 0
@@ -236,7 +236,7 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 			Global.piercingEffectName :
 				curPiercing += roll.get("value")
 	
-	var eDamage = curDamage - enemy_shield
+	var eDamage = curDamage - GameState.enemy_shield
 	if(eDamage > 0 || curPiercing > 0) :
 		if(Global.playerType == "Assassin") :
 			addToPoison = true
@@ -275,34 +275,34 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 
 func update_health_with_heal() -> void :
 	if goblin1Alive:
-		goblin1Health += enemy_heal
+		goblin1Health += GameState.enemy_heal
 		if goblin1Health < 0 : goblin1Health = 0
 		if goblin1Health > maxg1 : goblin1Health = maxg1
 		goblin1HealthNode.text = "H:" + str(goblin1Health)
 	elif goblin1Alive:
-		goblin2Health += enemy_heal
+		goblin2Health += GameState.enemy_heal
 		if goblin2Health < 0 : goblin2Health = 0
 		if goblin2Health > maxg2 : goblin2Health = maxg2
 		goblin2HealthNode.text = "H:" + str(goblin2Health)
 	if goblin3Alive:
-		goblin3Health += enemy_heal
+		goblin3Health += GameState.enemy_heal
 		if goblin3Health < 0 : goblin3Health = 0
 		if goblin3Health > maxg3 : goblin3Health = maxg3
 		goblin3HealthNode.text = "H:" + str(goblin3Health)
 	
 func update_health_with_poison() -> void :
 	if goblin1Alive:
-		goblin1Health -= enemy_poison_counter
+		goblin1Health -= GameState.enemy_poison_counter
 		goblin1HealthNode.text = "H:" + str(goblin1Health)
 	elif goblin1Alive:
-		goblin2Health -= enemy_poison_counter
+		goblin2Health -= GameState.enemy_poison_counter
 		goblin2HealthNode.text = "H:" + str(goblin2Health)
 	if goblin3Alive:
-		goblin3Health -= enemy_poison_counter
+		goblin3Health -= GameState.enemy_poison_counter
 		goblin3HealthNode.text = "H:" + str(goblin3Health)
 	if addToPoison :
-		enemy_poison_counter += 1
-		ePoisonNode.text = "P: " + str(enemy_poison_counter)
+		GameState.enemy_poison_counter += 1
+		ePoisonNode.text = "P: " + str(GameState.enemy_poison_counter)
 		
 func update_health_with_aoe(rolls : Array[Dictionary]) -> void :
 	var aoeDamage = 0
@@ -311,7 +311,7 @@ func update_health_with_aoe(rolls : Array[Dictionary]) -> void :
 			Global.explosiveEffectName :
 				aoeDamage += roll.get("value")
 	
-	var eExplosive = aoeDamage - enemy_shield
+	var eExplosive = aoeDamage - GameState.enemy_shield
 	if eExplosive > 0 :
 		if(goblin1Alive) : 
 			goblin1Health -= eExplosive
@@ -324,7 +324,7 @@ func update_health_with_aoe(rolls : Array[Dictionary]) -> void :
 			goblin3HealthNode.text = "H:" + str(goblin3Health)
 	
 func get_max_health() -> String : 
-	return str(maxHealth)
+	return str(GameState.maxHealth)
 	
 func get_total_health() -> int : 
 	return goblin1Health + goblin2Health + goblin3Health
@@ -333,10 +333,10 @@ func get_rolls() -> Array[Dictionary]:
 	return selected
 	
 func clear() -> void :
-	enemy_damage = 0
-	enemy_shield = 0
-	enemy_heal = 0
-	enemy_piercing = 0
+	GameState.enemy_damage = 0
+	GameState.enemy_shield = 0
+	GameState.enemy_heal = 0
+	GameState.enemy_piercing = 0
 	
 	addToPoison = false
 	
