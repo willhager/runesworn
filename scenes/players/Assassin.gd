@@ -161,15 +161,6 @@ func dieButtonEffects(dieNum : int) -> void:
 		GameState.numSelected -= 1
 		pSelectedNode.text = str(GameState.numSelected) + "/" + str(GameState.maxDieNum)
 		GameState.selectedArry[dieNum] = false
-		
-	if GameState.selectedAttackDice == 3 :
-		if GameState.maxDieNum <= Global.maxSelectableDice :
-			GameState.maxDieNum = GameState.maxDieNum + 1
-		pSelectedNode.text = str(GameState.numSelected) + "/" + str(GameState.maxDieNum)
-	elif GameState.selectedAttackDice < 3 :
-		if GameState.maxDieNum > Global.maxSelectableDice :
-			GameState.maxDieNum = Global.maxSelectableDice
-		pSelectedNode.text = str(GameState.numSelected) + "/" + str(GameState.maxDieNum)
 	
 	if GameState.numSelected == GameState.maxDieNum :
 		selected_max_dice.emit()
@@ -180,11 +171,10 @@ func end_turn() :
 	GameState.numSelected = 0
 	GameState.selectedAttackDice = 0
 
-
 func update_health_with_damage() :
 	var incomingDamage = GameState.enemy_damage
-	var incomingPiercing = GameState.enemy_piercing
-	
+	var incomingPiercing = GameState.enemy_damage
+
 	var damage_post_shield = incomingDamage - GameState.player_shield
 	
 	if damage_post_shield > 0 :
@@ -259,7 +249,7 @@ func update_current_values() -> void :
 		rolls = GameState.pDiceRolls_copy
 	else : 
 		rolls = GameState.pDiceRolls
-	for roll in rolls :
+	for roll in  rolls:
 		match roll.get("effect") : 
 			damageEffectName : 
 				GameState.player_damage += roll.get("value")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cyvobn3ysihde"]
 
-[ext_resource type="Script" uid="uid://b57wraqsn2w0a" path="res://Assassin.gd" id="1_gq4q1"]
+[ext_resource type="Script" uid="uid://b57wraqsn2w0a" path="res://scenes/players/Assassin.gd" id="1_gq4q1"]
 [ext_resource type="Script" uid="uid://donddvv8q6oy6" path="res://scenes/battlescreen/die_0.gd" id="2_bxb5u"]
 [ext_resource type="Script" uid="uid://bvq18h7jsmo1y" path="res://scenes/battlescreen/die_1.gd" id="3_jjwf6"]
 [ext_resource type="Script" uid="uid://bkop44d2a2liu" path="res://scenes/battlescreen/die_2.gd" id="4_3eex8"]

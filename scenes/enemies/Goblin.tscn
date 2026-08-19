@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpkvt1dicv8k"]
+[gd_scene format=3 uid="uid://bpkvt1dicv8k"]
 
 [ext_resource type="Theme" uid="uid://b6ifgvlpwoheq" path="res://resources/themes/book_theme.tres" id="1_381q1"]
 [ext_resource type="Script" uid="uid://bed108h1b0g2a" path="res://scenes/enemies/goblin.gd" id="1_abxm6"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_maxnv"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1611933026]
 layout_mode = 3
 anchor_left = 0.585
 anchor_top = 0.15
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_abxm6")
 
-[node name="EnemyDiceTray" type="Panel" parent="."]
+[node name="EnemyDiceTray" type="Panel" parent="." unique_id=488017009]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +31,7 @@ grow_vertical = 2
 scale = Vector2(1, 0.997752)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_abxm6")
 
-[node name="EDiceContainer" type="VBoxContainer" parent="EnemyDiceTray"]
+[node name="EDiceContainer" type="VBoxContainer" parent="EnemyDiceTray" unique_id=636866288]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.7
@@ -40,65 +40,65 @@ anchor_right = 1.0
 anchor_bottom = 0.88
 theme_override_constants/separation = 100
 
-[node name="Control0" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+[node name="Control0" type="Control" parent="EnemyDiceTray/EDiceContainer" unique_id=1961713304]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="EDie0" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control0"]
+[node name="EDie0" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control0" unique_id=1781677433]
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_gv1lv")
 
-[node name="Control1" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+[node name="Control1" type="Control" parent="EnemyDiceTray/EDiceContainer" unique_id=1402005068]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="EDie1" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control1"]
+[node name="EDie1" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control1" unique_id=1931829953]
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_s4grb")
 
-[node name="Control2" type="Control" parent="EnemyDiceTray/EDiceContainer"]
+[node name="Control2" type="Control" parent="EnemyDiceTray/EDiceContainer" unique_id=2031613300]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="EDie2" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control2"]
+[node name="EDie2" type="AnimatedSprite2D" parent="EnemyDiceTray/EDiceContainer/Control2" unique_id=1886342756]
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_maxnv")
 
-[node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray"]
+[node name="EInfoContainer" type="VBoxContainer" parent="EnemyDiceTray" unique_id=2145596512]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.218
 anchor_right = 0.033
 anchor_bottom = 0.224
 
-[node name="EHealth" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+[node name="EHealth" type="Label" parent="EnemyDiceTray/EInfoContainer" unique_id=558044972]
 layout_mode = 2
 theme = ExtResource("1_381q1")
 theme_override_font_sizes/font_size = 40
 text = "x/x"
 
-[node name="EDamage" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+[node name="EDamage" type="Label" parent="EnemyDiceTray/EInfoContainer" unique_id=132436017]
 layout_mode = 2
 theme = ExtResource("1_381q1")
 theme_override_font_sizes/font_size = 60
 text = "D:"
 
-[node name="EShield" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+[node name="EShield" type="Label" parent="EnemyDiceTray/EInfoContainer" unique_id=1251785377]
 layout_mode = 2
 theme = ExtResource("1_381q1")
 theme_override_font_sizes/font_size = 60
 text = "S:"
 
-[node name="EHeal" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+[node name="EHeal" type="Label" parent="EnemyDiceTray/EInfoContainer" unique_id=571558556]
 layout_mode = 2
 theme = ExtResource("1_381q1")
 theme_override_font_sizes/font_size = 60
 text = "H:"
 
-[node name="EPoison" type="Label" parent="EnemyDiceTray/EInfoContainer"]
+[node name="EPoison" type="Label" parent="EnemyDiceTray/EInfoContainer" unique_id=1088853721]
 layout_mode = 2
 theme = ExtResource("1_381q1")
 theme_override_font_sizes/font_size = 60

@@ -37,11 +37,11 @@ var maxg3 : int
 
 var maxHealth : int
 
-var curEDamage : int
-var curEHeal : int
-var curEShield : int
-var curEPiercing : int
-var curEPoisonCounter : int
+var enemy_damage : int
+var enemy_heal : int
+var enemy_shield : int
+var enemy_piercing : int
+var enemy_poison_counter : int
 
 var addToPoison : bool = false
 
@@ -64,7 +64,7 @@ func _ready() -> void :
 	gremlin2Health = randi_range(5, 10)
 	gremlin3Health = randi_range(5, 10)
 	
-	maxHealth = gremlin1Health + gremlin2Health + gremlin3Health
+	GameState.maxHealth = gremlin1Health + gremlin2Health + gremlin3Health
 	
 	maxg1 = gremlin1Health
 	maxg2 = gremlin2Health
@@ -75,27 +75,27 @@ func _ready() -> void :
 	gremlin2HealthNode.text = "H:" + str(gremlin2Health)
 	gremlin3HealthNode.text = "H:" + str(gremlin3Health)
 
-	EDice.resize(6)
+	GameState.EDice.resize(6)
 	
 	eDiceRolls1.resize(2)
 	eDiceRolls2.resize(2)
 	eDiceRolls3.resize(2)
 
 	
-	EDice[0] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[1] = DiceData.get_die_by_name("Barbarian's Riposte")
-	EDice[2] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[3] = DiceData.get_die_by_name("Barbarian's Riposte")
-	EDice[4] = DiceData.get_die_by_name("Barbarian's Die")
-	EDice[5] = DiceData.get_die_by_name("Barbarian's Riposte")
+	GameState.EDice[0] = DiceData.get_die_by_name("Barbarian's Die")
+	GameState.EDice[1] = DiceData.get_die_by_name("Barbarian's Riposte")
+	GameState.EDice[2] = DiceData.get_die_by_name("Barbarian's Die")
+	GameState.EDice[3] = DiceData.get_die_by_name("Barbarian's Riposte")
+	GameState.EDice[4] = DiceData.get_die_by_name("Barbarian's Die")
+	GameState.EDice[5] = DiceData.get_die_by_name("Barbarian's Riposte")
 	
 	#set faces from dice dictionary
-	set_eDice_faces(eDie0, EDice[0].get("name"))
-	set_eDice_faces(eDie1, EDice[1].get("name"))
-	set_eDice_faces(eDie2, EDice[2].get("name"))
-	set_eDice_faces(eDie3, EDice[3].get("name"))
-	set_eDice_faces(eDie4, EDice[4].get("name"))
-	set_eDice_faces(eDie5, EDice[5].get("name"))
+	set_eDice_faces(eDie0, GameState.EDice[0].get("name"))
+	set_eDice_faces(eDie1, GameState.EDice[1].get("name"))
+	set_eDice_faces(eDie2, GameState.EDice[2].get("name"))
+	set_eDice_faces(eDie3, GameState.EDice[3].get("name"))
+	set_eDice_faces(eDie4, GameState.EDice[4].get("name"))
+	set_eDice_faces(eDie5, GameState.EDice[5].get("name"))
 	
 		
 	if(Global.playerType == "Assassin") :
@@ -139,20 +139,20 @@ func roll_eDice() -> void :
 	eDie5.pause()
 	
 	if gremlin1Alive :
-		eDiceRolls1[0] = DiceData.roll_die(EDice[0].get("name"))
-		eDiceRolls1[1] = DiceData.roll_die(EDice[1].get("name"))
+		eDiceRolls1[0] = DiceData.roll_die(GameState.EDice[0].get("name"))
+		eDiceRolls1[1] = DiceData.roll_die(GameState.EDice[1].get("name"))
 		eDie0.set_frame(eDiceRolls1[0].get("index"))
 		eDie1.set_frame(eDiceRolls1[1].get("index"))
 	
 	if gremlin2Alive :
-		eDiceRolls2[0] = DiceData.roll_die(EDice[2].get("name"))
-		eDiceRolls2[1] = DiceData.roll_die(EDice[3].get("name"))
+		eDiceRolls2[0] = DiceData.roll_die(GameState.EDice[2].get("name"))
+		eDiceRolls2[1] = DiceData.roll_die(GameState.EDice[3].get("name"))
 		eDie2.set_frame(eDiceRolls2[0].get("index"))
 		eDie3.set_frame(eDiceRolls2[1].get("index"))
 		
 	if gremlin3Alive :
-		eDiceRolls3[0] = DiceData.roll_die(EDice[4].get("name"))
-		eDiceRolls3[1] = DiceData.roll_die(EDice[5].get("name"))
+		eDiceRolls3[0] = DiceData.roll_die(GameState.EDice[4].get("name"))
+		eDiceRolls3[1] = DiceData.roll_die(GameState.EDice[5].get("name"))
 		eDie4.set_frame(eDiceRolls3[0].get("index"))
 		eDie5.set_frame(eDiceRolls3[1].get("index"))
 	
@@ -173,13 +173,13 @@ func roll_eDice() -> void :
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				curEDamage += roll.get("value")
+				GameState.enemy_damage += roll.get("value")
 			Global.healEffectName :
-				curEHeal += roll.get("value")
+				GameState.enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				curEShield += roll.get("value")
+				GameState.enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				curEPiercing += roll.get("value")
+				GameState.enemy_piercing += roll.get("value")
 				
 	if gremlin2Alive :
 		var roll = eDiceRolls2[gremlin2Selected]
@@ -192,13 +192,13 @@ func roll_eDice() -> void :
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				curEDamage += roll.get("value")
+				GameState.enemy_damage += roll.get("value")
 			Global.healEffectName :
-				curEHeal += roll.get("value")
+				GameState.enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				curEShield += roll.get("value")
+				GameState.enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				curEPiercing += roll.get("value")
+				GameState.enemy_piercing += roll.get("value")
 				
 	if gremlin3Alive :
 		var roll = eDiceRolls3[gremlin3Selected]
@@ -211,20 +211,20 @@ func roll_eDice() -> void :
 		eNode.offset += Vector2(-20, 0)
 		match roll.get("effect") :
 			Global.damageEffectName :
-				curEDamage += roll.get("value")
+				GameState.enemy_damage += roll.get("value")
 			Global.healEffectName :
-				curEHeal += roll.get("value")
+				GameState.enemy_heal += roll.get("value")
 			Global.shieldEffectName :
-				curEShield += roll.get("value")
+				GameState.enemy_shield += roll.get("value")
 			Global.piercingEffectName :
-				curEPiercing += roll.get("value")
+				GameState.enemy_piercing += roll.get("value")
 
-	if curEPiercing > 0:
-		eDamageNode.text = "D:" + str(curEDamage) + "+" + str(curEPiercing)
+	if GameState.enemy_piercing > 0:
+		eDamageNode.text = "D:" + str(GameState.enemy_damage) + "+" + str(GameState.enemy_piercing)
 	else :
-		eDamageNode.text = "D:" + str(curEDamage)
-	eHealNode.text = "H:" + str(curEHeal)
-	eShieldNode.text = "S:" + str(curEShield)
+		eDamageNode.text = "D:" + str(GameState.enemy_damage)
+	eHealNode.text = "H:" + str(GameState.enemy_heal)
+	eShieldNode.text = "S:" + str(GameState.enemy_shield)
 
 func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	var curDamage = 0
@@ -236,7 +236,7 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 			Global.piercingEffectName :
 				curPiercing += roll.get("value")
 	
-	var eDamage = curDamage - curEShield
+	var eDamage = curDamage - GameState.enemy_shield
 	if(eDamage > 0 || curPiercing > 0) :
 		if(Global.playerType == "Assassin") :
 			addToPoison = true
@@ -275,34 +275,34 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 
 func update_health_with_heal() -> void :
 	if gremlin1Alive:
-		gremlin1Health += curEHeal
+		gremlin1Health += GameState.enemy_heal
 		if gremlin1Health < 0 : gremlin1Health = 0
 		if gremlin1Health > maxg1 : gremlin1Health = maxg1
 		gremlin1HealthNode.text = "H:" + str(gremlin1Health)
 	elif gremlin1Alive:
-		gremlin2Health += curEHeal
+		gremlin2Health += GameState.enemy_heal
 		if gremlin2Health < 0 : gremlin2Health = 0
 		if gremlin2Health > maxg2 : gremlin2Health = maxg2
 		gremlin2HealthNode.text = "H:" + str(gremlin2Health)
 	if gremlin3Alive:
-		gremlin3Health += curEHeal
+		gremlin3Health += GameState.enemy_heal
 		if gremlin3Health < 0 : gremlin3Health = 0
 		if gremlin3Health > maxg3 : gremlin3Health = maxg3
 		gremlin3HealthNode.text = "H:" + str(gremlin3Health)
 	
 func update_health_with_poison() -> void :
 	if gremlin1Alive:
-		gremlin1Health -= curEPoisonCounter
+		gremlin1Health -= GameState.enemy_poison_counter
 		gremlin1HealthNode.text = "H:" + str(gremlin1Health)
 	elif gremlin1Alive:
-		gremlin2Health -= curEPoisonCounter
+		gremlin2Health -= GameState.enemy_poison_counter
 		gremlin2HealthNode.text = "H:" + str(gremlin2Health)
 	if gremlin3Alive:
-		gremlin3Health -= curEPoisonCounter
+		gremlin3Health -= GameState.enemy_poison_counter
 		gremlin3HealthNode.text = "H:" + str(gremlin3Health)
 	if addToPoison :
-		curEPoisonCounter += 1
-		ePoisonNode.text = "P: " + str(curEPoisonCounter)
+		GameState.enemy_poison_counter += 1
+		ePoisonNode.text = "P: " + str(GameState.enemy_poison_counter)
 		
 func update_health_with_aoe(rolls : Array[Dictionary]) -> void :
 	var aoeDamage = 0
@@ -311,7 +311,7 @@ func update_health_with_aoe(rolls : Array[Dictionary]) -> void :
 			Global.explosiveEffectName :
 				aoeDamage += roll.get("value")
 	
-	var eExplosive = aoeDamage - curEShield
+	var eExplosive = aoeDamage - GameState.enemy_shield
 	if eExplosive > 0 :
 		if(gremlin1Alive) : 
 			gremlin1Health -= eExplosive
@@ -324,7 +324,7 @@ func update_health_with_aoe(rolls : Array[Dictionary]) -> void :
 			gremlin3HealthNode.text = "H:" + str(gremlin3Health)
 	
 func get_max_health() -> String : 
-	return str(maxHealth)
+	return str(GameState.maxHealth)
 	
 func get_total_health() -> int : 
 	return gremlin1Health + gremlin2Health + gremlin3Health
@@ -333,10 +333,10 @@ func get_rolls() -> Array[Dictionary]:
 	return selected
 	
 func clear() -> void :
-	curEDamage = 0
-	curEShield = 0
-	curEHeal = 0
-	curEPiercing = 0
+	GameState.enemy_damage = 0
+	GameState.enemy_shield = 0
+	GameState.enemy_heal = 0
+	GameState.enemy_piercing = 0
 	
 	addToPoison = false
 	
