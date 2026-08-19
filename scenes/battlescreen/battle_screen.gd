@@ -35,6 +35,7 @@ var enemy : Dictionary
 
 var rolled : bool = false
 
+var rolls
 
 func _ready() -> void:
 	ProgressTrayNode.update_encounters()
@@ -133,10 +134,21 @@ func pre_select() -> void:
 
 func on_player_selected_max_dice() :
 	endTurnButtonNode.disabled = false
+
 func on_player_selected_less_than_max_dice() :
 	endTurnButtonNode.disabled = true
 	
+func on_enemy_skip_turn() :
+	if Global.playerType == "Goliath" :
+		GameState.player_shield = player_instance.prevShield
+	rolled = false
+	rollButtonNode.disabled = false
+	player_instance.clear(false)
+	enemy_instance.clear()
+	return
+	
 func pre_end() :
+	GameState.copy_pDiceRolls_deep()
 	if player_instance.has_method("pre_end") :
 		player_instance.pre_end()
 	if enemy_instance.has_method("pre_end") :
@@ -144,58 +156,21 @@ func pre_end() :
 	#RelicManager.pre_end()
 
 func _on_end_turn_pressed() -> void:
+	player_instance.set_max_dice_num(Global.maxSelectableDice)
 	pre_end()
 	endTurnButtonNode.disabled = true
 	
-	if enemy_instance.has_method("die_num_effect") :
-		player_instance.set_max_dice_num(enemy_instance.die_num_effect(player_instance.maxDieNum))
-	else : player_instance.set_max_dice_num(Global.maxSelectableDice)
+	player_instance.update_current_values()
 	
-	if enemy_instance.has_method("skip_turn_effect") :
-		var skip = enemy_instance.skip_turn_effect()
-		if skip :
-			rolled = false
-			rollButtonNode.disabled = false
-			player_instance.clear()
-			enemy_instance.clear()
-			return
+	enemy_instance.update_health_with_damage()
+	enemy_instance.update_health_with_aoe()
 	
-	var rolls = modify_player_rolls()
-	
-	player_instance.update_current_values(rolls)
-	
-	enemy_instance.update_health_with_damage(rolls)
-	enemy_instance.update_health_with_aoe(rolls)
-		
-	player_instance.update_health_with_damage(enemy_instance.get_rolls())
+	player_instance.update_health_with_damage()
 	
 	Global.health = GameState.health
 	$InfoPanel.update_health(GameState.health)
 	
-	if(GameState.health <= 0) :
-		clear()
-		$defeat.callDefeat()
-		return
-	elif(enemy_instance.get_total_health() <= 0) :
-		if enemy_instance.has_method("death_effect") :
-			GameState.health -= enemy_instance.death_effect()
-			Global.health = GameState.health
-			$InfoPanel.update_health(GameState.health)
-			if(GameState.health <= 0) :
-				clear()
-				$defeat.callDefeat()
-				return
-		if enemy_instance.get_total_health() <= 0 :
-			clear()
-			Global.health = GameState.health
-			Global.encounterNum += 1
-			if (Global.encounterNum == 7) :
-				Global.encounterNum = 1
-				Global.difficulty += 1
-				#insert modifier upgrade screen maybe
-			ProgressTrayNode.update_encounters()
-			$victory.callVictory()
-			return
+	if check_end_of_turn() : return
 	
 	enemy_instance.update_health_with_heal()
 	
@@ -203,11 +178,37 @@ func _on_end_turn_pressed() -> void:
 	
 	enemy_instance.update_health_with_poison()
 	
-	if(enemy_instance.get_total_health() <= 0) :
+	if check_end_of_turn(): return
+	
+	rolled = false
+	rollButtonNode.disabled = false
+	
+	if player_instance.has_method("pre_cleanup") :
+		player_instance.pre_cleanup()
+	if enemy_instance.has_method("pre_cleanup") :
+		enemy_instance.pre_cleanup()
+	#RelicManager.pre_cleanup()
+	
+	clear(false)
+	Global.health = GameState.health
+	$InfoPanel.update_health(GameState.health)
+
+func check_end_of_turn() -> bool :
+	if(GameState.health <= 0) :
+		clear(true)
+		$defeat.callDefeat()
+		return true
+	elif(enemy_instance.get_total_health() <= 0) :
 		if enemy_instance.has_method("death_effect") :
 			enemy_instance.death_effect()
+			Global.health = GameState.health
+			$InfoPanel.update_health(GameState.health)
+			if(GameState.health <= 0) :
+				clear(true)
+				$defeat.callDefeat()
+				return true
 		if enemy_instance.get_total_health() <= 0 :
-			clear()
+			clear(true)
 			Global.health = GameState.health
 			Global.encounterNum += 1
 			if (Global.encounterNum == 7) :
@@ -216,34 +217,17 @@ func _on_end_turn_pressed() -> void:
 				#insert modifier upgrade screen maybe
 			ProgressTrayNode.update_encounters()
 			$victory.callVictory()
-			return
-	
-	rolled = false
-	rollButtonNode.disabled = false
-	
-	
-	if player_instance.has_method("pre_cleanup") :
-		player_instance.pre_cleanup()
-	if enemy_instance.has_method("pre_cleanup") :
-		enemy_instance.pre_cleanup()
-	#RelicManager.pre_cleanup()
-	
-	clear()
-	Global.health = GameState.health
-	$InfoPanel.update_health(GameState.health)
-	
-func modify_player_rolls() -> Array[Dictionary] :
-	var ret = player_instance.get_player_rolls()
-	if enemy_instance.has_method("modify_player_rolls") :
-		ret = enemy_instance.modify_player_rolls(ret)
-	return ret
+			return true
+	return false
 
-func clear() -> void :
+func clear(endOfRound: bool) -> void :
 	
 	enemy_instance.clear()
-	player_instance.clear()
+	player_instance.clear(endOfRound)
 	
 	rolled = false
+	
+	GameState.clear_pDiceRolls_deep_copy()
 	
 func hideAllNodes() :
 	circleNode.hide()
@@ -274,6 +258,8 @@ func _on_next_button_pressed() -> void:
 	else :
 		eInfoPanelNode.set_abilities_text("Abilities:\nNone")
 
+	if enemy_instance.has_signal("skip_turn") :
+		enemy_instance.connect("skip_turn", on_enemy_skip_turn)
 	if(Global.enemy.get("hasText")) :
 		circleNode.hide()
 		nextButtonNode.hide()
@@ -284,6 +270,7 @@ func _on_next_button_pressed() -> void:
 		rollButtonNode.disabled = false;
 		endTurnButtonNode.disabled = false;
 		nextButtonNode.hide()
+	
 
 func _on_continue_button_pressed() -> void:
 	circleStartNode.play_backwards("text_box")

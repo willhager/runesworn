@@ -19,7 +19,7 @@ var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
 
 
-var reducedDieNum : bool = false
+var reduceDieNum : bool = false
 
 var addToPoison : bool = false
 
@@ -110,9 +110,10 @@ func roll_eDice() -> void :
 	eHealNode.text = "H:" + str(GameState.enemy_heal)
 	eShieldNode.text = "S:" + str(GameState.enemy_shield)
 
-func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+func update_health_with_damage() -> void :
 	var curDamage = 0
 	var curPiercing = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.damageEffectName :
@@ -131,8 +132,9 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	
 	
-func update_health_with_aoe(rolls : Array[Dictionary]) :
+func update_health_with_aoe() :
 	var aoeDamage = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.explosiveEffectName :
@@ -156,13 +158,12 @@ func update_health_with_poison() -> void :
 	if addToPoison :
 		GameState.enemy_poison_counter += 1
 		ePoisonNode.text = "P: " + str(GameState.enemy_poison_counter)
-		
-func die_num_effect(maxDieNum : int) -> int :
-	if GameState.enemy_piercing > 0 and !reducedDieNum :
-		reducedDieNum = true
-		return maxDieNum - 1
-	return maxDieNum
 
+func pre_end() :
+	if GameState.enemy_piercing > 0 : reduceDieNum = true
+	if reduceDieNum :
+		GameState.maxDieNum -= 1
+	else : pass
 
 func get_max_health() -> String : 
 	return str(GameState.maxHealth)

@@ -14,7 +14,7 @@ var player_freeze : int
 var player_explosive : int
 
 var pDiceRolls : Array[Dictionary]
-
+var pDiceRolls_copy : Array[Dictionary]
 
 var enemyHealth : int
 var maxHealth : int
@@ -25,3 +25,12 @@ var enemy_piercing : int
 var enemy_poison_counter : int
 var EDice : Array[Dictionary] # Array of dice themselves, should remain static aside from freeze
 var eDiceRolls : Array[Dictionary] # Array of dice rolls, should contain individual faces as values
+
+
+func copy_pDiceRolls_deep() :
+	for i in range(0, pDiceRolls.size()) :
+		if selectedArry[i] :
+			pDiceRolls_copy.append(pDiceRolls[i].duplicate())
+
+func clear_pDiceRolls_deep_copy() :
+	pDiceRolls_copy = []

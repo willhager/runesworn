@@ -18,8 +18,6 @@ extends enemy_template
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
 
-
-
 var addToPoison : bool = false
 
 var numDice : int
@@ -133,9 +131,10 @@ func update_freeze() -> void :
 			GameState.EDice[i].set("freeze", false)
 """
 
-func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+func update_health_with_damage() -> void :
 	var curDamage = 0
 	var curPiercing = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.damageEffectName :
@@ -153,8 +152,9 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
 	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	
-func update_health_with_aoe(rolls : Array[Dictionary]) :
+func update_health_with_aoe() :
 	var aoeDamage = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.explosiveEffectName :

@@ -1,5 +1,7 @@
 extends enemy_template
 
+signal skip_turn
+
 @onready var eDamageNode : Node = get_node("EnemyDiceTray/EInfoContainer/EDamage")
 @onready var eHealNode : Node = get_node("EnemyDiceTray/EInfoContainer/EHeal")
 @onready var eShieldNode : Node = get_node("EnemyDiceTray/EInfoContainer/EShield")
@@ -13,10 +15,9 @@ extends enemy_template
 @onready var eDie0 : Node = get_node("EnemyDiceTray/EDiceContainer/Control0/EDie0")
 @onready var eDie1 : Node = get_node("EnemyDiceTray/EDiceContainer/Control1/EDie1")
 
+
 var eDieSpritePath : String = "EnemyDiceTray/EDiceContainer/Control"
 var eDieSpritePath2 : String  = "/EDie"
-
-
 
 var freezeCounter : Array[int]
 
@@ -109,9 +110,10 @@ func roll_eDice() -> void :
 	eHealNode.text = "H:" + str(GameState.enemy_heal)
 	eShieldNode.text = "S:" + str(GameState.enemy_shield)
 
-func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+func update_health_with_damage() -> void :
 	var curDamage = 0
 	var curPiercing = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.damageEffectName :
@@ -129,8 +131,9 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
 	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	
-func update_health_with_aoe(rolls : Array[Dictionary]) :
+func update_health_with_aoe() :
 	var aoeDamage = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.explosiveEffectName :
@@ -155,11 +158,10 @@ func update_health_with_poison() -> void :
 		GameState.enemy_poison_counter += 1
 		ePoisonNode.text = "P: " + str(GameState.enemy_poison_counter)
 		
-func skip_turn_effect() :
+func pre_end() :
 	var rand = randi_range(0, 4)
-	print(rand)
-	if rand == 0 : return true
-	return false
+	if rand == 0 : 
+		skip_turn.emit()
 	
 func get_max_health() -> String : 
 	return str(GameState.maxHealth)

@@ -171,17 +171,10 @@ func end_turn() :
 	GameState.numSelected = 0
 	GameState.selectedAttackDice = 0
 
+func update_health_with_damage() :
+	var incomingDamage = GameState.enemy_damage
+	var incomingPiercing = GameState.enemy_damage
 
-func update_health_with_damage(enemy_rolls : Array[Dictionary]) :
-	var incomingDamage = 0
-	var incomingPiercing = 0
-	for roll in enemy_rolls :
-		match roll.get("effect") :
-			Global.damageEffectName :
-				incomingDamage += roll.get("value")
-			Global.piercingEffectName :
-				incomingPiercing += roll.get("value")
-	
 	var damage_post_shield = incomingDamage - GameState.player_shield
 	
 	if damage_post_shield > 0 :
@@ -214,7 +207,7 @@ func _on_die_3_pressed() -> void:
 func _on_die_4_pressed() -> void:
 	dieButtonEffects(4)
 
-func clear() -> void :
+func clear(endOfRound: bool) -> void :
 	GameState.player_damage = 0
 	GameState.player_heal = 0
 	GameState.player_piercing = 0
@@ -232,18 +225,12 @@ func clear() -> void :
 	pSelectedNode.text = "0/" + str(GameState.maxDieNum)
 	pDamageNode.text = damageLabelText
 	pHealNode.text = healLabelText
+	pShieldNode.text = shieldLabelText
 	pExplosiveNode.text = explosiveLabelText
 	pFreezeNode.text = freezeLabelText
 	
 	GameState.numSelected = 0
 	GameState.selectedAttackDice = 0
-	
-func get_player_rolls() :
-	var ret : Array[Dictionary]
-	for i in range(0, GameState.pDiceRolls.size()) :
-		if GameState.selectedArry[i] :
-			ret.append(GameState.pDiceRolls[i].duplicate())
-	return ret
 
 func hideAllNodes() -> void :
 	playerDiceTrayNode.hide()
@@ -251,13 +238,18 @@ func hideAllNodes() -> void :
 func showAllNodes() -> void :
 	playerDiceTrayNode.show()
 	
-func update_current_values(rolls) -> void :
+func update_current_values() -> void :
 	GameState.player_damage = 0
 	GameState.player_shield = 0
 	GameState.player_heal = 0
 	GameState.player_explosive = 0
 	GameState.player_piercing = 0
-	for roll in rolls :
+	var rolls = []
+	if len(GameState.pDiceRolls_copy) != 0 :
+		rolls = GameState.pDiceRolls_copy
+	else : 
+		rolls = GameState.pDiceRolls
+	for roll in  rolls:
 		match roll.get("effect") : 
 			damageEffectName : 
 				GameState.player_damage += roll.get("value")

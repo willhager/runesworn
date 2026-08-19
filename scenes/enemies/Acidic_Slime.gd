@@ -112,11 +112,12 @@ func roll_eDice() -> void :
 	eHealNode.text = "H:" + str(GameState.enemy_heal)
 	eShieldNode.text = "S:" + str(GameState.enemy_shield)
 
-func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+func update_health_with_damage() -> void :
 	var curDamage = 0
 	var curPiercing = 0
 	var curExplosive = 0
 	var tempReduction = damageReduction
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.damageEffectName :
@@ -161,7 +162,7 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
 	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	
-func update_health_with_aoe(rolls : Array[Dictionary]) :
+func update_health_with_aoe() :
 	pass
 
 func update_health_with_heal() -> void :

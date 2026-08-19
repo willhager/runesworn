@@ -107,9 +107,10 @@ func roll_eDice() -> void :
 	eHealNode.text = "H:" + str(GameState.enemy_heal)
 	eShieldNode.text = "S:" + str(GameState.enemy_shield)
 	
-func update_health_with_damage(rolls : Array[Dictionary]) -> void :
+func update_health_with_damage() -> void :
 	var curDamage = 0
 	var curPiercing = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.damageEffectName :
@@ -127,8 +128,9 @@ func update_health_with_damage(rolls : Array[Dictionary]) -> void :
 	if GameState.enemyHealth < 0 : GameState.enemyHealth = 0
 	eHealthNode.text = "Health:" + str(GameState.enemyHealth)
 	
-func update_health_with_aoe(rolls : Array[Dictionary]) :
+func update_health_with_aoe() :
 	var aoeDamage = 0
+	var rolls = GameState.pDiceRolls_copy
 	for roll in rolls :
 		match roll.get("effect") :
 			Global.explosiveEffectName :
@@ -153,12 +155,11 @@ func update_health_with_poison() -> void :
 		GameState.enemy_poison_counter += 1
 		ePoisonNode.text = "P: " + str(GameState.enemy_poison_counter)
 		
-func modify_player_rolls(rolls : Array[Dictionary]) -> Array[Dictionary] :
-	for roll in rolls :
+func pre_end() :
+	for roll in GameState.pDiceRolls_copy :
 		if roll.get("effect") == Global.damageEffectName :
 			roll.set("value", 0)
 			break
-	return rolls
 	
 func get_max_health() -> String : 
 	return str(GameState.maxHealth)
